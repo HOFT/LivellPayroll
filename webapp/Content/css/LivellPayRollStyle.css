@@ -1,0 +1,51 @@
+﻿.opt-content:hover{
+    color: #ffffff;
+    background-color: #ce3c4f;
+}
+.opt-active{
+    color: #ffffff;
+    background-color: #ce3c4f;
+}
+.opt-choose{
+    color: #ffffff;
+    background-color: #585e5c;
+}
+.popover {
+    z-index: 9999;
+}
+.x-y-center {
+    text-align: center!important;
+    vertical-align: middle!important;
+}
+.y-center {
+    text-align: left!important;
+    vertical-align: middle!important;
+}
+
+.col-xs-5ths, .col-sm-5ths, .col-md-5ths, .col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+ 
+@media ( min-width : 768px) {
+    .col-sm-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+ 
+@media ( min-width : 992px) {
+    .col-md-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+ 
+@media ( min-width : 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        float: left;
+    }
+}

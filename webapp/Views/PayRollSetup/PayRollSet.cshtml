@@ -1,0 +1,255 @@
+﻿@model LivellPayRoll.Models.Company
+<!-- MAIN CONTENT -->
+<div id="content">
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-cog "></i>
+                PayRoll
+                <span>
+                    >
+                    Setup 
+                </span>
+            </h1>
+        </div>
+        
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- row -->
+    <div class="row">
+
+        <div class="col-sm-12">
+            <form id="PayRollSetup" class="form-horizontal" action="/PayRollSetup/PayRoll" method="post">
+                <div class="well">
+
+                    <h1>Company Payroll <span class="semi-bold">Setting</span></h1>
+                      <div class="row">
+                                <!-- Left content -->
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <fieldset>
+                                        <legend>Company Info</legend>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Company Name *</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="CompanyName" placeholder="Please Enter Company Name." type="text" maxlength="128" value="@Model.CompanyName">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Trade Name</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="TradeName" placeholder="Please Enter Trade Name." type="text" maxlength="64" value="@Model.TradeName">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Address *</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="Address1" placeholder="Please Enter Company Address." type="text" maxlength="256" value="@Model.Address1">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Address2</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="Address2" placeholder="Please Enter Company Address." type="text" maxlength="256" value="@Model.Address2">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">City *</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="City" placeholder="Please Enter City." type="text" maxlength="64" value="@Model.City">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">State *</label>
+                                            <div class="col-md-9">
+                                                @Html.DropDownList("State", ViewBag.StatesList as SelectList, "Please Select State", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Zip *</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="Zip" placeholder="Please Enter Zip." type="text" data-mask="99999" data-mask-placeholder="_" maxlength="16" value="@Model.Zip">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">WWW</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="WWW" placeholder="Please Enter WWW." type="text" maxlength="32" value="@Model.WWW">
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                                <!-- Right content -->
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <fieldset>
+                                        <legend>Contact</legend>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Name</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="ContactName" placeholder="Please Enter Contact Name." type="text" maxlength="64" value="@Model.ContactName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Telphone</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="Telphone" placeholder="Please Enter Contact Telphone." type="text" maxlength="16" value="@Model.Telphone">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Fax</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="Fax" placeholder="Please Enter Contact Fax." type="text" maxlength="16" value="@Model.Fax">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Email *</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="Email" placeholder="Please Enter Contact Email." type="text" maxlength="32" value="@Model.Email">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Time Zone *</label>
+                                            <div class="col-md-9">
+                                                @Html.DropDownList("TimeZone", ViewBag.TimeZone as SelectList, "Please Select Time Zone", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Round To *</label>
+                                            <div class="col-md-9">
+                                                @Html.DropDownList("RoundTo", ViewBag.RoundTo as SelectList, "Please Select Round To", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Period *</label>
+                                            <div class="col-md-9">
+                                                @Html.DropDownList("PayFreq", ViewBag.Period as SelectList, "Please Select Period", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Checks/Report *</label>
+                                            <div class="col-md-9">
+                                                <div class="btn-group" id="PayReportByEndingDate" name="PayReportByEndingDate">
+                                                    <label class="radio radio-inline">
+                                                        <input type="radio" class="radiobox" name="PayReportByEndingDate" @((Model.PayReportByEndingDate)? "checked='checked'":"") value=true>
+                                                        <span>Pay Period Ending Date</span>
+                                                    </label>
+                                                    <label class="radio radio-inline">
+                                                        <input type="radio" class="radiobox" name="PayReportByEndingDate"  @((Model.PayReportByEndingDate)? "":"checked='checked'") value=false>
+                                                        <span>Pay Check Date</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                    
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary" id="SaveCustomer" type="button">
+                                        <i class="fa fa-save"></i>
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+            </form>
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <!-- end row -->
+
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+@section pagespecific {
+
+    <script type="text/javascript">
+        function submitForm(){
+            $("#PayRollSetup").ajaxSubmit(function (data) {
+                console.log(data);
+                if (data.code == "1") {
+                    location.reload();
+                } else {
+                    ErrorBox(data.message);
+                }
+            });
+        };
+        $(document).ready(function () {
+            
+            $("#TimeZone").val("@Model.TimeZone");
+            $("#RoundTo").val("@Model.RoundTo");
+            $("#SaveCustomer").click(function () {
+                var mail=$("#PayRollSetup input[name=Email]").val()
+                var bootstrapValidator = $('#PayRollSetup').data('bootstrapValidator');
+                bootstrapValidator.validate();
+                if (bootstrapValidator.isValid()) {
+                    if("@Model.Email" == mail){
+                        submitForm();
+                    }else{
+                        $.SmartMessageBox({
+                            title: "Confirmation!",
+                            content: "The Email Has Change, And Will Be Reset Admin User,Please Make Sure Continue?",
+                            buttons: '[No][Yes]'
+                        }, function (ButtonPressed) {
+                            if (ButtonPressed === "Yes") {
+                                submitForm();
+                            }
+                        });
+                    }
+                }
+            })
+            
+        })
+    </script>
+}

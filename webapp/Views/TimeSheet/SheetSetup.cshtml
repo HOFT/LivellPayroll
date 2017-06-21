@@ -1,0 +1,170 @@
+﻿@model LivellPayRoll.Models.Company
+<!-- MAIN CONTENT -->
+<div id="content">
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-bar-chart-o fa-fw "></i>
+                TimeSheet
+                <span>
+                    >
+                    Setting
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- row -->
+    <div class="row">
+
+        <div class="col-sm-12">
+            <form id="CustomerForm" action="/Timesheet/SheetSetup" method="post">
+                <div class="well">
+
+                    <h1>TimeSheet <span class="semi-bold">Setting</span></h1>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <fieldset>
+                                <legend>Overtime Setup</legend>
+                                <div class="row">
+                                    <div class="col-md-6 form-group checkbox">
+                                        <label class="control-label"><input type="checkbox" name="WeekRule" disabled="disabled"  @((Model.WeekRule)?"checked=checked" : "") >Enable calculate week overtime after:</label>
+                                    </div>
+                                    <div class="col-md-6 form-group checkbox">
+                                        <div class="input-group">
+                                            <input class="form-control" name="WeekRuleValue" placeholder="Please Enter." type="text" disabled="disabled" value="@Model.WeekRuleValue.ToString("0.00")">
+                                            <span class="input-group-addon"><i>hours/week</i></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 form-group checkbox">
+                                        <label class="control-label"><input type="checkbox" name="DayRule" @((Model.DayRule)?"checked=checked":"") disabled="disabled">Enable calculate daily overtime after:</label>
+                                    </div>
+                                    <div class="col-md-6 form-group checkbox">
+                                        <div class="input-group">
+                                            <input class="form-control" name="DayRuleValue" placeholder="Please Enter." type="text" value="@Model.DayRuleValue.ToString("0.00")">
+                                            <span class="input-group-addon"><i>hours/day&nbsp;&nbsp;</i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 form-group checkbox">
+                                        <label class="control-label"><input type="checkbox" name="DoubeRule" @((Model.DoubeRule)?"checked=checked":"") disabled="disabled">Enable calculate daily double time after:</label>
+                                    </div>
+                                    <div class="col-md-6 form-group checkbox">
+                                        <div class="input-group">
+                                            <input class="form-control" name="DoubeRuleValue" placeholder="Please Enter." type="text" value="@Model.DoubeRuleValue.ToString("0.00")">
+                                            <span class="input-group-addon"><i>hours/day&nbsp;&nbsp;</i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group checkbox">
+                                            <label class="control-label"><input type="checkbox" name="CaliforniaRule" @((Model.CaliforniaRule)?"checked=checked":"")>Enable California Overtime Rules</label>
+                                        </div>
+                                        <p class="note">
+                                            California law requires that employers pay overtime, whether authorized or not, at the rate of one and one-half times the employee's regular rate of pay for all hours worked in excess of eight up to and including 12 hours in any workday, and for the first eight hours of work on the seventh consecutive day of work in a workweek, and double the employee's regular rate of pay for all hours worked in excess of 12 in any workday and for all hours worked in excess of eight on the seventh consecutive day of work in a workweek.
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-sm-6">
+                            <fieldset>
+                                <legend>Time Entry</legend>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group checkbox">
+                                            <label class="control-label"><input type="checkbox" name="midnight" checked="checked" disabled="disabled">Split timesheets at midnight</label>
+                                        </div>
+                                        <p class="note">
+                                            Automatically split timesheets at midnight if time span pass through midnight.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group checkbox">
+                                            <label class="control-label"><input type="checkbox" name="allowedit" @((Model.allowedit)?"checked=checked":"")>Allow User Edit Timesheet</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary" id="SaveCustomer" type="submit">
+                                    <i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+           
+
+
+        </div>
+
+        
+
+    </div>
+
+    <!-- end row -->
+    <!-- row -->
+
+    <div class="row">
+
+
+    </div>
+
+    <!-- end row -->
+
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+@section pagespecific {
+
+    <script type="text/javascript">
+ 
+    </script>
+    }

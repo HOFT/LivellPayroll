@@ -1,0 +1,69 @@
+﻿@model IEnumerable<LivellPayRoll.Models.Employee>
+@using System;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JobEmployeesList</title>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/libs/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#EmployeeTab span' , window.parent.document).remove();
+            $('#EmployeeTab', window.parent.document).append( '<span class="badge bg-color-blue txt-color-white">@ViewBag.EmployeeNum</span>');
+            
+            $(".Remove-JobEmployee").click(function () {
+                var JobId = @ViewBag.JobId ;
+                var EmployeeId= $(this).attr("data-EmployeeId")
+
+                $.post("/Customer/RemoveJobEmployee", {"JobId":JobId,"EmployeeId":EmployeeId}, function (data) {
+                    if (data.code == 1) {
+                        window.location.reload();
+                    } else {
+                        ErrorBox(data.message);
+                    }
+                })
+            });
+        })
+    </script>
+</head>
+<body>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Ord</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Emp in Model)
+                {
+                    <tr>
+                        <td>@(Model.ToList().IndexOf(Emp)+1)</td>
+                        <td>@Emp.LName</td>
+                        <td>@Emp.FName</td>
+                        <td>@Emp.Phone</td>
+                        <td>@Emp.Email</td>
+                        <td>
+                            <a class="btn btn-info btn-xs Remove-JobEmployee" data-EmployeeId="@Emp.EmployeeId" title="Remove"><i class="glyphicon glyphicon-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>

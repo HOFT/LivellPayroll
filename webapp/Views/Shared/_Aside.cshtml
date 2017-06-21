@@ -1,0 +1,110 @@
+﻿    <!-- Left panel : Navigation area -->
+<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+<aside id="left-panel">
+
+    <!-- User info -->
+    @{ Html.RenderPartial("_CurrentUser"); }
+    <!-- end user info -->
+    <!-- NAVIGATION : This navigation is also responsive
+
+    To make this navigation dynamic please make sure to link the node
+    (the reference to the nav > ul) after page load. Or the navigation
+    will not initialize.
+    -->
+    <nav>
+        <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+        Please note that these links work a bit different than
+        traditional href="" links. See documentation for details.
+        -->
+
+        <ul>
+            <!--Home-->
+            <li class="@Html.RouteIf("index", "active")">
+                <a href="@Url.Action("index", "Home")" title="Home"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Home</span></a>
+            </li>
+            <!--Employee-->
+            <li class="@Html.RouteIf("Employee", "active")">
+                <a href="#" title="Employee"><i class="fa fa-lg fa-fw fa-suitcase"></i><span class="menu-item-parent">Employee</span></a>
+                <ul>
+                    <li class="@Html.RouteIf("EmployeeList", "active")">
+                        <a href="@Url.Action("EmployeeList", "Employee")" title="Employee List">Employee List</a>
+                    </li>
+                    <li class="@Html.RouteIf("Add", "active")">
+                        <a href="@Url.Action("Add", "Employee")" title="Add Employee">Add Employee</a>
+                    </li>
+                </ul>
+            </li>
+            <!--Customer-->
+            <li class="@Html.RouteIf("Customer", "active")">
+                <a href="#" title="Customer"><i class="fa fa-lg fa-fw fa-list-alt "></i> <span class="menu-item-parent">Customer</span></a>
+                <ul>
+                    <li class="@Html.RouteIf("Customers", "active")">
+                        <a href="@Url.Action("Customers", "Customer")" title="Employee List">Customer List</a>
+                    </li>
+                    <li class="@Html.RouteIf("CustomerJobs", "active")">
+                        <a href="@Url.Action("CustomerJobs", "Customer")" title="Add Employee">Jobs</a>
+                    </li>
+                </ul>
+            </li>
+            <!--TimeSheets-->
+            <li class="@Html.RouteIf("TimeSheet", "active")">
+                <a href="#" title="TimeSheets"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i><span class="menu-item-parent">TimeSheets</span></a>
+                <ul>
+                    <li class="@Html.RouteIf("SheetList", "active")">
+                        <a href="@Url.Action("SheetList", "TimeSheet")" title="TimeSheet List">TimeSheet List</a>
+                    </li>
+                    <li class="@Html.RouteIf("SheetSetup", "active")">
+                        <a href="@Url.Action("SheetSetup", "TimeSheet")" title="TimeSheet Setup">TimeSheet Setup</a>
+                    </li>
+                </ul>
+            </li>
+            <!--PayRoll-->
+            <li class="@Html.RouteIf("PayRoll", "active")">
+                <a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i> <span class="menu-item-parent">PayRoll</span></a>
+                <ul>
+                    <li class="@Html.RouteIf("PayRollList", "active")">
+                        <a href="@Url.Action("PayRollList", "PayRoll")" title="PayRoll">PayRoll List</a>
+                    </li>
+                    <li class="@Html.RouteIf("PayRollInput", "active")">
+                        <a href="@Url.Action("PayRollInput", "PayRoll")" title="PayRoll">PayRoll Input</a>
+                    </li>
+                    <li class="@Html.RouteIf("PayRollSetup", "active")">
+                        <a href="#" title="PayRoll Setup">Setup</a>
+                        <ul>
+                            <li class="@Html.RouteIf("PayRollSet", "active")">
+                                <a href="@Url.Action("PayRollSet", "PayRollSetup")"><i class="fa fa-print"></i> PayRoll</a>
+                            </li>
+                            <li class="@Html.RouteIf("Tax", "active")">
+                                <a href="@Url.Action("Tax", "PayRollSetup")"><i class="fa fa-dollar"></i> Tax</a>
+                            </li>
+                            <li class="@Html.RouteIf("Deduction", "active")">
+                                <a href="@Url.Action("Deduction", "PayRollSetup")"><i class="fa fa-fax"></i> Deduction</a>
+                            </li>
+                            <li class="@Html.RouteIf("Wage", "active")">
+                                <a href="@Url.Action("Wage", "PayRollSetup")"><i class="fa fa-money"></i> Wage</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <!--Setup-->
+            @*<li class="@Html.RouteIf("SetupIndex", "active")">
+                <a href="#" title="Setup"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">Setup</span><b class="collapse-sign"><em class="fa fa-minus-square-o"></em></b></a>
+                <ul>
+                    <li class="@Html.RouteIf("SetupIndex", "active")">
+                        <a href="#" title="Company Info">Company Info</a>
+                    </li>
+                    <li class="@Html.RouteIf("SetupIndex", "active")">
+                        <a href="#" title="Deduction Setup">Deduction Setup</a>
+                    </li>
+                </ul>
+            </li>*@
+
+        </ul>
+    </nav>
+    <span class="minifyme" data-action="minifyMenu">
+        <i class="fa fa-arrow-circle-left hit"></i>
+    </span>
+
+</aside>
+<!-- END NAVIGATION -->

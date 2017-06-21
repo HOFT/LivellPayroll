@@ -1,0 +1,197 @@
+﻿@model IEnumerable<LivellPayRoll.Models.T102>
+<!-- MAIN CONTENT -->
+<div id="content">
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-cog "></i>
+                Deduction
+                <span>
+                    >
+                    Setup
+                </span>
+            </h1>
+        </div>
+
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- row -->
+    <div class="row">
+
+        <div class="col-sm-12">
+            <form id="DeductionSetup" class="form-horizontal" action="/PayRollSetup/Deduction" method="post">
+                <div class="well">
+
+                    <h1>Company Deduction  <span class="semi-bold">Setting</span></h1>
+                    <div class="row">
+                        <!-- Left content -->
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <fieldset>
+                                <legend>Regular Taxes</legend>
+                                <ul>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label class="control-label"><input type="checkbox" name="DayRule" checked="checked" disabled="disabled">Fed Income Tax</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label class="control-label"><input type="checkbox" name="DayRule" checked="checked" disabled="disabled">State Income Tax</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label class="control-label"><input type="checkbox" name="DayRule" checked="checked" disabled="disabled">Social Security Tax</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox">
+                                            <label class="control-label"><input type="checkbox" name="DayRule" checked="checked" disabled="disabled">Medicare</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Regular Deductions</legend>
+                                <ul>
+                                    @foreach (var t in Model)
+                                    {
+                                        if (t.Type == 1)
+                                        {
+                                            <li>
+                                                <div class="checkbox">
+                                                    <label class="control-label"><input class="ParRoll-Deduction" type="checkbox" name="T-@t.ItemId"  @((t.Enabled)?"checked='checked'":"") >@t.Description</label>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <a id="@t.Id" class="Iten-Setting" href="#" title="Setting" data-toggle="modal" data-target="#DeductionModal"><span class="label label-info"><i class="glyphicon glyphicon-info-sign"></i> Setting</span></a>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+
+                                </ul>
+                            </fieldset>
+                        </div>
+
+                        <!-- Right content -->
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <fieldset>
+                                <legend>Custom Deductions/Taxes</legend>
+                                <ul>
+                                    @foreach (var t in Model)
+                                    {
+                                        if (t.Type == 2)
+                                        {
+                                            <li>
+                                                <div class="checkbox">
+                                                    <label class="control-label">
+                                                        
+                                                        <input class="ParRoll-Deduction" type="checkbox" name="T-@t.ItemId"  @((t.Enabled)?"checked='checked'":"")>@t.Description
+                                                    </label>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <a id="@t.Id" class="Iten-Setting" href="#" title="Setting" data-toggle="modal" data-target="#DeductionModal"><span class="label label-info"><i class="glyphicon glyphicon-info-sign"></i> Setting</span></a>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary" id="SaveDeduction" type="button">
+                                    <i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <!-- end row -->
+
+    <!-- ui-dialog -->
+    @{Html.RenderPartial("_DeductionForm"); }
+    <!-- ends ui-dialog -->
+
+</div>
+<!-- END MAIN CONTENT -->
+
+@section pagespecific {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#SaveDeduction").click(function () {
+                var values = new Array();
+                $(".ParRoll-Deduction").each(function (i, e) {
+                    var value = $(this).is(':checked');
+                    values[i] = value;
+                })
+                $.post("/PayRollSetup/Deduction", { valuesData: values }, function (data) {
+                    if (data.code == "1") {
+                        SuccessBox('Save Successfully!');
+                    }
+                })
+            })
+
+
+            $(".Iten-Setting").click(function () {
+                var id = $(this).attr('id')
+                $.post("/PayRollSetup/DeductionQuery", { Id: id }, function (data) {
+                    $("#Id").val(id);
+                    $("#Description").val(data[0].Description);
+                    $("#AnnualLimit").val(data[0].AnnualLimit);
+                    
+                    $("#Taxable").attr("checked", (data[0].Taxable) ? true : false);
+                    $("#FICATaxable").attr("checked", (data[0].FICATaxable) ? true : false);
+                    $("#PctofIncome").attr("checked", (data[0].PctofIncome) ? true : false);
+                    $("#W2Box10").attr("checked", (data[0].W2Box10) ? true : false);
+                    $("#W2Box12").attr("checked", (data[0].W2Box12) ? true : false);
+
+                    //$("#FICATaxable").val(data[0].FICATaxable);
+                    //$("#PctofIncome").val(data[0].PctofIncome);
+                    //$("#W2Box10").val(data[0].W2Box10);
+                    //$("#W2Box12").val(data[0].W2Box12);
+                    $("#W2Code").val(data[0].W2Code);
+                });
+            })
+        })
+    </script>
+}

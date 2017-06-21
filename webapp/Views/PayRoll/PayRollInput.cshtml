@@ -1,0 +1,1419 @@
+﻿@model LivellPayRoll.Models.T105
+<!-- MAIN CONTENT -->
+<div id="content">
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-file-text "></i>
+                PayRoll
+                <span>
+                    >
+                    Input
+                </span>
+            </h1>
+        </div>
+
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- row -->
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <form id="PayRollInput" class="form-horizontal" action="/PayRoll/PayRollInput" method="post">
+                <div class="well">
+
+                    <h1><i class="fa fa-history"></i> PayRoll  <span class="semi-bold">Input</span></h1>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <fieldset>
+                                <legend>Pay Check Information</legend>
+
+                                <div class="row">
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Employee:</label>
+                                            <div class="col-md-9">
+                                                <select class="form-control" id="cboEmployees" name="cboEmployees"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">SSN:</label>
+                                            <label class="col-md-9 control-label"><span class="pull-left txt-color-blue" id="txtSSN" name="txtSSN"><strong>999-99-9999</strong>  </span></label>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Pay Period:</label>
+                                            <label class="col-md-9 control-label"><span class="pull-left txt-color-blue"><strong>@ViewBag.Period</strong>  </span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Pay Start:</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" id="dtpStartDate" name="dtpStartDate" placeholder="Please select pay start date." class="form-control">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Pay End:</label>
+                                            <div class="col-md-9">
+                                                <div class="input-group">
+                                                    <input type="text" id="dtpEndDate" name="dtpEndDate" placeholder="Please select pay end date." class="form-control">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4">
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label">Pay Date:</label>
+                                            <div class="col-md-9 ">
+                                                <div class="input-group">
+                                                    <input type="text" id="dtpPayrollDate" name="dtpPayrollDate" placeholder="Please select pay date." class="form-control datepicker" data-dateformat="yy-mm-dd">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Incomes And Deductions</legend>
+
+                                <div class="row">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span><strong>Income</strong>  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span><strong>Rate</strong>  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span><strong>Hours</strong>  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span><strong>Amount($)</strong>  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span><strong>YTD($)</strong>  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivF102">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbSalary">Salary</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtSalaryAnnual" name="txtSalaryAnnual" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label15"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPaySalary">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPaySalaryYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivF100">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbRegularHourly">Regular Hourly Pay</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtPayHourly" name="txtPayHourly" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtHrsRegular" name="txtHrsRegular" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPayRegular">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPayRegularYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivF101">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbOvertimeHourly">Overtime Hourly Pay</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtOTMultiplier" name="txtOTMultiplier" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtHrsOT" name="txtHrsOT" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPayOT">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPayOTYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivVacationRate">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbVacationHourly">Night Shift Addl</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtPayHourlyVacation" name="txtOTMultiplier" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtHrsVacation" name="txtHrsOT" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPayVacation">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPayVacationYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivSickRate">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbSickHourly">Holiday Addl</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtPayHourlySick" name="txtOTMultiplier" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtHrsSick" name="txtHrsOT" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPaySick">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPaySickYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUDPay1Desc">Bonus</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label31"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label16"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUDPay1Val" name="txtHrsOT" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUDPay1ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUDPay2Desc">Director Fee</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label32"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label17"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUDPay2Val" name="txtHrsOT" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUDPay2ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span><strong>Deductions</strong>  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span><strong>Input</strong>  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span><strong>Annual Limits</strong>  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span><strong>Amount($)</strong>  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span><strong>YTD($)</strong>  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivF1231">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD1">Health Insurance ($)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUD1Input" name="txtUD1Input" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label23">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUD1Val">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD1ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivF1232">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD2">401K (%)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUD2Input" name="txtUD2Input" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label24"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUD2Val">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD2ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivF1233">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD3">SDI (State Disablility) (%)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUD3Input" name="txtUD3Input" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label25">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUD3Val">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD3ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivF1234">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD4">Changeable Deduction ($)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUD4Input" name="txtUD4Input" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label26"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUD4Val">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD4ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivF1235">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD5">Changeable Deduction ($)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUD5Input" name="txtUD5Input" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label27"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUD5Val">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD5ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivF1236">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD6">Changeable Deduction ($)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUD6Input" name="txtUD6Input" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label43"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUD6Val">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD6ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="DivF1237">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD7">Changeable Deduction ($)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUD7Input" name="txtUD6Input" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label47">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUD7Val">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUD7ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <fieldset>
+                                        <legend>Taxes</legend>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>Items</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>Amount($)</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>YTD($)</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbFederalTax">Federal Tax</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtIncomeTax">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtIncomeTaxYTD">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbEmployeeSocialSecurityTax">Employee Social Security</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtSStax">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtSStaxYTD">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbEmployeeMedicareTax">Employee Medicare</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtMedicareTax">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtMedicareTaxYTD">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbStateTax">State Tax</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtStateIncomeTax">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtStateIncomeTaxYTD">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbLocalTax">Local Tax</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                            <input type="number" id="txtLocalTax" name="txtUD6Input" placeholder="0.00" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtLocalTaxYTD">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <fieldset>
+                                        <legend>Summary</legend>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>Items</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>Amount($)</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>YTD($)</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbTotalIncome">Gross Income</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtTotalIncome">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtTotalIncomeYTD">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbTaxableIncome">Taxable Income</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbTotalTaxableIncome">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbTotalTaxableIncomeYTD"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="label37">FICA Taxable Income</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbFICATaxableIncome">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbFICATaxableIncomeYTD"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbTotalTax">Total Employee Tax</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtTotalTax">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtTotalTaxYTD"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="label38">Total Employer Tax</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbTotalEmployerTax">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbTotalEmployerTaxYTD"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="label41">Total Deduction</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtTotalDeduction">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtTotalDeductionYTD"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="label40">Net Pay</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbNetPay">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbNetPayYTD">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <fieldset>
+                                        <legend>Employer Tax</legend>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>Items</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>Amount($)</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>YTD($)</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbEmployerSocialSecurity">Employer Social Security</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtEmployerSocialSecurity">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtEmployerSocialSecurityYTD">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbEmployerMedicare">Employer Medicare</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtEmployerMedicare">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtEmployerMedicareYTD">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbFederalUnemployment">Employer Fed Unemployment</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtEmployerFedUnemployment">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtEmployerFedUnemploymentYTD">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="lbStateUnemployment">Employer State Unemployment</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtEmployerStateUnemployment">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtEmployerStateUnemploymentYTD">0.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <fieldset>
+                                        <legend>Paid Time Off (PTO)</legend>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>Items</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>Hours</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span><strong>YTD (Hours)</strong>  </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span>Accure PTO</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtAccurePTO">0 Hours</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtPTOYTD">0 Hours</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span>Accure Vacation</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtAccureVac">0 Hours</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-md-4 text-left">
+                                                <div class="col-md-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <span id="txtVacYTD">0 Hours</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <hr />
+
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label class="col-md-1 control-label">Memo:</label>
+                                    <div class="col-md-11">
+                                        <textarea id="txtMemo" class="form-control" placeholder="Please entry memo." rows="4" maxlength="256"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" id="btnCalculate" type="button">
+                                    <i class="fa fa-refresh"></i>
+                                    Calculate Payroll
+                                </button>
+                                <button class="btn btn-primary" id="btnSaveCheck" type="button">
+                                    <i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+
+    <!-- end row -->
+
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+@section pagespecific {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON('@Url.Action("GetEmployee", "PayRoll")', function (data) {
+                $('#cboEmployees').empty();
+                $('#cboEmployees').append($('<option></option>').val('').text('Please select employee.'));
+                $.each(data, function (i, item) {
+                    $('#cboEmployees').append($('<option></option>').val(item.Value).text(item.Text));
+                });
+            });
+
+            $.getJSON('@Url.Action("PayRollShow", "PayRoll")', function (data) {
+                $.each(data, function (i, item) {
+                    if (!item) {
+                        $('#Div' + i).hide();
+                    }
+                    
+                    console.log(i);
+                    console.log(item);
+                });
+            });
+
+            $('#dtpStartDate').datepicker({
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function (selectedDate) {
+                    $('#dtpEndDate').datepicker('option', 'minDate', selectedDate);
+                }
+            });
+
+            $('#dtpEndDate').datepicker({
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function (selectedDate) {
+                    $('#dtpStartDate').datepicker('option', 'maxDate', selectedDate);
+                }
+            });
+
+
+            $('#cboEmployees').change(function () {
+                var EmpId = $.trim($('#cboEmployees option:selected').val());
+                console.log(EmpId);
+            })
+
+        })
+
+
+    </script>
+}

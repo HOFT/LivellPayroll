@@ -1,0 +1,499 @@
+﻿@using LivellPayRoll.App_Helpers
+@model LivellPayRoll.Models.Job
+<!-- MAIN CONTENT -->
+<div id="content">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-list-alt fa-fw "></i>
+                Customer
+                <span>
+                    >
+                    Jobs
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET START -->
+            <article class="col-sm-12">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget well" id="wid-id-0">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+                        <h2>My Data </h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body">
+
+                            <div class="row">
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <a href="/Customer/AddCustomer" id="addCustomer" class="btn btn-labeled btn-danger" title="Add Customer"><span class="btn-label"><i class="fa fa-plus"></i></span>Customer</a>
+                                    <a href="#" id="addJob" class="btn btn-info disabled" title="Add Job" data-toggle="modal" data-target="#AddJobItemModal">Add</a>
+                                    <a href="#" id="deleteJob" class="btn bg-color-purple txt-color-white disabled" title="Delete Job">Delete</a>
+                                    <div class="dd" id="nestable">
+                                        <ol class="dd-list">
+                                            @foreach (var Cus in ViewBag.Customers)
+                                            {
+                                                <li class="dd-item dd-nodrag" data-id=@Cus.Id>
+                                                    <div class="dd3-content opt-content opt-cus" data-CusId=@Cus.Id>
+                                                        <h4>
+                                                            @Cus.CustomerName
+                                                            @if (@Cus.Job.Count != 0)
+                                                            {
+                                                                <em class="badge pull-right bg-color-purple">@Cus.Job.Count</em>
+                                                            }
+
+                                                        </h4>
+                                                        <span>@Cus.Attn   @Cus.Telphone</span>
+                                                    </div>
+                                                    @if (@Cus.Job.Count > 0)
+                                                    {
+                                                        int i = 0;
+                                                        <ol class="dd-list">
+                                                            @foreach (var job in Cus.Job)
+                                                            {
+                                                                i++;
+                                                                <li class="dd-item dd-nodrag" data-id=@job.JobId>
+                                                                    <a class="job-item" href="#">
+                                                                        <div class="dd3-content opt-content opt-job" data-id=@job.JobId>
+                                                                            <span class="badge badge-info">@i</span>
+                                                                            <strong>@job.JobName</strong>
+                                                                            @if (job.status == "0")
+                                                                            {
+                                                                                <em class="label pull-right label-primary">
+                                                                                    @LivellPayRoll.App_Helpers.EnumHelper.GetStatus(job.status)
+                                                                                </em>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <em class="label pull-right label-default">
+                                                                                    @LivellPayRoll.App_Helpers.EnumHelper.GetStatus(job.status)
+                                                                                </em>
+                                                                            }
+                                                                        </div>
+                                                                    </a>
+                                                                </li>
+                                                            }
+                                                        </ol>
+                                                    }
+                                                </li>
+                                            }
+
+                                        </ol>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-sm-6 col-lg-8">
+
+                                    <div class="widget-body" id="JobInfo">
+
+                                        <h6>
+                                            <span id="job_head">Choose The Job Item</span>
+                                            <small>Informantion and Employees.</small>
+                                        </h6>
+                                        <ul id="myTab1" class="nav nav-tabs bordered">
+                                            <li class="active">
+                                                <a href="#s1" data-toggle="tab"><i class="fa fa-fw fa-lg fa-pencil"></i>Informantion</a>
+                                            </li>
+                                            <li>
+                                                <a href="#s2" data-toggle="tab" id="EmployeeTab"><i class="fa fa-fw fa-lg fa-list-alt"></i>Employee@*<span id="EmployeeNum" class="badge bg-color-blue txt-color-white">0</span>*@</a>
+                                            </li>
+                                            <li class="pull-right">
+                                                <a href="javascript:void(0);">
+                                                    <div class="sparkline txt-color-pinkDark text-align-right" data-sparkline-height="18px" data-sparkline-width="90px" data-sparkline-barwidth="7">
+                                                        5,10,6,7,4,3
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div id="myTabContent1" class="tab-content padding-10">
+                                            <div class="tab-pane fade in active" id="s1">
+                                                @{Html.RenderPartial("_JobForm"); }
+                                            </div>
+                                            <div class="tab-pane fade" id="s2">
+                                                <div class="jarviswidget jarviswidget-color-greenDark" id="wid-id-2" data-widget-editbutton="false">
+                                                    <iframe src="" id="myiframe" scrolling="no" frameborder="0"></iframe>
+                                                    <a class="btn btn-primary pull-right" id="btn-add-jobEmployee" title="Add Employee" data-toggle="modal" data-target="#AddEmployeeModal"><i class="fa fa-plus"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    @*@{Html.RenderPartial("_JobForm"); }*@
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+
+            </article>
+            <!-- WIDGET END -->
+
+        </div>
+
+        <!-- end row -->
+
+    </section>
+    <!-- ui-dialog  AddEmployee-->
+    <div class="modal fade" id="AddEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-list-alt fa-pencil "></i>Choice Employees <small>[ Non-selected → Selected ]</small></h4>
+                </div>
+                <div class="modal-body">
+                    <!-- widget content -->
+                    <div class="widget-body">
+                        <select multiple="multiple" size="10" name="duallistbox_demo2" id="initializeDuallistbox"></select>
+                    </div>
+
+                    <!-- end widget content -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" id="Modal-AddEmployee">
+                        Save
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+
+
+    </div>
+    <!-- end ui-dialog  AddEmployee-->
+
+
+    <!-- ui-dialog  AddJob-->
+    <div class="modal fade" id="AddJobItemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <form id="Job-Add" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-list-alt fa-pencil "></i>&nbsp;Add Job</h4>
+                    </div>
+                    <div class="modal-body">
+                        <fieldset>
+                                <div class="form-group">
+                                    <label for="JobName">Job Name *:</label>
+                                    <div class="input-group">
+                                        <input class="form-control" id="JobName" name="JobName" placeholder="Please enter a new job name" type="text" maxlength="128">
+                                        <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="Description">Description:</label>
+                                    <textarea class="form-control" id="Description" name="Description" placeholder="Please enter description" rows="4" maxlength="512"></textarea>
+                                </div>
+                        </fieldset>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <i class="fa fa-times"></i>&nbsp;Cancel</button>
+                        <button type="button" id="btn-job-save" class="btn btn-primary">
+                            <i class="fa fa-check"></i>&nbsp;Save</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </form>
+    </div>
+    <!-- /.modal -->
+
+</div>
+<!-- END MAIN CONTENT -->
+@section pagespecific {
+    <!-- PAGE RELATED PLUGIN(S) -->
+    <script src="/scripts/plugin/jquery-nestable/jquery.nestable.min.js"></script>
+    <script src="/scripts/plugin/bootstrap-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+
+    <script type="text/javascript">
+        //PageFunction
+        function OnloadEmployee() {
+            //加载Job's Employee
+            var JobId = $('.opt-active').attr('data-id');
+            var Url = '/Customer/JobEmployeesList?Id=' + JobId;
+            $("#myiframe").attr('src', Url);
+        }
+
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+        $(document).ready(function () {
+
+            //Duallistbox
+            var initializeDuallistbox = $('#initializeDuallistbox').bootstrapDualListbox({
+                preserveSelectionOnMove: 'moved',
+                moveOnSelect: false
+            });
+
+            $("#Modal-AddEmployee").click(function () {
+                var JobId = $('.opt-active').attr('data-id');
+                var DomSelected = $("#bootstrap-duallistbox-selected-list_duallistbox_demo2 option");
+                var Selected = new Array();
+                for (var i = 0; i < DomSelected.length; i++) {
+                    //Selected[i] = DomSelected.eq(i).val();
+                    Selected.push(DomSelected.eq(i).val());
+                }
+                var par = {
+                    "Selected": Selected,
+                    "JobId": JobId
+                }
+                $.post("/Customer/AddJobEmployees", par, function (data) {
+                    if (data.status == "success") {
+                        $("#AddEmployeeModal").modal("hide");
+                        OnloadEmployee();
+                    } else {
+                        ErrorBox(data.message);
+                    }
+                })
+            });
+
+            // activate Nestable for list 1
+            $('.dd').nestable('collapseAll');
+
+            $('#JobInfo').hide()
+            $('.opt-cus').click(function (e) {
+                e.preventDefault();
+                $('.opt-cus').removeClass('opt-choose');
+                $('.opt-job').removeClass('opt-active');
+                $(this).addClass('opt-choose');
+                $('#addJob').removeClass("disabled");
+                $('#deleteJob').addClass("disabled");
+                //重置表单
+                $('#JobForm')[0].reset();
+                $("#myiframe").attr('src', '');
+                $("#job_head").html("Choose The Job Item")
+                $('#JobInfo').hide()
+            });
+            $('.opt-job').click(function (e) {
+                e.preventDefault();
+                $('.opt-cus').removeClass('opt-choose');
+                $('.opt-job').removeClass('opt-active');
+                $(this).addClass('opt-active');
+                $('#addJob').addClass("disabled");
+                $('#deleteJob').removeClass("disabled");
+                $("#job_head").html($(".opt-active>strong").html())
+                $('#JobInfo').show()
+            });
+
+            $('.job-item').click(function () {
+                var jobId = $(this).parent().attr("data-id");
+                if (jobId != undefined) {
+                    $.post("/Customer/JobQuery", { "Id": jobId }, function (data) {
+                        $("input[name='JobId']").val(data.JobId);
+                        $("input[name='JobName']").val(data.JobName);
+                        $("textarea").val(data.Description);
+                        if (data.status == "0") {
+                            $("#autoopen").prop("checked", 'true');
+                        } else if (data.status == "1") {
+                            $("#autoopen").removeAttr("checked");
+                        }
+                        //加载Job's Employee
+                        OnloadEmployee();
+                        //更新Employee dialog 列表
+                        $.getJSON('@Url.Action("GetCheckEmployeeList", "Customer")', { id: jobId }, function (data) {
+
+                            $('#initializeDuallistbox').empty();
+                            $.each(data, function (i, item) {
+                                $('#initializeDuallistbox').append($('<option></option>').val(item.Value).text(item.Text).selected(item.Selected));
+                                $('#initializeDuallistbox').bootstrapDualListbox('refresh');
+                            });
+                        });
+                    })
+                }
+
+            });
+
+            $('#SaveJob').click(function () {
+                var par = $("#JobForm").serializeArray();
+                if (par[0].value == 0) {
+                    ErrorBox("Please choose the job!");
+                } else {
+                    var bootstrapValidator = $('#JobForm').data('bootstrapValidator');
+                    bootstrapValidator.validate();
+                    if (bootstrapValidator.isValid()) {
+                        $.post("/Customer/EditJob", par, function (data) {
+                            if (data.status == "success") {
+                                SuccessBox("The job been successfully edited!");
+                                location.reload();
+                            } else {
+                                ErrorBox(data.message);
+                            }
+                        })
+                    }
+                }
+            })
+
+            if ('@ViewBag.Customers.Count' == 0) {
+                $('#addJob').hide();
+                $('#deleteJob').hide();
+                $('#addCustomer').show();
+            } else {
+                $('#addJob').show();
+                $('#deleteJob').show();
+                $('#addCustomer').hide();
+            }
+
+            /** DIALOG SIMPLE*/
+            //// Dialog click 添加Add ltem
+            //$('#addJob').click(function () {
+            //    var CusId = $('.opt-choose').attr('data-CusId');
+            //    $('#dialog_addJobItem').dialog('open');
+            //    $("#dialog_addJobItem input[name='CustomerId']").val(CusId);
+            //    $("#dialog_addJobItem input[name='JobName']").val('');
+            //    return false;
+            //});
+            $('#btn-job-save').click(function () {
+                var CusId = $('.opt-choose').attr('data-CusId');
+                //bootstrapValidator 表单验证
+                var bootstrapValidator = $('#Job-Add').data('bootstrapValidator');
+                bootstrapValidator.validate();
+                if (bootstrapValidator.isValid()) {
+                    //表单提交的方法、比如ajax提交
+                    var JobName = $("#Job-Add input[name='JobName']").val();
+                    var Description = $("#Description").val();
+
+                    $.post("/Customer/addJob", { "CustomerId": CusId, "JobName": JobName, "Description": Description }, function (data) {
+                        if (data.status == "success") {
+                            $('#AddJobItemModal').modal('hide');
+                            location.reload();
+                            SuccessBox("The job been successfully added!");
+                        } else {
+                            ErrorBox(data.message);
+                        }
+                    })
+                }
+            })
+
+            //删除Add ltem
+            $('#deleteJob').click(function () {
+                var Id = $('.opt-active').attr('data-id');
+                AjaxDelete(
+                "Job and job's employee will be deleted,Do you want to continue this record?",
+                Id,
+                "/Customer/DeleteJob",
+                "Job and all job's employee been successfully Deleted!",
+                "OpGen"
+                );
+            })
+
+            //$('#dialog_addJobItem').dialog({
+            //    autoOpen: false,
+            //    width: 500,
+            //    resizable: false,
+            //    modal: true,
+            //    title: "Add Job Item",
+            //    buttons: [{
+            //        html: "<i class='fa fa-check'></i>&nbsp; Save",
+            //        "class": "btn btn-primary",
+            //        click: function () {
+            //            //bootstrapValidator 表单验证
+            //            var bootstrapValidator = $('#dialog_addJobItem').data('bootstrapValidator');
+            //            bootstrapValidator.validate();
+            //            if (bootstrapValidator.isValid()) {
+            //                //表单提交的方法、比如ajax提交
+            //                var CustomerId = $("#dialog_addJobItem input[name='CustomerId']").val();
+            //                var JobName = $("#dialog_addJobItem input[name='JobName']").val();
+            //                $.post("/Customer/addJob", { "CustomerId": CustomerId, "JobName": JobName }, function (data) {
+            //                    if (data.status == "success") {
+            //                        $('#dialog_addJobItem').dialog("close");
+            //                        location.reload();
+            //                        SuccessBox("The job been successfully added!");
+            //                    } else {
+            //                        ErrorBox(data.message);
+            //                    }
+            //                })
+            //            }
+
+            //        }
+            //    }, {
+            //        html: "<i class='fa fa-times'></i>&nbsp; Cancel",
+            //        "class": "btn btn-default",
+            //        click: function () {
+            //            $(this).dialog("close");
+            //        }
+            //    }]
+            //});
+
+            $("#myiframe").load(function () {
+                var DivWidth = $("#myTabContent1").width();
+                $(this).width(DivWidth);
+            });
+        })
+
+    </script>
+}

@@ -1,0 +1,59 @@
+﻿<form id="JobForm" method="post">
+    <input type="hidden" name="JobId" value="0">
+    <fieldset>
+        @*<legend>
+            <i class="fa fa-pencil"> </i> &nbsp; Job Informantion
+        </legend>*@
+        <input type="hidden" name="Id" value="0">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Job Name *:</label>
+                        <div class="input-group">
+                            <input class="form-control" name="JobName" placeholder="Please Enter Job Name" type="text" maxlength="128">
+                            <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <textarea class="form-control" name="Description" placeholder="Please Enter Job Description" rows="4" maxlength="512"></textarea>
+                    </div>
+                </div> 
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Enable:</label>
+                        <br />
+                        <span class="onoffswitch">
+                            <input type="checkbox" class="onoffswitch-checkbox" name="status" id="autoopen">
+                            <label class="onoffswitch-label" for="autoopen">
+                                <span class="onoffswitch-inner" data-swchon-text="ON" data-swchoff-text="OFF"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </span>
+
+                        <p class="note">Active or not.</p>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12">
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-primary" id="SaveJob" type="button">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </fieldset>
+</form>
+
+
+ 
+

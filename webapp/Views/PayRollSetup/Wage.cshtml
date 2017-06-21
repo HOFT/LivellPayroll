@@ -1,0 +1,169 @@
+﻿@model IEnumerable<LivellPayRoll.Models.T201>
+<!-- MAIN CONTENT -->
+<div id="content">
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-cog "></i>
+                Wage
+                <span>
+                    >
+                    Setup
+                </span>
+            </h1>
+        </div>
+
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- row -->
+    <div class="row">
+
+        <div class="col-sm-12">
+            <form id="DeductionSetup" class="form-horizontal" action="/PayRollSetup/Deduction" method="post">
+                <div class="well">
+
+                    <h1>Company Wage  <span class="semi-bold">Setting</span></h1>
+                    <div class="row">
+                        <!-- Left content -->
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+
+                            <fieldset>
+                                <legend>Regular Deductions</legend>
+                                <ul>
+                                    @foreach (var t in Model)
+                                    {
+                                        if (t.Type == 1)
+                                        {
+                                            if (t.Ord == 1 || t.Ord == 2 || t.Ord == 3)
+                                            {
+                                                <li>
+                                                    <div class="checkbox">
+                                                        <label class="control-label"><input class="ParRoll-Deduction" type="checkbox" name="T-@t.Ord" checked="checked" disabled="disabled">@t.Description</label>
+                                                    </div>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <div class="checkbox">
+                                                        <label class="control-label"><input class="ParRoll-Deduction" type="checkbox" name="T-@t.Ord" @((t.Enabled) ? "checked='checked'" : "")>@t.Description</label>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a id="@t.Id" class="Iten-Setting" href="#" title="Setting" data-toggle="modal" data-target="#WageModal"><span class="label label-info"><i class="glyphicon glyphicon-info-sign"></i> Setting</span></a>
+                                                    </div>
+                                                </li>
+                                            }
+
+                                        }
+                                    }
+
+                                </ul>
+                            </fieldset>
+                        </div>
+
+                        <!-- Right content -->
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <fieldset>
+                                <legend>Non-Regular Wages</legend>
+                                <ul>
+                                    @foreach (var t in Model)
+                                    {
+                                        if (t.Type == 2)
+                                        {
+                                            <li>
+                                                <div class="checkbox">
+                                                    <label class="control-label">
+
+                                                        <input class="ParRoll-Deduction" type="checkbox" name="T-@t.Ord" @((t.Enabled) ? "checked='checked'" : "")>@t.Description
+                                                    </label>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <a id="@t.Id" class="Iten-Setting" href="#" title="Setting" data-toggle="modal" data-target="#WageModal"><span class="label label-info"><i class="glyphicon glyphicon-info-sign"></i> Setting</span></a>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary" id="SaveWage" type="button">
+                                    <i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <!-- end row -->
+    <!-- ui-dialog -->
+    @{Html.RenderPartial("_WageForm"); }
+    <!-- ends ui-dialog -->
+
+</div>
+<!-- END MAIN CONTENT -->
+
+@section pagespecific {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#SaveWage").click(function () {
+                var values = new Array();
+                $(":checkbox").each(function (i, e) {
+                    var value = $(this).is(':checked');
+                    values[i] = value;
+                })
+                $.post("/PayRollSetup/Wage", { valuesData: values }, function (data) {
+                    if (data.code == "1") {
+                        SuccessBox('Save Successfully!');
+                    }
+                })
+            })
+            $(".Iten-Setting").click(function () {
+                var id = $(this).attr('id')
+                $.post("/PayRollSetup/WageQuery", { Id: id }, function (data) {
+                    $("#Id").val(id);
+                    $("#Description").val(data[0].Description);
+                });
+            })
+
+        })
+    </script>
+}

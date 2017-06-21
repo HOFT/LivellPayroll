@@ -1,0 +1,628 @@
+﻿<section id="widget-grid" class="employee_info_section">
+    <div class="row">
+
+        <!-- NEW WIDGET START -->
+        <article class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget  jarviswidget-color-darken" id="wid-id-2" data-widget-editbutton="false" data-widget-deletebutton="false">
+                <!-- widget options:
+                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                data-widget-colorbutton="false"
+                data-widget-editbutton="false"
+                data-widget-togglebutton="false"
+                data-widget-deletebutton="false"
+                data-widget-fullscreenbutton="false"
+                data-widget-custombutton="false"
+                data-widget-collapsed="true"
+                data-widget-sortable="false"
+
+                -->
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-align-justify"></i> </span>
+                    <h2>Employee Info @Html.Raw(ViewData["employeeInfo"]) </h2>
+
+                </header>
+
+                <!-- widget div-->
+                    <!-- widget content -->
+                <div class="widget-body fuelux" data-initialize="wizard" id="myWizard">
+                    <div class="wizard">
+                        <ul class="steps">
+                            <li data-step="1" data-name="campaign" class="active">
+                                <span class="badge badge-info">1</span> Employee Basic<span class="chevron"></span>
+                            </li>
+                            <li data-step="2">
+                                <span class="badge">2</span>Paid Time Off<span class="chevron"></span>
+                            </li>
+                            <li data-step="3">
+                                <span class="badge">3</span>Payment/Deduction<span class="chevron"></span>
+                            </li>
+                            <li data-step="4">
+                                <span class="badge">4</span>Tax<span class="chevron"></span>
+                            </li>
+                            <li data-step="5" data-name="template">
+                                <span class="badge">5</span>Confirmation<span class="chevron"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="step-content">
+                        <form class="form-horizontal" id="fuelux-wizard" method="post" novalidate="novalidate">
+                            <div class="step-pane active" data-step="1">
+                                <h3><i class="fa fa-pencil"> </i> <strong>Employee Information</strong></h3>
+                                <hr />
+                                <!-- wizard form starts here -->
+                                <fieldset>
+                                    <input type="hidden" name="EmployeeId" value="0">
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">First Name *</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="FName" placeholder="Please enter your First Name" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Middle Init</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="MInit" placeholder="Please enter your Middle Init" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Last Name *</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="LName" placeholder="Please enter your Last Name" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">SSN *</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="SSN" placeholder="Please enter your SSN" data-inputmask="'mask': '999-99-9999'" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Email *</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="Email" placeholder="email@address.com" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="select_time_zone">Time Zone *</label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownList("TimeZone", ViewBag.TimeZone as SelectList, "Please Select TimeZone", new { @class = "form-control", @id = "select_time_zone" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="DefaultJob">Default Job</label>
+                                            <div class="col-md-8">
+                                                <select class="form-control" id="DefaultJob" name="DefaultJob"></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group checkbox">
+                                            <label class="col-md-4 control-label"></label>
+                                            <div class="col-md-8"><label><input type="checkbox" name="F124" value="1">Check if inactive</label></div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Address1 *</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="Address1" placeholder="Please enter your Address" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Address2 </label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="Address2" placeholder="Please enter your Address" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">City *</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="City" placeholder="Please enter your City" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="select_state">State *</label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownList("State", ViewBag.StatesList as SelectList, "Please Select State", new { @class = "form-control", @id = "select_state" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Zip *</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="ZipCode" placeholder="Please enter your zipcode" data-inputmask="'mask': '99999'" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Telephone *</label>
+                                            <div class="col-md-8">
+                                                <input class="form-control" name="Phone" placeholder="Please enter your PhoneNumber" data-inputmask="'mask': '(999)-999-9999'" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group checkbox">
+                                            <label class="col-md-4 control-label"></label>
+                                            <div class="col-md-8">
+                                                <label>
+                                                    <input type="checkbox" name="isPayrollSetup" value="1">
+                                                    Setup payroll for this employee
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                            </div>
+                            <div class="step-pane" data-step="2">
+                                <h3><i class="fa fa-pencil"> </i> <strong>Paid Time Off (PTO)</strong></h3>
+                                <fieldset>
+                                    <p class="alert alert-info no-margin">
+                                        <button class="close" data-dismiss="alert">
+                                            ×
+                                        </button>
+                                        ● This setup page is optional for states other than california. leave 0 if not needed.<br />
+                                        ● The maximum hours are the cap hours an employee may accrue
+                                    </p>
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="printPTOStub" value=1>
+                                                <span>Print Paid Benefits on Pay Stub</span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="col-md-5 control-label">Paid Time Off (PTO) Rate Accrual by Working Hours</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" class="form-control" step="0.0001" placeholder="0.0000" name="PTOAccRate">
+                                                </div>
+
+                                            </div>
+                                            <span>hours per working hour.</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="col-md-5 control-label">Paid Time Off Maximum Hours *</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" class="form-control" step="0.01" placeholder="0.00" name="PTOCapHours">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @*<span class="col-md-5">Paid Vacation Rate Accrual by Working Hours</span>*@
+                                            <label class="col-md-5 control-label">Paid Vacation Rate Accrual by Working Hours</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" class="form-control" step="0.0001" placeholder="0.0000" name="VacAccRate">
+                                                </div>
+                                            </div>
+                                            <span>hours per working hour.</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            @*<span class="col-md-5">Paid Vacation Maximum Hours*</span>*@
+                                            <label class="col-md-5 control-label">Paid Vacation Maximum Hours *</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" class="form-control" step="0.01" placeholder="0.00" name="VacCapHours">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </div>
+                            <div class="step-pane" data-step="3">
+                                <h3><i class="fa fa-pencil"> </i> <strong>Payment/Deduction</strong></h3>
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                            <fieldset>
+                                                <legend>Payment Setup</legend>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12 col-md-12 checkbox">
+                                                        <label>
+                                                            <input type="checkbox" id="F125" name="F125" value=1 onclick="onF125(this)">
+                                                            Salary Employee (Uncheck to pay by hourly rate)
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Yealy Salary ($)</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                            <input class="form-control" step="0.01" placeholder="0.00" type="number" id="F102" name="F102" disabled="disabled">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Regular Houly Rate ($)</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                            <input class="form-control" step="0.01" placeholder="0.00" type="number" name="F100">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Overtime Hourly Pay</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                            <input class="form-control" step="0.01" placeholder="0.00" type="number" name="F101">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                @foreach (var t in ViewBag.List201)
+                                                {
+                                                    if (t.Ord == 4|| t.Ord == 5 && t.Enabled == true)
+                                                    {
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">@t.Description</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                                    <input class="form-control" step="0.01" placeholder="0.00" type="number" name="@t.CodeMap">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    }
+                                                }
+
+                                                @*<div class="form-group">
+                                                    <label class="col-md-4 control-label">Holiday Add</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                            <input class="form-control" step="0.01" placeholder="0.00" type="number" name="SickRate">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Night Shift Add</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                            <input class="form-control" step="0.01" placeholder="0.00" type="number" name="VacationRate">
+                                                        </div>
+                                                    </div>
+                                                </div>*@
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                            <fieldset>
+                                                <legend>W2 Options</legend>
+                                                <div class="col-sm-10 col-md-10 col-lg-10">
+                                                    <div class="checkbox form-group">
+                                                        <label>
+                                                            <input type="checkbox" name="IsW2StatutoryEmployee" value=1>
+                                                            Statutory Employee
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox form-group">
+                                                        <label>
+                                                            <input type="checkbox" name="IsW2RetirementPlan" value=1>
+                                                            Retirement Plan
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox form-group">
+                                                        <label>
+                                                            <input type="checkbox" name="DoesReceiveAdvanceEIC" value=1>
+                                                            Receive Advanced EIC
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                            <fieldset>
+                                                <legend>Deductions for Each Paycheck</legend>
+                                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                                    @foreach (var t in ViewBag.List102)
+                                                    {
+                                                        if (t.ItemId < 4 && t.Enabled == true)
+                                                        {
+                                                            if (t.Description == "401K" || t.Description == "SDI (State Disablility)")
+                                                            {
+                                                                <div class="form-group">
+                                                                    <label class="col-md-4 control-label">@t.Description</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="input-group">
+                                                                            <input class="form-control" step="0.01" placeholder="0.00" type="number" name="@t.CodeMap">
+                                                                            <span class="input-group-addon"><strong>%</strong></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="form-group">
+                                                                    <label class="col-md-4 control-label">@t.Description</label>
+                                                                    <div class="col-md-8">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                                            <input class="form-control" step="0.01" placeholder="0.00" type="number" name="@t.CodeMap">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                    }
+
+                                                </div>
+
+                                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                                    @foreach (var t in ViewBag.List102)
+                                                    {
+                                                    if (t.ItemId >= 4 && t.Enabled == true)
+                                                    {
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">@t.Description</label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                                <input class="form-control" step="0.01" placeholder="0.00" type="number" name="@t.CodeMap">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    }
+                                                    }
+
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="step-pane" data-step="4">
+                                <h3><i class="fa fa-pencil"> </i> <strong>Federal and State tax options</strong></h3>
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                            <fieldset>
+                                                <legend>Payment Setup</legend>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label" for="select_filing_status">Filing Status</label>
+                                                    <div class="col-md-8">
+                                                        <select class="form-control" id="select_filing_status" name="F106">
+                                                            <option>Single</option>
+                                                            <option>Married</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Number of Allowance</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                            <input class="form-control" step="0.01" placeholder="1.00" type="number" name="F107">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Extra Withhold</label>
+                                                    <div class="col-md-8">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                            <input class="form-control" step="0.01" placeholder="0.00" type="number" name="F121">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                            <fieldset>
+                                                <legend>Taxes Options</legend>
+                                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                                    <div class="checkbox form-group">
+                                                        <label>
+                                                            <input type="checkbox" name="F114" value=1 checked="checked">
+                                                            Federal Income Tax
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox form-group">
+                                                        <label>
+                                                            <input type="checkbox" name="F116" value=1 checked="checked">
+                                                            State Income Tax
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox form-group">
+                                                        <label>
+                                                            <input type="checkbox" name="F119" value=1 checked="checked">
+                                                            Medicare Tax
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox form-group">
+                                                        <label>
+                                                            <input type="checkbox" name="F115" value=1 checked="checked">
+                                                            Federal Unemployment Tax
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox form-group">
+                                                        <label>
+                                                            <input type="checkbox" name="F117" value=1 checked="checked">
+                                                            State Unemployment Tax
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox form-group">
+                                                        <label>
+                                                            <input type="checkbox" name="F118" value=1 checked="checked">
+                                                            Social Security Tax
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-12">
+                                            <fieldset>
+                                                <legend><span id="State_Tax_Titel"></span> State Tax</legend>
+                                                <div class="row StateTaxRow1">
+                                                    <div class="col-sm-6 col-md-6 col-lg-6" id="F109">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label" id="F109-Label">County</label>
+                                                            <div class="col-md-8">
+                                                                <select class="form-control" name="F109" id="select_f109"><option value="">Please select county</option></select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-lg-6" id="F120">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">AZ State Tax</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <input class="form-control" step="0.01" placeholder="0.00" type="number" id="input_f120" name="F120">
+                                                                    <span class="input-group-addon"><strong>%</strong></span>
+                                                                </div>
+                                                                <p class="note">Percentage of gross taxable wages (0.8, 1.3, 2.7, 3.6, 4.2, 5.1) %</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row StateTaxRow2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-6" id="F110">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Filing Status</label>
+                                                            <div class="col-md-8">
+                                                                <select class="form-control" id="filing_status" name="F110"><option value="">Please select filing status</option></select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-lg-6" id="F122">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">More Withhold Taxes</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                                    <input class="form-control" step="0.01" placeholder="0.00" type="number" id="input_f122" name="F122">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row StateTaxRow3">
+                                                    <div class="col-sm-6 col-md-6 col-lg-6" id="F111">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Residency Status</label>
+                                                            <div class="col-md-8">
+                                                                <select class="form-control" name="F111" id="select_f111"><option value="">Please select residency status</option></select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-lg-6" id="F112">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label" id="F112-Label">***</label>
+                                                            <div class="col-md-8">
+                                                               <input class="form-control" step="0.01" placeholder="0.00" type="number" id="input_f112" name="F112">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row StateTaxRow4">
+                                                    <div class="col-sm-6 col-md-6 col-lg-6">
+
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-lg-6" id="F113">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label" id="F113-Label">***</label>
+                                                            <div class="col-md-8">
+                                                                 <input class="form-control" step="0.01" placeholder="0.00" type="number" id="input_f113" name="F113">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                            </div>
+                            <div class="step-pane" data-step="5">
+                                <h3><i class="fa fa-pencil"> </i> <strong>Finished</strong></h3>
+                                <br>
+                                <br>
+                                <h1 class="text-center text-success">
+                                    <i class="fa fa-check"></i> Save Employee!
+                                    <br>
+                                    <small>Click finish to end wizard</small>
+                                </h1>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" id="btn-pre" class="btn btn-lg btn-default btn-primary btn-prev" title="Prev">
+                                    <i class="fa fa-arrow-left"></i>Prev
+                                </button>
+                                <button type="button" id="btn-next" class="btn btn-lg btn-primary btn-success btn-next" data-last="Finish" title="Next">
+                                    Next  <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    @*<div class="col-sm-12">
+                <br />
+                <hr />
+                <div class="actions" align="center">
+                    <button type="button" id="btn-pre" class="btn btn-lg btn-default btn-primary btn-prev" title="Prev">
+                        <i class="fa fa-arrow-left"></i>Prev
+                    </button>
+                    <button type="button" id="btn-next" class="btn btn-lg btn-primary btn-success btn-next" data-last="Finish" title="Next">
+                        Next  <i class="fa fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>*@
+
+
+                </div>
+                    <!-- end widget content -->
+                    <!-- end widget div -->
+                <!-- end widget -->
+
+        </article>
+        <!-- WIDGET END -->
+    </div>
+</section>

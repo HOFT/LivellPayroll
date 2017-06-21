@@ -1,0 +1,491 @@
+﻿@model LivellPayRoll.Models.TimeSheetLog
+
+<!-- MAIN CONTENT -->
+<div id="content">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-home "></i>
+                Home
+                <span>
+                    >
+                    Welcome
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <div id="clock1" class="pull-right"></div>
+
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-12 col-lg-3">
+            <!-- new widget -->
+            <div class="jarviswidget jarviswidget-color-blueDark">
+                <header>
+                    <h2> Time Card </h2>
+                </header>
+
+                <!-- widget div-->
+                <div>
+
+                    <div class="widget-body">
+                        <!-- content goes here -->
+
+
+                        <form id="timecard-event-form">
+                            <fieldset>
+                                <div id="TimeShow">
+                                    <div class="form-group">
+                                        <span class="glyphicon glyphicon-time" id="TimeSheetStarDate"> 2017/05/18 </span> <span id="TimeLED" class="badge bg-color-greenLight pull-right">Time In</span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <span class="fc-event-time txt-color-blue font-xl" id="TimeSheetPiece">00:00:00</span>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Input Time</legend>
+                                <div class="form-group">
+                                    <label for="CustomerJob">Customer Job *</label>
+                                    @Html.DropDownList("JobId", ViewBag.JobList as SelectList, "Please Select Job", new { @class = "form-control", @id = "JobId" })
+                                </div>
+                                <div class="form-group">
+                                    <label>Note</label>
+                                    <textarea class="form-control" name="Note" placeholder="Please be brief" rows="4" maxlength="128" id="description"></textarea>
+                                    <p class="note">Maxlength is set to 128 characters</p>
+                                </div>
+
+                            </fieldset>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-danger" type="button" id="btn-reset">
+                                            Reset
+                                        </button>
+                                        <button class="btn btn-primary" type="button" id="btn-in">
+                                            Time In
+                                        </button>
+                                        <button class="btn btn-success" type="button" id="btn-out">
+                                            Time Out
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- end content -->
+                    </div>
+
+                </div>
+                <!-- end widget div -->
+            </div>
+            <!-- end widget -->
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-9">
+
+            <!-- new widget -->
+            <div class="jarviswidget jarviswidget-color-blueDark">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
+                    <h2> Time Calendar </h2>
+                    <div class="widget-toolbar">
+                        <!-- add: non-hidden - to disable auto hide -->
+                        <div class="btn-group">
+                            <button class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown">
+                                Showing <i class="fa fa-caret-down"></i>
+                            </button>
+                            <ul class="dropdown-menu js-status-update pull-right">
+                                <li>
+                                    <a href="javascript:void(0);" id="mt">Month</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" id="ag">Agenda</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" id="td">Today</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- widget div-->
+                <div>
+
+                    <div class="widget-body no-padding">
+                        <!-- content goes here -->
+                        <div class="widget-body-toolbar">
+
+                            <div id="calendar-buttons">
+
+                                <div class="btn-group">
+                                    <a href="javascript:void(0)" class="btn btn-default btn-xs" id="btn-prev"><i class="fa fa-chevron-left"></i></a>
+                                    <a href="javascript:void(0)" class="btn btn-default btn-xs" id="btn-next"><i class="fa fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="calendar"></div>
+
+                        <!-- end content -->
+                    </div>
+
+                </div>
+                <!-- end widget div -->
+            </div>
+            <!-- end widget -->
+
+        </div>
+
+    </div>
+
+    <!-- end row -->
+    <!-- ui-dialog -->
+    @{Html.RenderPartial("_JobInfo"); }
+    <!-- ends ui-dialog -->
+
+</div>
+<!-- END MAIN CONTENT -->
+@section pagespecific {
+    <!-- PAGE RELATED PLUGIN(S) -->
+    <script src="/scripts/plugin/moment/moment.min.js"></script>
+    <script src="/scripts/plugin/fullcalendar/jquery.fullcalendar.min.js"></script>
+    <script src="/scripts/plugin/knob/jquery.knob.min.js"></script>
+    <script src="~/Scripts/mydigitclock/jquery.MyDigitClock.js"></script>
+
+
+    <script type="text/javascript">
+        function refreshTime(StartDate) {
+            var starTime = UtcToLocal(new Date(StartDate));
+            var nowTimne = new Date();
+            var allTime = nowTimne - starTime;
+            var leave1 = allTime % (3600 * 1000)    //计算天数后剩余的毫秒数
+            var hours = Math.floor(allTime / (3600 * 1000))
+            //计算相差分钟数
+            var leave2 = leave1 % (60 * 1000)        //计算小时数后剩余的毫秒数
+            var minutes = Math.floor(leave1 / (60 * 1000))
+            var seconds = Math.round(leave2 / 1000)
+            var newTime = pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
+            $('#TimeSheetPiece').html(newTime);
+            $('#TimeSheetStarDate').html(new Date(starTime).Format("yyyy-MM-dd"));
+        }
+
+        function autoTime(StartDate) {
+            var time = StartDate;
+            var sI = setInterval(function () { refreshTime(time); }, 1000);
+            return sI;
+        }
+
+        function timeShow(StartDate) {
+            $('#btn-reset').show()
+            $('#btn-in').hide()
+            $('#btn-out').show()
+            $('#TimeShow').show()
+            var sI = autoTime(StartDate);
+            $('#JobId').attr("disabled", "disabled");
+            $('#description').attr("disabled", "disabled");
+            $('#JobId').val('@((Model!=null)?Model.JobId:0)');
+            $('#description').val('@((Model!=null)?Model.Note:"")');
+
+            return sI
+        }
+        function timeHide(sI) {
+            $('#btn-in').show()
+            $('#TimeShow').hide()
+            $('#btn-reset').hide()
+            $('#btn-out').hide()
+            $('#JobId').attr("disabled", false);
+            $('#description').attr("disabled", false);
+            $('#JobId').val("");
+            $('#description').val("");
+            clearInterval(sI);
+        }
+
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+        $(document).ready(function () {
+            var StartDate = "@ViewBag.StartDate";
+            var sI;
+
+            if ("@ViewBag.StartDate" == 0) {
+                timeHide(sI);
+            } else {
+                refreshTime(StartDate);
+                sI = timeShow(StartDate);
+            }
+            $('#btn-in').click(function () {
+                var bootstrapValidator = $('#timecard-event-form').data('bootstrapValidator');
+                bootstrapValidator.validate();
+                if (bootstrapValidator.isValid()) {
+                    var par = $("#timecard-event-form").serializeArray();
+                    $.post("/Home/TimeIn", par, function (data) {
+                        if (data.code == "1") {
+                            StartDate = data.StartDate;
+                            refreshTime(StartDate);
+                            sI = timeShow(StartDate);
+                            $('#JobId').val(data.JobId);
+                            $('#description').val(data.Note);
+                        } else {
+                            ErrorBox(data.message);
+                        }
+                    })
+                }
+
+            })
+
+            $('#btn-reset').click(function () {
+                var par = $("#timecard-event-form").serializeArray();
+                $.post("/Home/TimeReset", par, function (data) {
+                    if (data.code == "1") {
+                        timeHide(sI);
+
+                    } else {
+                        ErrorBox(data.message);
+                    }
+                })
+            })
+
+            $('#btn-out').click(function () {
+                var par = $("#timecard-event-form").serializeArray();
+                $.post("/Home/TimeOut", par, function (data) {
+                    if (data.code == "1") {
+                        timeHide(sI);
+                        location.reload();
+                    } else {
+                        ErrorBox(data.message);
+                    }
+                })
+            })
+
+            $('#btn-time-delete').click(function () {
+                var Id = $('#TimeCard-Id').val();
+                $.post("/Home/TimeDelete", { Id: Id }, function (data) {
+                    if (data.code == "1") {
+                        $('#JobInfoModal').modal('hide');
+                        $('#calendar').fullCalendar('removeEvents', Id);
+                        SuccessBox('Delete Successfully!');
+                    } else {
+                        ErrorBox(data.message);
+                    }
+                })
+            })
+
+            "use strict";
+
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            var hdr = {
+                left: 'title',
+                center: 'month,agendaWeek,agendaDay',
+                right: 'prev,today,next'
+            };
+
+            /* initialize the external events
+             -----------------------------------------------------------------*/
+
+            $('#add-event').click(function () {
+                var title = $('#title').val(),
+                    priority = $('input:radio[name=priority]:checked').val(),
+                    description = $('#description').val(),
+                    icon = $('input:radio[name=iconselect]:checked').val();
+
+                //addEvent(title, priority, description, icon);
+            });
+
+            /* initialize the calendar
+             -----------------------------------------------------------------*/
+
+            $('#calendar').fullCalendar({
+
+                header: hdr,
+                buttonText: {
+                    prev: '<i class="fa fa-chevron-left"></i>',
+                    next: '<i class="fa fa-chevron-right"></i>'
+                },
+                timeFormat: 'H:mm',
+                slotMinutes: 15,
+                allDaySlot: false,
+                editable: false,
+                droppable: false, // this allows things to be dropped onto the calendar !!!
+
+                events: function (start, end, timezone, callback) {
+                    var CurrentDate = this.getDate().format('YYYY-MM');
+                    $.ajax({
+                        url: '/home/getTimeCalendar',
+                        dataType: 'json',
+                        data: {
+                            CurrentDate: CurrentDate,
+                        },
+                        success: function (json) { // 获取当前月的数据
+                            var events = [];
+                            if (json.length > 0) {
+                                $.each(json, function (i, c) {
+                                    var ic = 'fa-clock-o';
+                                    var className = ["event", "bg-color-blue"];
+                                    if (c.Paid) {
+                                        ic = 'fa-check';
+                                        className = ["event", "bg-color-greenLight"];
+                                    } else {
+                                        if (c.Locked) {
+                                            ic = 'fa-lock'
+                                            className = ["event", "bg-color-darken"];
+                                        } else {
+                                            if (c.TimeSheetType == 1) {
+                                                className = ["event", "bg-color-blue"];
+                                            } else if (c.TimeSheetType == 2) {
+                                                className = ["event", "bg-color-red"];
+                                            } else if (c.TimeSheetType == 3) {
+                                                className = ["event", "bg-color-orange"];
+                                            } else {
+                                                className = ["event", "bg-color-blueLight"];
+                                            }
+                                            ic = 'fa-clock-o'
+
+                                        }
+                                    }
+                                    events.push({
+                                        id: c.Id,
+                                        title: c.JobName,
+                                        start: new Date(UtcToLocal(new Date(c.StartDate))), // will be parsed
+                                        end: new Date(UtcToLocal(new Date(c.StopDate))),
+                                        description: 'Total: ' + c.TotalWorkTime + ' (Min)',
+                                        className: className,
+                                        icon: ic
+                                    });
+
+                                });
+                            }
+                            callback(events);
+                        }
+                    });
+                },
+                eventMouseover: function (event, jsEvent, view) {
+                    //event.className = ["event", "bg-color-blueLight"];
+                    //console.log(event)
+                },
+                eventClick: function (event, jsEvent, view) {
+                    var Id = event.id;
+                    $.post("/Home/TimeCard", { Id: Id }, function (data) {
+                        $('#TimeCard-JobName').html(data.JobName);
+                        $('#TimeCard-Date').html(data.Date);
+                        $('#TimeCard-Note').html(data.Note);
+                        if (data.Paid) {
+                            $('#TimeCard-Stu').html('<i class="fa fa-check"></i> Paid');
+                            $('#btn-time-delete').hide();
+                        } else {
+                            if (data.Locked) {
+                                $('#TimeCard-Stu').html('<i class="fa fa-lock"></i> Locked');
+                                $('#btn-time-delete').hide();
+                            } else {
+                                $('#TimeCard-Stu').html('');
+                                $('#btn-time-delete').show();
+                            }
+                        }
+                        $('#TimeCard-Id').val(Id);
+                        $('#TimeCard-StartTime').html(new Date(UtcToLocal(new Date(data.StartDate))).format("yyyy-MM-dd hh:mm:ss"));
+                        $('#TimeCard-StopTime').html(new Date(UtcToLocal(new Date(data.StopDate))).format("yyyy-MM-dd hh:mm:ss"));
+                        $('#TimeCard-TotalTime').html(data.TotalWorkTime + ' (minute)');
+                        if (date.TimeSheetType == 1) {
+                            $("input[name='TimeType']").eq(0).click();
+                        } else if (date.TimeSheetType == 2) {
+                            $("input[name='TimeType']").eq(1).click();
+                        } else if (date.TimeSheetType == 3) {
+                            $("input[name='TimeType']").eq(2).click();
+                        }
+
+                        $('#JobInfoModal').modal('show');
+                    })
+
+
+                    //$('#calendar').fullCalendar('removeEvents', event.id);
+                },
+
+                eventRender: function (event, element, icon) {
+                    if (!event.description == "") {
+                        element.find('.fc-event-title').append("<br/><span class='ultra-light'>" + event.description +
+                            "</span>");
+                    }
+                    if (!event.icon == "") {
+                        element.find('.fc-event-title').append("<i class='air air-top-right fa " + event.icon +
+                            " '></i>");
+                    }
+                },
+                selectHelper:true,
+                windowResize: function (event, ui) {
+                    $('#calendar').fullCalendar('render');
+                }
+            });
+
+            /* hide default buttons */
+            $('.fc-header-right, .fc-header-center').hide();
+
+
+            $('#calendar-buttons #btn-prev').click(function () {
+                $('.fc-button-prev').click();
+                return false;
+            });
+
+            $('#calendar-buttons #btn-next').click(function () {
+                $('.fc-button-next').click();
+                return false;
+            });
+
+            $('#calendar-buttons #btn-today').click(function () {
+                $('.fc-button-today').click();
+                return false;
+            });
+
+            $('#mt').click(function () {
+                $('#calendar').fullCalendar('changeView', 'month');
+            });
+
+            $('#ag').click(function () {
+                $('#calendar').fullCalendar('changeView', 'agendaWeek');
+            });
+
+            $('#td').click(function () {
+                $('#calendar').fullCalendar('changeView', 'agendaDay');
+            });
+
+
+            /*
+             * KNOB
+            */
+            $('.knob').knob({
+                change: function (value) {
+                    //console.log("change : " + value);
+                },
+                release: function (value) {
+                    //console.log(this.$.attr('value'));
+                    //console.log("release : " + value);
+                },
+                cancel: function () {
+                    //console.log("cancel : ", this);
+                }
+            });
+            /*
+            *MyDigitClock
+            */
+            $("#clock1").MyDigitClock({
+                fontSize: 38,
+                fontColor: "grey",
+                fontWeight: "bold",
+                background: "",
+                timezone: @ViewBag.TimeZone ,
+                bAmPm: true,
+
+            });
+
+        })
+
+    </script>
+}

@@ -1,0 +1,442 @@
+﻿@model IEnumerable<LivellPayRoll.Models.TimeSheet>
+@using LivellPayRoll.App_Helpers
+<!-- MAIN CONTENT -->
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-list-alt fa-bar-chart-o"></i>
+                TimeSheets<span>
+                    &gt;
+                    TimeSheet List
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+                        <h2>TimeSheet List</h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            <table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th class="x-y-center" data-hide="phone,tablet">Ord</th>
+                                        <th class="x-y-center" data-hide="phone,tablet">Project</th>
+                                        <th class="x-y-center"><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i> Start Time</th>
+                                        <th class="x-y-center"><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i> Stop Time</th>
+                                        <th class="x-y-center"><i class="fa fa-fw fa-clock-o text-muted hidden-md hidden-sm hidden-xs"></i> Total Time(M)</th>
+                                        <th class="x-y-center">Type</th>
+                                        <th class="x-y-center"><i class="fa fa-fw fa-dollar text-muted hidden-md hidden-sm hidden-xs"></i> Paid</th>
+                                        <th class="x-y-center"><i class="fa fa-fw fa-lock text-muted hidden-md hidden-sm hidden-xs"></i> Locked</th>
+                                        <th class="x-y-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var List in Model)
+                                    {
+                                        <tr>
+                                            <td class="x-y-center">@(Model.ToList().IndexOf(List) + 1)</td>
+                                            <td>@List.Job.JobName <br><small class='text-muted'><i>@List.Employee.FName @List.Employee.LName [@List.Employee.Email]</i></small></td>
+                                            <td class="x-y-center"><strong>@TimeHelper.GetLocalTime(List.StartDate, ViewBag.TimeZone).ToString()</strong></td>
+                                            <td class="x-y-center"><strong>@TimeHelper.GetLocalTime(List.StopDate, ViewBag.TimeZone).ToString()</strong> </td>
+                                            <td class="x-y-center">@List.TotalWorkTime</td>
+                                            <td class="x-y-center">@(((Dictionary<string, string>)ViewData["TypeDic"])[((List.TimeSheetType).ToString())])</td>
+                                            @if (@List.Paid)
+                                            {
+                                                <td class="x-y-center"><span class='label label-success'>● Paid</span></td> }
+                                            else
+                                            {
+                                                <td class="x-y-center"><span class='label label-default'>● Unpaid</span></td>}
+                                            @if (List.Locked)
+                                            {
+                                                <td class="x-y-center"><i class='fa fa-lock'></i> .<span class='onoffswitch'><input type='checkbox' name='Locked' data-timesheetId="@List.Id" class='onoffswitch-checkbox btn_locked' id='@List.Id' checked='checked'><label class='onoffswitch-label' for='@List.Id'><span class='onoffswitch-inner' data-swchon-text='ON' data-swchoff-text='OFF'></span><span class='onoffswitch-switch'></span></label></span></td>
+                                            }
+                                            else
+                                            {
+                                                <td class="x-y-center"><i class='fa fa-unlock-alt'></i> .<span class='onoffswitch'><input type='checkbox' name='Locked' data-timesheetId="@List.Id" class='onoffswitch-checkbox btn_locked' id='@List.Id'><label class='onoffswitch-label' for='@List.Id'><span class='onoffswitch-inner' data-swchon-text='ON' data-swchoff-text='OFF'></span><span class='onoffswitch-switch'></span></label></span></td>
+                                            }
+
+                                            <td class="x-y-center">
+                                                <a class="btn btn-primary btn-xs btn-delete time-action" id="@List.Id"  href="javascript:void(0);" @((List.Locked|| List.Paid) ?"disabled='disabled'":"")>Delete</a>
+
+                                                <a class="btn btn-primary btn-xs btn-edit time-action" id="@List.Id" href="javascript:void(0);" @((List.Locked|| List.Paid) ?"disabled='disabled'":"")>Edit</a>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+
+            </article>
+            <!-- WIDGET END -->
+
+        </div>
+        <!-- end row -->
+
+    </section>
+
+    <!-- ui-dialog -->
+    @{Html.RenderPartial("_TimeSheetForm"); }
+    <!-- ends ui-dialog -->
+    <!-- ui-dialog -->
+    @{Html.RenderPartial("_TimeSheetEdit"); }
+    <!-- ends ui-dialog -->
+</div>
+
+<!-- END MAIN CONTENT -->
+@section pagespecific {
+
+<script src="/scripts/plugin/clockpicker/clockpicker.min.js"></script>
+
+    <script type="text/javascript">
+
+        function GetTotalTime(StartDate, StartDateTime, StopDate, StopDateTime) {
+            var RoundTo=@ViewBag.RoundTo;
+            var fromDate = new Date(StartDate + " " + StartDateTime);
+            var toDate = new Date(StopDate + " " + StopDateTime);
+            var min = (toDate.getTime() - fromDate.getTime()) / (60 * 1000);
+            return Math.floor(min / RoundTo) * RoundTo;
+
+        }
+
+        $(document).ready(function () {
+
+            $.getJSON('@Url.Action("GetEmployee", "TimeSheet")', function (data) {
+                $('#EmployeeId').empty();
+                $('#EmployeeId').append($('<option></option>').val('').text('Please Select Employee.'));
+                $('#JobId').append($('<option></option>').val('').text('Please Select Job.'));
+                $.each(data, function(i, item) {
+                    $('#EmployeeId').append($('<option></option>').val(item.Value).text(item.Text));
+                });
+            });
+            $('#EmployeeId').change(function () {
+                var selectedEmployeeId = $.trim($('#EmployeeId option:selected').val());
+                if (selectedEmployeeId.length == 0) {
+                    $('#JobId').empty();
+                    $('#JobId').append($('<option></option>').val('').text('Please Select Job.'));
+                } else {
+                    $.getJSON('@Url.Action("GetJob", "TimeSheet")', { id: selectedEmployeeId }, function (data) {
+                        $('#JobId').empty();
+                        $('#JobId').append($('<option></option>').val('').text('Please Select Job.'));
+                        $.each(data, function (i, item) {
+                            $('#JobId').append($('<option></option>').val(item.Value).text(item.Text));
+                        });
+                    });
+                }
+
+            });
+
+
+        /* BASIC ;*/
+        var responsiveHelper_dt_basic = undefined;
+        var responsiveHelper_datatable_fixed_column = undefined;
+        var responsiveHelper_datatable_col_reorder = undefined;
+        var responsiveHelper_datatable_tabletools = undefined;
+        var breakpointDefinition = {
+            tablet: 1024,
+            phone: 480
+        };
+
+        /* TABLETOOLS */
+        $('#datatable_tabletools').dataTable({
+
+            // Tabletools options:
+            //   https://datatables.net/extensions/tabletools/button_options
+            "sDom": "<'dt-toolbar'<'col-xs-1 col-sm-1'<'Button_Add'>><'col-xs-6 col-sm-5'T><'col-sm-6 col-xs-6 hidden-xs'f>r>" +
+                    "t" +
+                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+
+            "oTableTools": {
+                "aButtons": [
+                "copy",
+                "csv",
+                "xls",
+                   {
+                       "sExtends": "pdf",
+                       "sTitle": "SmartAdmin_PDF",
+                       "sPdfMessage": "SmartAdmin PDF Export",
+                       "sPdfSize": "letter"
+                   },
+                   {
+                       "sExtends": "print",
+                       "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
+                   }
+                ],
+                "sSwfPath": "/Scripts/plugin/datatables/swf/copy_csv_xls_pdf.swf"
+            },
+            "autoWidth": true,
+            "preDrawCallback": function () {
+                // Initialize the responsive datatables helper once.
+                if (!responsiveHelper_datatable_tabletools) {
+                    responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#datatable_tabletools'), breakpointDefinition);
+                }
+            },
+            "rowCallback": function (nRow) {
+                responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
+            },
+            "drawCallback": function (oSettings) {
+                responsiveHelper_datatable_tabletools.respond();
+            }
+        });
+
+        $("div.Button_Add").html('<a class="btn btn-primary" data-toggle="modal" data-target="#TimeSheetModal"><i class="fa fa-plus"></i> Add</a> ');
+
+        if("@Request.Params["code"]"=="1"){
+            SuccessBox("@Request.Params["Message"]");
+        };
+
+        // START AND FINISH DATE
+        $('#StartDate').datepicker({
+            dateFormat: 'yy-mm-dd',
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onSelect: function (selectedDate) {
+                $('#StopDate').datepicker('option', 'minDate', selectedDate);
+            }
+        });
+
+        $('#StopDate').datepicker({
+            dateFormat: 'yy-mm-dd',
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onSelect: function (selectedDate) {
+                $('#StartDate').datepicker('option', 'maxDate', selectedDate);
+            }
+        });
+
+        $('#E-StartDate').datepicker({
+            dateFormat: 'yy-mm-dd',
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onSelect: function (selectedDate) {
+                $('#E-StopDate').datepicker('option', 'minDate', selectedDate);
+            }
+        });
+
+        $('#E-StopDate').datepicker({
+            dateFormat: 'yy-mm-dd',
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onSelect: function (selectedDate) {
+                $('#E-StartDate').datepicker('option', 'maxDate', selectedDate);
+            }
+        });
+
+
+        /* CLOCKPICKER*/
+        $('.clockpicker').clockpicker({
+            placement: 'top',
+            donetext: 'Done'
+        });
+            /* END TABLETOOLS */
+
+        $(".btn_locked").change(function (e) {
+            var id=$(this).attr('data-timesheetId');
+            var locked=$(this).prop("checked");
+            if(locked){
+                $(this).parent().parent().parent().find(".time-action").attr("disabled","disabled");
+            }else{
+                $(this).parent().parent().parent().find(".time-action").removeAttr("disabled");
+            }
+            $.post("/TimeSheet/Locked", { 'Id': id, 'Locked': locked }, function (data) {
+                if (locked) {
+                    $('#' + id).parent().parent().find("i").attr("class", "fa fa-lock")
+                } else {
+                    $('#' + id).parent().parent().find("i").attr("class", "fa fa-unlock-alt")
+                }
+                //location.reload();
+            })
+        })
+
+        $(".btn-delete").click(function () {
+            var Id = $(this).eq(0).attr('id')
+            AjaxDelete(
+                "Customer and jobs will be deleted,Do you want to continue this record?",
+                Id,
+                "/Timesheet/TimeDelete",
+                "The Timesheet been successfully Deleted",
+                "OpTable"
+                );
+        });
+
+        $(".btn-edit").click(function () {
+            $('#TimeSheet-Edit')[0].reset();
+            $('#TimeEditModal').modal()
+            var Id = $(this).eq(0).attr('id')
+            $.getJSON('@Url.Action("TimeDesc", "TimeSheet")',{ Id:Id }, function (data) {
+                var startdate=new Date(data.StartDate*1000);
+                $("#E-StartDate").val(startdate.Format("yyyy-MM-dd"));
+                $("#E-StartDateTime").val(startdate.Format("hh:mm"));
+                var stopdate=new Date(data.StopDate*1000);
+                $("#E-StopDate").val(stopdate.Format("yyyy-MM-dd"));
+                $("#E-StopDateTime").val(stopdate.Format("hh:mm"));
+                $("#E-TimeSheetType").val(data.TimeSheetType);
+                $("#E-TotalWorkTime").val(data.TotalWorkTime);
+                $("#E-Note").val(data.Note);
+                $("#E-Paid").attr("checked", (data.Paid) ? true : false);
+                $('#timeid').val(Id);
+                $('#leg-text').html('    '+data.Job+' ['+data.Employee+']');
+            });
+        });
+
+            $('#btn-timesheet-edit').click(function(){
+                var Id = $("#timeid").val();
+                var StartDate =  $("#E-StartDate").val();
+                var StartDateTime = $("#E-StartDateTime").val();
+                var StopDate = $("#E-StopDate").val();
+                var StopDateTime = $("#E-StopDateTime").val();
+                var TimeSheetType = $("#E-TimeSheetType").val();
+                var Paid = $("#E-Paid").prop("checked");
+                var Note = $("#E-Note").val();
+                var fromDate = new Date(StartDate + " " + StartDateTime).Format("yyyy-MM-dd hh:mm:ss");
+                var toDate = new Date(StopDate + " " + StopDateTime).Format("yyyy-MM-dd hh:mm:ss");
+                var par = {
+                    "Id": Id,
+                    "StartDate": fromDate,
+                    "StopDate": toDate,
+                    "TimeSheetType":TimeSheetType,
+                    "Paid": Paid,
+                    "Note": Note
+                }
+                $.post("/TimeSheet/EditTime", par, function (data) {
+                    if (data.status == "success") {
+                        SuccessBox("Time been successfully edited!");
+                        location.reload();
+                    } else {
+                        ErrorBox(data.message);
+                    }
+                })
+            })
+
+        /* Get Total Time */
+
+        $(".date-item").change(function () {
+            var StartDate = $("#TimeSheetModal input[name=StartDate]").val();
+            var StartDateTime = $("#TimeSheetModal input[name=StartDateTime]").val();
+            var StopDate = $("#TimeSheetModal input[name=StopDate]").val();
+            var StopDateTime = $("#TimeSheetModal input[name=StopDateTime]").val();
+            var sum = GetTotalTime(StartDate, StartDateTime, StopDate, StopDateTime);
+            $("#TimeSheetModal input[name=TotalWorkTime]").val(sum);
+        });
+
+        $(".e-date-item").change(function () {
+            var StartDate = $("#TimeEditModal input[name=StartDate]").val();
+            var StartDateTime = $("#TimeEditModal input[name=StartDateTime]").val();
+            var StopDate = $("#TimeEditModal input[name=StopDate]").val();
+            var StopDateTime = $("#TimeEditModal input[name=StopDateTime]").val();
+            var sum = GetTotalTime(StartDate, StartDateTime, StopDate, StopDateTime);
+            $("#TimeEditModal input[name=TotalWorkTime]").val(sum);
+        });
+        /* Btn-Add */
+        $("#btn-timesheet-add").click(function () {
+            var bootstrapValidator = $('#TimeSheet-Add').data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if (bootstrapValidator.isValid()) {
+                var EmployeeId = $("#EmployeeId").val();
+                var JobId = $("#JobId").val();
+                var StartDate = $("#TimeSheetModal input[name=StartDate]").val();
+                var StartDateTime = $("#TimeSheetModal input[name=StartDateTime]").val();
+                var StopDate = $("#TimeSheetModal input[name=StopDate]").val();
+                var StopDateTime = $("#TimeSheetModal input[name=StopDateTime]").val();
+                var TimeSheetType = $("#TimeSheetType").val();
+                var Paid = $("#Paid").prop("checked");
+                var Note = $("#TimeSheetModal textarea").val();
+                var fromDate = new Date(StartDate + " " + StartDateTime).Format("yyyy-MM-dd hh:mm:ss");
+                var toDate = new Date(StopDate + " " + StopDateTime).Format("yyyy-MM-dd hh:mm:ss");
+                //var fromDate = LocalToUtc(new Date(StartDate + " " + StartDateTime));
+                //var toDate = LocalToUtc(new Date(StopDate + " " + StopDateTime));
+
+                var par = {
+                    "EmployeeId": EmployeeId,
+                    "JobId": JobId,
+                    "StartDate": fromDate,
+                    "StopDate": toDate,
+                    "TimeSheetType":TimeSheetType,
+                    "Paid": Paid,
+                    "Note": Note
+                }
+
+                $.post("/TimeSheet/AddTime", par, function (data) {
+                    if (data.status == "success") {
+                        SuccessBox("Time been successfully added!");
+                        location.reload();
+                    } else {
+                        ErrorBox(data.message);
+                    }
+                })
+            }
+        });
+
+    })
+    </script>
+}

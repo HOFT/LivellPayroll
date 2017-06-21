@@ -1,0 +1,92 @@
+﻿@model CompleteRegistModel
+@{
+    ViewBag.PageId = "extr-page";
+}
+
+@section topright{
+
+}
+
+<div id="content" class="container">
+    <div class="row">
+        @*@{ Html.RenderPartial("_LoginText"); }*@
+        <div class="col-sm-6 col-sm-offset-3 form-box">
+            <div class="well">
+                <h3>
+                   <strong>Please Complete Regist</strong> 
+                    <br>
+                    <small> Admin Information</small>
+                </h3>
+                <form id="FormConfirmedEmail" action="@Url.Action("CompleteRegist", "account")" method="POST" class="form-horizontal login-form">
+                    @Html.HiddenFor(m => m.code)
+                    @Html.HiddenFor(m => m.Email)
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationBootstrap()
+                    <fieldset>
+                        @*<legend><span>@Model.CompanyName</span> — Admin</legend>*@
+
+                        <div class="form-group">
+                            <label>Name *</label>
+                            <div class="input-group">
+                                <input class="form-control" type="text" id="ContactName" name="ContactName" placeholder="Please enter admin name" maxlength="64" autocomplete="off">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            </div>
+                            <b class="tooltip tooltip-bottom-right">Needed to enter admin name</b>
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <div class="input-group">
+                                <input class="form-control" type="text" id="Email" name="eEmail" disabled="disabled" placeholder="Please enter admin email" Value="@Model.Email" maxlength="32" autocomplete="off">
+                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password *</label>
+                            <div class="input-group">
+                                <input class="form-control" type="password" id="Password" name="Password" placeholder="Password" maxlength="16" autocomplete="off">
+                                <span class="input-group-addon"><i class="fa fa-keyboard-o"></i></span>
+                            </div>
+                            <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+                        </div>
+                        <div class="form-group">
+                            <label>Comfirm Password *</label>
+                            <div class="input-group">
+                                <input class="form-control" type="password" id="PasswordConfirm" name="PasswordConfirm" placeholder="Confirm password" maxlength="16" autocomplete="off">
+                                <span class="input-group-addon"><i class="fa fa-keyboard-o"></i></span>
+                            </div>
+                            <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+                        </div>
+                    </fieldset>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-check"></i>
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </div>
+           
+
+              
+  
+            @*@{ Html.RenderPartial("_SocialMedia"); }*@
+        </div>
+    </div>
+</div>
+
+@{ Html.RenderPartial("_TermsAndConditions"); }
+
+@section pagespecific{
+    <script type="text/javascript">
+        // Model i agree button
+
+
+    </script>
+}

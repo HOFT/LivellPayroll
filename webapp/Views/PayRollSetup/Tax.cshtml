@@ -1,0 +1,163 @@
+﻿@model LivellPayRoll.Models.Company
+<!-- MAIN CONTENT -->
+<div id="content">
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-cog "></i>
+                Tax
+                <span>
+                    >
+                    Setup
+                </span>
+            </h1>
+        </div>
+
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- row -->
+    <div class="row">
+
+        <div class="col-sm-12">
+            <form id="TaxSetup" class="form-horizontal" action="/PayRollSetup/Tax" method="post">
+                <div class="well">
+
+                    <h1>Company Tax  <span class="semi-bold">Setting</span></h1>
+                    <div class="row">
+                        <!-- Left content -->
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <fieldset>
+                                <legend>Company Tax Setup</legend>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Employer Tax ID (EIN) *</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="FedTaxId" placeholder="Please Enter Employer Tax ID." type="text" data-mask="99-9999999" data-mask-placeholder="_" maxlength="32" value="@Model.FedTaxId">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">W3 Control Number</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="ControlNo" placeholder="Please Enter W3 Control Number." type="text" maxlength="64" value="@Model.ControlNo">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">W3 Establishment</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="Establish" placeholder="Please Enter W3 Establishment." type="text" maxlength="64" value="@Model.Establish">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Federal Unemployment Tax Rate</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input class="form-control" name="FUTA" placeholder="Please Enter Federal Unemployment Tax Rate." type="number" value="@Model.FUTA">
+                                            <span class="input-group-addon">.00%</span>
+                                        </div>
+                                        <p class="note">* Current FUTA Wage Limit Is $7,000.</p>
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+                        </div>
+
+                        <!-- Right content -->
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <fieldset>
+                                <legend>State Tax</legend>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">State ID:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="StateID" placeholder="Please Enter State ID." type="text" maxlength="64" value="@Model.StateID">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Unemployment Tax Rate</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input class="form-control" name="StateUnemWage" placeholder="Please Enter State Unemployment Tax Rate." type="number" value="@Model.StateUnemWage">
+                                            <span class="input-group-addon">.00%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Unemployment Tax Base Limit</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="SUTA" placeholder="State Unemployment Tax Base Limit." type="number" value="@Model.SUTA">
+                                        <p class="note">* Unemployment Taxable Wage Limit For This State Is ($):10200 (KY).</p>
+                                    </div>
+                                </div>
+
+
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary" id="SaveCustomer" type="submit">
+                                    <i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <!-- end row -->
+
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+@section pagespecific {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        })
+    </script>
+}

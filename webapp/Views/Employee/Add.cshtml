@@ -1,0 +1,212 @@
+﻿			<!-- MAIN CONTENT -->
+<div id="content">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-pencil-square-o fa-suitcase "></i> Employee <span>
+                    >
+                    Add Employee
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> Employees <a href="/employee/employeelist"><span class="txt-color-blue"><i class="fa fa-user"></i>&nbsp;@ViewData["EmployeeNum"]</span></a></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Jobs <span class="txt-color-purple"><i class="fa fa-suitcase" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;@ViewData["JobNum"]</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- row -->
+    <!--_EmployeeInfo:表单文件-->
+    @{Html.RenderPartial("_EmployeeForm"); }
+</div>
+<!-- END MAIN CONTENT -->
+
+
+@section pagespecific {
+    <!-- PAGE RELATED PLUGIN(S) -->
+    @*<script src="~/Scripts/plugin/bootstrapvalidator/bootstrapValidator.min.js"></script>
+    <link href="~/Content/css/bootstrapValidator.css" rel="stylesheet" />
+    <script src="/scripts/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+    *@
+    <script src="~/Scripts/plugin/fuelux/wizard/wizard.js"></script>
+    <script src="~/Scripts/plugin/Inputmask/inputmask.js"></script>
+    <script src="~/Scripts/plugin/Inputmask/jquery.inputmask.js"></script>
+
+    <script type="text/javascript">
+
+        function onF125(obj) {
+            if (obj.checked) {
+                $('#F102').removeAttr("disabled");
+            } else {
+                $('#F102').attr("disabled", "disabled");
+                $('#F102').val(0.00);
+            }
+        }
+
+        $(document).ready(function () {
+            @*$('#select_state').change(function () {
+                var StaId = $.trim($('#select_state option:selected').val());
+                if (StaId.length != 0) {
+                    $.getJSON('@Url.Action("StateTax", "Employee")', { StaId: StaId }, function (data) {
+                        $('#State_Tax_Titel').html(data.TitelCode);
+                        if (!data.F109) { $('#F109').hide(); console.log('F109') }
+                        if (!data.F110) { $('#F110').hide(); console.log('F110') }
+                        if (!data.F111) { $('#F111').hide(); console.log('F111') }
+                        if (!data.F112) { $('#F112').hide(); console.log('F112') }
+                        if (!data.F113) { $('#F113').hide(); console.log('F113') }
+                        if (!data.F120) { $('#F120').hide(); console.log('F120') }
+                        if (!data.F122) { $('#F122').hide(); console.log('F122') }
+                        $('#myWizard').wizard();
+                    })
+                }
+
+            });*@
+
+            $.getJSON('@Url.Action("GetJob", "Employee")', function (data) {
+                $('#DefaultJob').empty();
+                $('#DefaultJob').append($('<option></option>').val('').text('Default Job'));
+                $.each(data, function (i, item) {
+                    $('#DefaultJob').append($("<optgroup label='" + item.CustomerName + "'>"));
+                    $.each(item.Jobs, function (n, job) {
+                        $('#DefaultJob').append($('<option></option>').val(job.JobId).text(job.JobName));
+                    });
+                    $('#DefaultJob').append($('</optgroup>'));
+                });
+            });
+
+            $('#select_time_zone').val("@ViewBag.comTZ");
+            $('#select_state').val("@ViewBag.comSta");
+
+            $(":input").inputmask();
+
+            //$("#fuelux-wizard").submit(function (ev) { ev.preventDefault(); });
+            //    $("#btn-next").on("click", function(){
+            //    $('#fuelux-wizard').data('bootstrapValidator').validate();
+            //    if (!$('#fuelux-wizard').data('bootstrapValidator').isValid()) {
+            //        //$('#btn-next').attr("'class", "btn btn-sm btn-success");
+            //        return false;
+            //    }
+            //    });
+            var wizard = $('#myWizard').wizard();
+            $('#myWizard').wizard('removeSteps', 3, 2);
+            $(".employee_info_section input[name='isPayrollSetup']").click(function () {
+                if ($(this).is(':checked')) {
+                    $('#myWizard').wizard('addSteps', 3, [{ badge: '3', label: 'Payment/Deduction', pane: step_pane3 }, { badge: '4', label: 'Tax', pane: step_pane4 }]);
+                } else {
+                    $('#myWizard').wizard('removeSteps', 3, 2);
+                }
+            });
+
+            $('#myWizard').on('actionclicked.fu.wizard', function (evt, data) {
+                var step = $('.steps .active').attr('data-step');
+                if (data.direction == "next" && step <= 2) {
+                    var bootstrapValidator = $('#fuelux-wizard').data('bootstrapValidator');
+                    bootstrapValidator.validate();
+                    if (!bootstrapValidator.isValid()) {
+                        return false;
+                    }
+
+                    //$('#fuelux-wizard').data('bootstrapValidator').validate();
+                    //if (!$('#fuelux-wizard').data('bootstrapValidator').isValid()) {
+                    //    return false;
+                    //}
+                }
+                if (step == 3) {
+                    var StaId = $.trim($('#select_state option:selected').val());
+                    if (StaId.length != 0) {
+                        $.getJSON('@Url.Action("StateTax", "Employee")', { StaId: StaId }, function (data) {
+                            $('#State_Tax_Titel').html(data.TitelCode);
+                            $('#F109').show();
+                            $('#F110').show();
+                            $('#F111').show();
+                            $('#F112').show();
+                            $('#F113').show();
+                            $('#F120').show();
+                            $('#F122').show();
+                            if (!data.F109) { $('#F109').hide(); console.log('#F109') } else {
+                                if (data.TitelCode == 'NY') {
+                                    $('#select_f109').empty();
+                                    $('#select_f109').append($('<option></option>').val('').text('Please select county'));
+                                    $('#select_f109').append($('<option></option>').val("None").text("None"));
+                                    $('#select_f109').append($('<option></option>').val("NYC").text("NY City"));
+                                    $('#F109-Label').html('City');
+                                } else {
+                                    $.getJSON('@Url.Action("GetCounty", "Employee")', { StaCode: data.TitelCode }, function (data) {
+                                        $('#select_f109').empty();
+                                        $('#select_f109').append($('<option></option>').val('').text('Please select county'));
+                                        $.each(data, function (i, item) {
+                                            $('#filing_status').append($('<option></option>').val(item.Value).text(item.Text));
+                                        });
+                                    })
+                                    $('#F109-Label').html('County');
+                                }
+                            }
+                            if (!data.F110) { $('#F110').hide(); console.log('#F110') } else {
+                                $.getJSON('@Url.Action("FilingStatus", "Employee")', { StaCode: data.TitelCode }, function (data) {
+                                    $('#filing_status').empty();
+                                    $('#filing_status').append($('<option></option>').val('').text('Please select filing status'));
+                                    $.each(data, function (i, item) {
+                                        $('#filing_status').append($('<option></option>').val(item.Value).text(item.Text));
+                                    });
+                                })
+                            }
+                            if (!data.F111) { $('#F111').hide(); console.log('#F111') } else {
+                                $('#select_f111').empty();
+                                $('#select_f111').append($('<option></option>').val('').text('Please select residency status'));
+                                $('#select_f111').append($('<option></option>').val("R").text("Resident"));
+                                $('#select_f111').append($('<option></option>').val("N").text("Non Resident"));
+                            }
+                            if (!data.F112) { $('#F112').hide(); console.log('#F112') } else {
+                                if (data.text1 != "") {
+                                    $('#F112-Label').html(data.text1);
+                                } else {
+                                    $('#F112-Label').html('---');
+                                }
+                            }
+                            if (!data.F113) { $('#F113').hide(); console.log('#F113') } else {
+                                if (data.text2 != "") {
+                                    $('#F113-Label').html(data.text2);
+                                } else {
+                                    $('#F113-Label').html('---');
+                                }
+                            }
+                            if (!data.F120) { $('#F120').hide(); console.log('#F120') }
+                            if (!data.F122) { $('#F122').hide(); console.log('#F122') }
+                        })
+                    }
+                }
+            });
+
+            $('#myWizard').on('finished.fu.wizard', function (e, data) {
+                var par = $("#fuelux-wizard").serializeArray();
+                var JobId = $("#DefaultJob").val();
+                $.post("/Employee/Add", par, function (data) {
+                    var jsonDate = $.parseJSON(data)
+                    if (jsonDate.status == "success") {
+                        SuccessBox("Employee been successfully added");
+                        setTimeout(function () {
+                            window.location.href = "/Employee/EmployeeList"
+                        }, 800);
+                    } else {
+                        ErrorBox(jsonDate.message);
+                    }
+                })
+            });
+
+        })
+
+    </script>
+}

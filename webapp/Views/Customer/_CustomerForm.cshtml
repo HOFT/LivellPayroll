@@ -1,0 +1,122 @@
+﻿<section id="widget-grid" class="">
+
+    <!-- row -->
+    <div class="row">
+
+        <!-- NEW WIDGET START -->
+        <article class="col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false">
+                <!-- widget options:
+                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                data-widget-colorbutton="false"
+                data-widget-editbutton="false"
+                data-widget-togglebutton="false"
+                data-widget-deletebutton="false"
+                data-widget-fullscreenbutton="false"
+                data-widget-custombutton="false"
+                data-widget-collapsed="true"
+                data-widget-sortable="false"
+
+                -->
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-pencil"></i> </span>
+                    <h2>Add Customer @Html.Raw(ViewData["CustomerInfo"])</h2>
+
+                </header>
+
+                <!-- widget div-->
+                <div>
+                    <!-- widget content -->
+
+
+                    <form class="form-horizontal" id="CustomerForm" action="#" method="post">
+                        <fieldset>
+                            <legend> &nbsp;&nbsp;&nbsp;<strong>Customer  Info</strong> </legend>
+                            <input type="hidden" name="Id" value="0">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Name *</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" name="CustomerName" placeholder="Please Enter Customer Name" type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Attn *</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" name="Attn" placeholder="Please Enter Customer Attn" type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Telphone *</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" name="Telphone" data-mask="(999)-999-9999" data-mask-placeholder="_" placeholder="Please Enter Customer Telphone" type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Fax</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" name="Fax" placeholder="Please Enter Customer Fax" type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Email *</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" name="Email" placeholder="Please Enter Customer Email" type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Address</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" name="Address" placeholder="Please Enter Customer Address" type="text">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Remark</label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control" name="Remark" placeholder="Please Enter Remark" rows="4"></textarea>
+                                </div>
+                            </div>
+
+
+                        </fieldset>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a class="btn btn-default" href="/Customer/Customers">
+                                        Cancel
+                                    </a>
+                                    <button class="btn btn-primary" id="SaveCustomer" type="submit">
+                                        <i class="fa fa-save"></i>
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <!-- end widget content -->
+
+                </div>
+                <!-- end widget div -->
+
+            </div>
+            <!-- end widget -->
+
+        </article>
+        <!-- WIDGET END -->
+
+    </div>
+
+    <!-- end row -->
+
+
+</section>

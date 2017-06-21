@@ -1,0 +1,128 @@
+﻿<div class="modal fade" id="TimeSheetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form id="TimeSheet-Add" method="post" @*action="/TimeSheet/AddTime"*@>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-list-alt fa-pencil "></i>TimeSheet</h4>
+                    </div>
+                    <div class="modal-body">
+                        <fieldset class="">
+                            <legend class="">Sheet Object</legend>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label" for="EmployeeId">Employee *:</label>
+                                        <select class="form-control" id="EmployeeId" name="EmployeeId" data-bv-field="EmployeeId"><option value="">Please Select Employee.</option></select>
+                                    <small class="help-block" data-bv-validator="notEmpty" data-bv-for="EmployeeId" data-bv-result="VALID" style="display: none;">The Employee Is Required And Cannot Be Empty.</small></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label" for="JobId">Job *:</label>
+                                        <select class="form-control" id="JobId" name="JobId" data-bv-field="JobId"><option value="">Please Select Job.</option><option value="2">XIEXIENI</option></select>
+                                    <small class="help-block" data-bv-validator="notEmpty" data-bv-for="JobId" data-bv-result="VALID" style="display: none;">The Job Is Required And Cannot Be Empty.</small></div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="">
+                            <legend class="">Time Setting </legend>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>StartDate *:</label>
+                                        <div class="input-group">
+                                            <input type="text" name="StartDate" placeholder="Please Select Start Date" class="form-control date-item" id="StartDate">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    <small class="help-block" data-bv-validator="notEmpty" data-bv-for="StartDate" data-bv-result="NOT_VALIDATED" style="display: none;">The StartDate Is Required And Cannot Be Empty.</small></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Time *:</label>
+                                        <div class="input-group">
+                                            <input class="form-control clockpicker date-item" type="text" id="StartDateTime" name="StartDateTime" placeholder="Please Select Time" data-autoclose="true" data-bv-field="StartDateTime">
+                                            <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                        </div>
+                                    <small class="help-block" data-bv-validator="notEmpty" data-bv-for="StartDateTime" data-bv-result="NOT_VALIDATED" style="display: none;">The StartDate Time Is Required And Cannot Be Empty.</small></div>
+                                </div>
+                               
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>StopDate *:</label>
+                                        <div class="input-group">
+                                            <input type="text" name="StopDate" placeholder="Please Select Start Date" class="form-control date-item" id="StopDate">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    <small class="help-block" data-bv-validator="notEmpty" data-bv-for="StopDate" data-bv-result="NOT_VALIDATED" style="display: none;">The StopDate Is Required And Cannot Be Empty.</small></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Time *:</label>
+                                        <div class="input-group">
+                                            <input class="form-control clockpicker date-item" type="text" id="StopDateTime" name="StopDateTime" placeholder="Please Select Time" data-autoclose="true" data-bv-field="StopDateTime">
+                                            <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                        </div>
+                                    <small class="help-block" data-bv-validator="notEmpty" data-bv-for="StopDateTime" data-bv-result="NOT_VALIDATED" style="display: none;">The StopDate Time Is Required And Cannot Be Empty.</small></div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="TimeSheetType">Type *:</label>
+                                        <select class="form-control" id="TimeSheetType" name="TimeSheetType" data-bv-field="TimeSheetType"><option value="">Please Select TimeSheet Type</option>
+<option value="1">Regular Work</option>
+<option value="2">Sick Time</option>
+<option value="3">Vacation</option>
+</select>
+                                    <small class="help-block" data-bv-validator="notEmpty" data-bv-for="TimeSheetType" data-bv-result="NOT_VALIDATED" style="display: none;">The TimeSheet Type Is Required And Cannot Be Empty.</small></div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Total Time(Minutes. Paid Or Not ):</label>
+                                        <div class="input-group">
+                                            <input type="text" disabled="disabled" name="TotalWorkTime" placeholder="Please Select Time..." class="form-control" id="TotalWorkTime">
+                                            <span class="input-group-addon">
+                                                <span class="onoffswitch">
+                                                    <input type="checkbox" title="Is Paid" name="Paid" class="onoffswitch-checkbox" id="Paid">
+                                                    <label class="onoffswitch-label" for="Paid">
+                                                        <span class="onoffswitch-inner" data-swchon-text="Paid" data-swchoff-text="Not"></span>
+                                                        <span class="onoffswitch-switch"></span>
+                                                    </label>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Note:</label>
+                                        <textarea class="form-control" id="Note" name="Note" placeholder="Please Enter Time Note" rows="4" maxlength="512" data-bv-field="Note"></textarea>
+                                    <small class="help-block" data-bv-validator="stringLength" data-bv-for="Note" data-bv-result="NOT_VALIDATED" style="display: none;">Please enter a value with valid length</small></div>
+                                </div>
+                            </div>
+                            <p class="note">* The Total Time Current Minutes Round To <strong>15</strong>  Minutes.</p>
+                        </fieldset>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="button" id="btn-timesheet-add" class="btn btn-primary">
+                            Save
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+    </form>
+</div><!-- /.modal -->

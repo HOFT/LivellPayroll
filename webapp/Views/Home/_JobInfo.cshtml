@@ -1,0 +1,79 @@
+﻿<div class="modal fade" id="JobInfoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-clock-o "></i> Time Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="well well-sm">
+                            <h2 class="text-primary"><span id="TimeCard-JobName">System Desaing</span>      <small> —  <i class="fa fa-pencil"></i>. <cite title="Source Title" id="TimeCard-Date">2017-05-20</cite></small> <span class="badge bg-color-greenLight pull-right" id="TimeCard-Stu"><i class="fa fa-check"></i> Paid</span></h2>
+                        
+                        <div class="bs-example">
+                            <input type="hidden" id="TimeCard-Id" value="0">
+
+                            <div class="form-group">
+                                <label for="TimeCard-StartTime"><strong><i class="fa fa-history"></i>  Start Time:</strong></label>
+                                <div class="input-group">
+                                    <span class="fc-event-time txt-color-blue font-md" id="TimeCard-StartTime">2017-05-20 12:15:00</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="TimeCard-StopTime"><strong><i class="fa fa-history"></i> Stop Time:</strong></label>
+                                <div class="input-group">
+                                    <span class="fc-event-time txt-color-blue font-md" id="TimeCard-StopTime">2017-05-20 16:15:00</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="TimeCard-TotalTime"><strong><i class="fa fa-bell"></i> Total Work Time:</strong></label>
+                                <div class="input-group">
+                                    <span class="fc-event-time txt-color-blue font-md" id="TimeCard-TotalTime">400 (minute)</span>
+                                    <p class="note"><strong>Note:</strong> The Total Work Time Round To @ViewBag.RoundTo Minutes</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CustomerJob"><strong><i class="fa fa-check-circle-o"></i> Type:</strong></label>
+                                <div class="btn-group btn-group-justified btn-select-tick" data-toggle="buttons">
+                                    <label class="btn bg-color-blue active">
+                                        <input type="radio" name="TimeType" id="option1" value="bg-color-blue txt-color-white" checked>
+                                        <i class="fa fa-check txt-color-white">Regular Work</i>
+                                    </label>
+                                    <label class="btn bg-color-red">
+                                        <input type="radio" name="TimeType" id="option2" value="bg-color-red txt-color-white">
+                                        <i class="fa fa-check txt-color-white">Sick Time</i>
+                                    </label>
+                                    <label class="btn bg-color-orange">
+                                        <input type="radio" name="TimeType" id="option3" value="bg-color-orange txt-color-white">
+                                        <i class="fa fa-check txt-color-white">Vacation</i>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="CustomerJob"><strong><i class="fa fa-bookmark"></i> Time Note:</strong></label>
+                                    <p id="TimeCard-Note">The Total Work Time Round To  Minutes</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-time-delete" class="btn btn-danger">
+                        <i class="fa fa-trash-o"></i>
+                        Delete
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <i class="fa fa-times"></i>
+                        Cancel
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

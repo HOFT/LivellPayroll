@@ -1,0 +1,103 @@
+﻿<div class="modal fade" id="DeductionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form id="Deduction-update" class="form-horizontal" method="post" action="/Payrollsetup/DeductionUpdate">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-list-alt fa-wrench "></i> Deduction Details</h4>
+                </div>
+                <div class="modal-body">
+
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Description *</label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="Description" name="Description" placeholder="Please Enter Description." type="text" maxlength="64">
+                            </div>
+                        </div>
+                        <input type="hidden" name="Id" id="Id"  value="-1">
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Yearly Uplimit *</label>
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input class="form-control" id="AnnualLimit" name="AnnualLimit" placeholder="Please Enter Yearly Uplimit." type="number">
+                                    <span class="input-group-addon">.00</span>
+                                </div>
+                                <p class="note">* Note: $0 is no limit.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-9">
+                                <div class="checkbox">
+                                    <label for="PctofIncome">
+                                        <input type="checkbox" id="PctofIncome" name="PctofIncome">
+                                        Deduction in percentage of wages
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Exemptions</label>
+                            <div class="col-md-9">
+                                <div class="checkbox">
+                                    <label for="Taxable">
+                                        <input type="checkbox" id="Taxable" name="Taxable">
+                                        Exempt from Federal and State Income Tax
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label for="FICATaxable">
+                                        <input type="checkbox" id="FICATaxable" name="FICATaxable">
+                                        Exempt from FICA Tax
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">W2 Options</label>
+                            <div class="col-md-9">
+                                <div class="checkbox">
+                                    <label for="W2Box10">
+                                        <input type="checkbox" id="W2Box10" name="W2Box10">
+                                        Dependent Care Benefits (W2 Box 10)
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label for="W2Box12">
+                                        <input type="checkbox" id="W2Box12" name="W2Box12">
+                                        W2 Box 12
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">W2 Code</label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="W2Code" name="W2Code" placeholder="Please Enter W2 Code." type="text" maxlength="64">
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button type="submit" id="btn-save-deduction1" class="btn btn-primary">
+                        Save
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </form>
+</div><!-- /.modal -->
