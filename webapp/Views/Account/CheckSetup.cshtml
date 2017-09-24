@@ -1,0 +1,298 @@
+﻿@model LivellPayRoll.Models.T100
+<!-- MAIN CONTENT -->
+<div id="content">
+
+    <!-- row -->
+    <div class="row">
+
+        <div class="col-sm-12">
+                <div class="well">
+                    <form id="CheckSetup" class="form-horizontal" action="/Account/CheckSetup" method="post">
+                        <h1><i class="fa fa-cog "></i> Check <span class="semi-bold">Setup</span> Page<br /> <small> — You can set up check information </small></h1>
+                        @Html.HiddenFor(m => m.Id)
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationBootstrap()
+                        <hr />
+                        <div class="row">
+                            <p class="alert alert-info no-margin">
+                                <button class="close" data-dismiss="alert">
+                                    ×
+                                </button>
+                                ● Modify Offset Left/Right/Up/Down values is adjust the position of the check.
+                            </p>
+                            <div class="col-sm-12">
+                                <div class="form-group checkbox">
+                                    <label class="control-label"><input type="checkbox" class="mutex-boox" name="BlankBankStock" value=true @((Model.BlankBankStock) ? "checked=checked" : "")>Print on blank check stock</label>
+                                    <p class="note"><strong>Note:</strong> uncheck to use pre-printed check.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <!-- Left content -->
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <fieldset>
+                                            <legend>Bank Information</legend>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Bank Name </label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" name="BankName" placeholder="Please enter bank name." type="text" maxlength="128" value="@Model.BankName">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Information</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" name="BankInfo1" placeholder="Please enter information." type="text" maxlength="256" value="@Model.BankInfo1">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label"></label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" name="BankInfo2" placeholder="Please enter information." type="text" maxlength="256" value="@Model.BankInfo2">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label"></label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" name="BankInfo3" placeholder="Please enter information." type="text" maxlength="256" value="@Model.BankInfo3">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Transit Code</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" name="TransitCode" placeholder="Please enter transit code." type="text" maxlength="64" value="@Model.TransitCode">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Routiong Number</label>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon" style="font-family:MICRHALF">A</span>
+                                                        <input class="form-control" style="font-family:MICRHALF" name="BankRouteNo" placeholder="Please enter routiong number." type="text" data-inputmask="'mask': '999999999'" maxlength="18" value="@Model.BankRouteNo">
+                                                        <span class="input-group-addon" style="font-family:MICRHALF">A</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Bank Account</label>
+                                                <div class="col-md-8">
+
+                                                    <input class="form-control" style="font-family:MICRHALF" name="BankAccountNo" placeholder="Please enter bank account." type="text" data-inputmask="'mask': '9999999999'" maxlength="18" value="@Model.BankAccountNo">
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend>Check Information</legend>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Current Check No </label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" name="CurrentCheckNo" placeholder="Please enter current check number." type="text" maxlength="16" value="@ViewBag.CurrentCheckNo">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-md-5 control-label">Offset Left</label>
+                                                        <div class="col-md-7">
+                                                            <input class="form-control" name="OffsetLeft" placeholder="Please enter offset left." type="number" step="0.1" value="@Model.OffsetLeft">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-md-5 control-label">Offset Right</label>
+                                                        <div class="col-md-7">
+                                                            <input class="form-control" name="OffsetRight" placeholder="Please enter offset right." type="number" step="0.1" value="@Model.OffsetRight">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-md-5 control-label">Offset Up</label>
+                                                        <div class="col-md-7">
+                                                            <input class="form-control" name="OffsetUp" placeholder="Please enter offset up." type="number" step="0.1" value="@Model.OffsetUp">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label class="col-md-5 control-label">Offset Down</label>
+                                                        <div class="col-md-7">
+                                                            <input class="form-control" name="OffsetDown" placeholder="Please enter offset down." type="number" step="0.1" value="@Model.OffsetDown">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Check Position</label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" id="ExField1" name="ExField1">
+                                                        <option selected="selected">Top</option>
+                                                        <option>Middle</option>
+                                                        <option>Bottom</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+
+                                    <!-- Right content -->
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <img src="/Content/img/favicon/PayCode.png" width="100%" height="60" alt="invoice icon">
+                                        @*<fieldset>
+                                            <legend>Pay Number</legend>
+                                            <div class="col-sm-12 text-center font-md">
+                                                <strong style="font-family:MICRHALF">
+                                                    <span id="text-check">C000100813C</span>
+                                                    <span id="text-routing">A042000234A</span>
+                                                    <span id="text-account">0042000234C</span>
+                                                </strong>
+                                            </div>
+                                        </fieldset>*@
+                                        <fieldset>
+                                            <legend>MICR Font Equivalent</legend>
+                                            <div class="col-sm-3 text-center font-lg">
+                                                <strong>
+                                                    A = <span style="font-family:MICRHALF">A</span>
+                                                </strong>
+                                            </div>
+                                            <div class="col-sm-3 text-center font-lg">
+                                                <strong>
+                                                    B = <span style="font-family:MICRHALF">B</span>
+                                                </strong>
+                                            </div>
+                                            <div class="col-sm-3 text-center font-lg">
+                                                <strong>
+                                                    C = <span style="font-family:MICRHALF">C</span>
+                                                </strong>
+                                            </div>
+                                            <div class="col-sm-3 text-center font-lg">
+                                                <strong>
+                                                    D = <span style="font-family:MICRHALF">D</span>
+                                                </strong>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <legend>Images</legend>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Signature URL</label>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input class="form-control" name="Signature" placeholder="Please enter signature url." type="text" maxlength="256" value="@Model.Signature">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default checkview-btn" title="Check the Url" type="button">View</button>
+                                                        </span>
+                                                    </div>
+                                                    <p class="note"><strong>Note:</strong>Please use the web url, leave it blank if no signature image in user.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Logo URL</label>
+                                                <div class="col-md-8">
+                                                    <div class="input-group">
+                                                        <input class="form-control" name="Logo" placeholder="Please enter logo url." type="text" maxlength="256" value="@Model.Logo">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default checkview-btn" title="Check the Url" type="button">View</button>
+                                                        </span>
+                                                    </div>
+                                                    <p class="note"><strong>Note:</strong>Please use the web url, leave blank if no image.</p>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend>Company Information on Checks</legend>
+
+                                            <div class="form-group">
+                                                <div class="col-md-10 col-md-offset-1">
+                                                    <input class="form-control" name="Company1" placeholder="Please enter company information." type="text" maxlength="256" value="@Model.Company1">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-10 col-md-offset-1">
+                                                    <input class="form-control" name="Company2" placeholder="Please enter company information." type="text" maxlength="256" value="@Model.Company2">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-10 col-md-offset-1">
+                                                    <input class="form-control" name="Company3" placeholder="Please enter company information." type="text" maxlength="256" value="@Model.Company3">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-10 col-md-offset-1">
+                                                    <input class="form-control" name="Company4" placeholder="Please enter company information." type="text" maxlength="256" value="@Model.Company4">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend>Mask SSN Option</legend>
+                                            <div class="col-sm-12">
+                                                <div class="form-group checkbox">
+                                                    <label class="control-label"><input type="checkbox" class="mutex-boox" name="ExField2" value=true  @((Model.ExField2) ? "checked=checked" : "")>Mask SSN on Paycheck Stub</label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary" id="SaveCheckSetup" type="submit">
+                                        <i class="fa fa-save"></i>
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+    <!-- end row -->
+    <!-- ui-dialog -->
+    @{Html.RenderPartial("_PhotoView"); }
+    <!-- ends ui-dialog -->
+</div>
+<!-- END MAIN CONTENT -->
+
+@section pagespecific {
+    <script src="~/Scripts/plugin/Inputmask/inputmask.js"></script>
+    <script src="~/Scripts/plugin/Inputmask/jquery.inputmask.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(":input").inputmask();
+            $("#ExField1").val("@Model.ExField1")
+            $('.checkview-btn').click(function () {
+                var url = $(this).parent().parent().find("input").val();
+                console.log(url);
+                $('#PhotoViewModal img').attr("src", url);
+                $('#PhotoViewModal').modal();
+            });
+        });
+    </script>
+}

@@ -78,7 +78,7 @@
                                     <label class="col-md-4 control-label">Federal Unemployment Tax Rate</label>
                                     <div class="col-md-8">
                                         <div class="input-group">
-                                            <input class="form-control" name="FUTA" placeholder="Please Enter Federal Unemployment Tax Rate." type="number" value="@Model.FUTA">
+                                            <input class="form-control" name="FUTA" placeholder="Please Enter Federal Unemployment Tax Rate." type="number" step="0.01" value="@Model.FUTA">
                                             <span class="input-group-addon">.00%</span>
                                         </div>
                                         <p class="note">* Current FUTA Wage Limit Is $7,000.</p>
@@ -105,7 +105,7 @@
                                     <label class="col-md-4 control-label">Unemployment Tax Rate</label>
                                     <div class="col-md-8">
                                         <div class="input-group">
-                                            <input class="form-control" name="StateUnemWage" placeholder="Please Enter State Unemployment Tax Rate." type="number" value="@Model.StateUnemWage">
+                                            <input class="form-control" name="StateUnemWage" placeholder="Please Enter State Unemployment Tax Rate." type="number" step="0.01" value="@Model.StateUnemWage">
                                             <span class="input-group-addon">.00%</span>
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Unemployment Tax Base Limit</label>
                                     <div class="col-md-8">
-                                        <input class="form-control" name="SUTA" placeholder="State Unemployment Tax Base Limit." type="number" value="@Model.SUTA">
+                                        <input class="form-control" name="SUTA" placeholder="State Unemployment Tax Base Limit." type="number" step="0.01" value="@Model.SUTA">
                                         <p class="note">* Unemployment Taxable Wage Limit For This State Is ($):10200 (KY).</p>
                                     </div>
                                 </div>

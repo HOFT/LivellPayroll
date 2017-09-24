@@ -6,8 +6,8 @@
     <div class="row">
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
-                <i class="fa fa-file-text "></i>
-                PayRoll
+                <i class="fa fa-history"></i>
+                Payroll
                 <span>
                     >
                     Input
@@ -42,10 +42,10 @@
     <!-- row -->
     <div class="row">
         <div class="col-sm-12 col-md-12">
-            <form id="PayRollInput" class="form-horizontal" action="/PayRoll/PayRollInput" method="post">
+            <form id="PayRollInput" class="form-horizontal" @*action="/PayRoll/PayRollInput" method="post"*@>
                 <div class="well">
 
-                    <h1><i class="fa fa-history"></i> PayRoll  <span class="semi-bold">Input</span></h1>
+                    <h1><i class="fa fa-history"></i> Payroll  <span class="semi-bold">Input</span></h1>
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <fieldset>
@@ -54,33 +54,33 @@
                                 <div class="row">
                                     <div class="col-sm-4 col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Employee:</label>
-                                            <div class="col-md-9">
+                                            <label class="col-md-4 control-label">Employee:</label>
+                                            <div class="col-md-8">
                                                 <select class="form-control" id="cboEmployees" name="cboEmployees"></select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">SSN:</label>
-                                            <label class="col-md-9 control-label"><span class="pull-left txt-color-blue" id="txtSSN" name="txtSSN"><strong>999-99-9999</strong>  </span></label>
+                                            <label class="col-md-4 control-label">SSN:</label>
+                                            <label class="col-md-8 control-label"><strong><span class="pull-left txt-color-blue" id="txtSSN" name="txtSSN">000-00-0000</span></strong></label>
 
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Pay Period:</label>
-                                            <label class="col-md-9 control-label"><span class="pull-left txt-color-blue"><strong>@ViewBag.Period</strong>  </span></label>
+                                            <label class="col-md-4 control-label">Pay Period:</label>
+                                            <label class="col-md-8 control-label"><strong><span class="pull-left txt-color-blue" id="txtPayperiodDesc">@ViewBag.Period</span></strong></label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-4 col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Pay Start:</label>
-                                            <div class="col-md-9">
+                                            <label class="col-md-4 control-label">Pay Start:</label>
+                                            <div class="col-md-8">
                                                 <div class="input-group">
-                                                    <input type="text" id="dtpStartDate" name="dtpStartDate" placeholder="Please select pay start date." class="form-control">
+                                                    <input type="text" id="dtpStartDate" name="dtpStartDate" placeholder="Please select pay start date" class="form-control">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
@@ -88,10 +88,10 @@
                                     </div>
                                     <div class="col-sm-4 col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Pay End:</label>
-                                            <div class="col-md-9">
+                                            <label class="col-md-4 control-label">Pay End:</label>
+                                            <div class="col-md-8">
                                                 <div class="input-group">
-                                                    <input type="text" id="dtpEndDate" name="dtpEndDate" placeholder="Please select pay end date." class="form-control">
+                                                    <input type="text" id="dtpEndDate" name="dtpEndDate" placeholder="Please select pay end date" class="form-control">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
@@ -99,10 +99,10 @@
                                     </div>
                                     <div class="col-sm-4 col-md-4">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Pay Date:</label>
-                                            <div class="col-md-9 ">
+                                            <label class="col-md-4 control-label">Pay Date:</label>
+                                            <div class="col-md-8 ">
                                                 <div class="input-group">
-                                                    <input type="text" id="dtpPayrollDate" name="dtpPayrollDate" placeholder="Please select pay date." class="form-control datepicker" data-dateformat="yy-mm-dd">
+                                                    <input type="text" id="dtpPayrollDate" name="dtpPayrollDate" placeholder="Please select pay date" class="form-control datepicker" data-dateformat="yy-mm-dd">
                                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
@@ -157,7 +157,7 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="lbSalary">Salary</span>
+                                                <span id="lbSalary">Yealy Salary</span>
                                             </div>
                                         </div>
                                     </div>
@@ -188,7 +188,7 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="txtPaySalaryYTD">0.00</span>
+                                                <span id="txtPaySalaryYTD" class="">0.00</span>
                                             </div>
                                         </div>
                                     </div>
@@ -217,7 +217,10 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                                    <input type="number" id="txtHrsRegular" name="txtHrsRegular" placeholder="0.00" class="form-control">
+                                                    <input type="number" id="txtHrsRegular" name="txtHrsRegular" placeholder="0.00" class="form-control IncomeHoursValue">
+                                                    <span class="input-group-btn">
+                                                        <a class="btn btn-default link-btn" title="Link Times" data-link-type="txtHrsRegular"><i class="fa fa-globe"></i></a>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -261,7 +264,10 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                                    <input type="number" id="txtHrsOT" name="txtHrsOT" placeholder="0.00" class="form-control">
+                                                    <input type="number" id="txtHrsOT" name="txtHrsOT" placeholder="0.00" class="form-control IncomeHoursValue">
+                                                    <span class="input-group-btn">
+                                                        <a class="btn btn-default link-btn" title="Link Times" data-link-type="txtHrsOT"><i class="fa fa-globe"></i></a>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -282,11 +288,11 @@
                                     </div>
                                 </div>
 
-                                <div class="row" id="DivVacationRate">
+                                <div class="row" id="DivF1002">
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="lbVacationHourly">Night Shift Addl</span>
+                                                <span id="lbDoubleHourly">Double Hourly Pay</span>
                                             </div>
                                         </div>
                                     </div>
@@ -295,7 +301,7 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                                    <input type="number" id="txtPayHourlyVacation" name="txtOTMultiplier" placeholder="0.00" class="form-control">
+                                                    <input type="number" id="txtDoublePayHourly" name="txtDoublePayHourly" placeholder="0.00" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -305,7 +311,10 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                                    <input type="number" id="txtHrsVacation" name="txtHrsOT" placeholder="0.00" class="form-control">
+                                                    <input type="number" id="txtHrsDT" name="txtHrsDT" placeholder="0.00" class="form-control IncomeHoursValue">
+                                                    <span class="input-group-btn">
+                                                        <a class="btn btn-default link-btn" title="Link Times" data-link-type="txtHrsDT"><i class="fa fa-globe"></i></a>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -313,14 +322,14 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="txtPayVacation">0.00</span>
+                                                <span id="txtPayDT">0.00</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="txtPayVacationYTD">0.00</span>
+                                                <span id="txtPayDTYTD">0.00</span>
                                             </div>
                                         </div>
                                     </div>
@@ -330,7 +339,7 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="lbSickHourly">Holiday Addl</span>
+                                                <span id="lbSickHourly">Holiday Add</span>
                                             </div>
                                         </div>
                                     </div>
@@ -339,7 +348,7 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                                    <input type="number" id="txtPayHourlySick" name="txtOTMultiplier" placeholder="0.00" class="form-control">
+                                                    <input type="number" id="txtPayHourlySick" name="txtPayHourlySick" placeholder="0.00" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -349,7 +358,10 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                                    <input type="number" id="txtHrsSick" name="txtHrsOT" placeholder="0.00" class="form-control">
+                                                    <input type="number" id="txtHrsSick" name="txtHrsSick" placeholder="0.00" class="form-control IncomeHoursValue">
+                                                    <span class="input-group-btn">
+                                                        <a class="btn btn-default link-btn" title="Link Times" data-link-type="txtHrsSick"><i class="fa fa-globe"></i></a>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -370,7 +382,54 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" id="DivVacationRate">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbVacationHourly">Night Shift Add</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtPayHourlyVacation" name="txtOTMultiplier" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtHrsVacation" name="txtHrsVacation" placeholder="0.00" class="form-control IncomeHoursValue">
+                                                    <span class="input-group-btn">
+                                                        <a class="btn btn-default link-btn" title="Link Times" data-link-type="txtHrsVacation"><i class="fa fa-globe"></i></a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPayVacation">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtPayVacationYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Bonus-->
+                                <div class="row additionRow" id="DivS1251">
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
@@ -397,7 +456,7 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                                    <input type="number" id="txtUDPay1Val" name="txtHrsOT" placeholder="0.00" class="form-control">
+                                                    <input type="number" id="txtUDPay1Val" name="txtUDPay1Val" placeholder="0.00" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -410,8 +469,8 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
+                                <!--Director Fee-->
+                                <div class="row additionRow" id="DivS1251">
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
@@ -438,7 +497,7 @@
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                                    <input type="number" id="txtUDPay2Val" name="txtHrsOT" placeholder="0.00" class="form-control">
+                                                    <input type="number" id="txtUDPay2Val" name="txtUDPay2Val" placeholder="0.00" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -447,6 +506,170 @@
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
                                                 <span id="txtUDPay2ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Tips-->
+                                <div class="row additionRow" id="DivS1253">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUDPay3Desc">Tips</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label33"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label18"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUDPay3Val" name="txtUDPay3Val" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUDPay3ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Wage1-->
+                                <div class="row additionRow" id="DivS1254">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUDPay4Desc">Wage1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label34"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label19"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUDPay4Val" name="txtUDPay4Val" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUDPay4ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Wage1-->
+                                <div class="row additionRow" id="DivS1255">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbUDPay5Desc">Wage1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label35"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label20"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtUDPay5Val" name="txtUDPay5Val" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtUDPay5ValYTD">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Advance EIC-->
+                                <div class="row additionRow" id="AdvanceEIC" hidden="hidden">
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="lbAdvanceEIC">Advance EIC</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label36"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="label39"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <input type="number" id="txtAdvanceEIC" name="txtAdvanceEIC" placeholder="0.00" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5ths col-md-5ths text-left">
+                                        <div class="col-md-10 col-sm-offset-1">
+                                            <div class="form-group">
+                                                <span id="txtAdvanceEICYTD">0.00</span>
                                             </div>
                                         </div>
                                     </div>
@@ -472,7 +695,7 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span><strong>Annual Limits</strong>  </span>
+                                                <span><strong>Annual Limits($)</strong>  </span>
                                             </div>
                                         </div>
                                     </div>
@@ -513,7 +736,7 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="label23">0.00</span>
+                                                <span id="label23" class="annual_limits_value">0.00</span>
                                             </div>
                                         </div>
                                     </div>
@@ -545,8 +768,8 @@
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
                                                     <input type="number" id="txtUD2Input" name="txtUD2Input" placeholder="0.00" class="form-control">
+                                                    <span class="input-group-addon"><strong>%</strong></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -554,7 +777,7 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="label24"></span>
+                                                <span id="label24" class="annual_limits_value"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -586,8 +809,8 @@
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
                                                     <input type="number" id="txtUD3Input" name="txtUD3Input" placeholder="0.00" class="form-control">
+                                                    <span class="input-group-addon"><strong>%</strong></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -595,7 +818,7 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="label25">0.00</span>
+                                                <span id="label25" class="annual_limits_value">0.00</span>
                                             </div>
                                         </div>
                                     </div>
@@ -636,7 +859,7 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="label26"></span>
+                                                <span id="label26" class="annual_limits_value"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -677,7 +900,7 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="label27"></span>
+                                                <span id="label27" class="annual_limits_value"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -718,7 +941,7 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="label43"></span>
+                                                <span id="label43" class="annual_limits_value"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -759,7 +982,7 @@
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
-                                                <span id="label47">0.00</span>
+                                                <span id="label47" class="annual_limits_value">0.00</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1325,7 +1548,7 @@
                                 <div class="form-group">
                                     <label class="col-md-1 control-label">Memo:</label>
                                     <div class="col-md-11">
-                                        <textarea id="txtMemo" class="form-control" placeholder="Please entry memo." rows="4" maxlength="256"></textarea>
+                                        <textarea id="txtMemo" class="form-control" placeholder="Please entry memo." rows="4" maxlength="256">Pay check</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1338,11 +1561,11 @@
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-12">
-                                <button class="btn btn-default" id="btnCalculate" type="button">
+                                <button type="button" class="btn btn-default" id="btnCalculate">
                                     <i class="fa fa-refresh"></i>
                                     Calculate Payroll
                                 </button>
-                                <button class="btn btn-primary" id="btnSaveCheck" type="button">
+                                <button type="button" class="btn btn-primary" id="btnSaveCheck" >
                                     <i class="fa fa-save"></i>
                                     Save
                                 </button>
@@ -1368,24 +1591,193 @@
 @section pagespecific {
 
     <script type="text/javascript">
+        function CalculatRefurbish() {
+            var EmployeeId = $('#cboEmployees').val();
+            var dtpStartDate = $('#dtpStartDate').val();
+            var dtpEndDate = $('#dtpEndDate').val();
+            var dtpPayrollDate = $('#dtpPayrollDate').val();
+            if (EmployeeId == "" || EmployeeId == null) {
+                WarningBox("The employee is required and cannot be empty!");
+                return false;
+            };
+            if (dtpStartDate == "" || dtpEndDate == "") {
+                WarningBox("The pay start or pay end is required and cannot be empty!");
+                return false;
+            };
+            var txtSalaryAnnual = $('#txtSalaryAnnual').val();
+            var txtPayHourly = $('#txtPayHourly').val();
+            var txtDoublePayHourly = $('#txtDoublePayHourly').val();
+            var txtHrsRegular = $('#txtHrsRegular').val();
+            var txtHrsDT = $('#txtHrsDT').val();
+            var txtOTMultiplier = $('#txtOTMultiplier').val();
+            var txtPayHourlyVacation = $('#txtPayHourlyVacation').val();
+            var txtPayHourlySick = $('#txtPayHourlySick').val();
+            var txtHrsOT = $('#txtHrsOT').val();
+            var txtIncomeTax = $('#txtIncomeTax').text();
+            var txtSStax = $('#txtSStax').text();
+            var txtMedicareTax = $('#txtMedicareTax').text();
+            var txtStateIncomeTax = $('#txtStateIncomeTax').text();
+            var txtLocalTax = $('#txtLocalTax').val();
+            var txtEmployerSocialSecurity = $('#txtEmployerSocialSecurity').text();
+            var txtEmployerMedicare = $('#txtEmployerMedicare').text();
+            var txtEmployerFedUnemployment = $('#txtEmployerFedUnemployment').text();
+            var txtEmployerStateUnemployment = $('#txtEmployerStateUnemployment').text();
+            var txtAdvanceEIC = $('#txtAdvanceEIC').val();
+            var txtHrsVacation = $('#txtHrsVacation').val();
+            var txtHrsSick = $('#txtHrsSick').val();
+            var txtUDPay1Val = $('#txtUDPay1Val').val();
+            var txtUDPay2Val = $('#txtUDPay2Val').val();
+            var txtUDPay3Val = $('#txtUDPay3Val').val();
+            var txtUDPay4Val = $('#txtUDPay4Val').val();
+            var txtUDPay5Val = $('#txtUDPay5Val').val();
+            var txtUD1Input = $('#txtUD1Input').val();
+            var txtUD2Input = $('#txtUD2Input').val();
+            var txtUD3Input = $('#txtUD3Input').val();
+            var txtUD4Input = $('#txtUD4Input').val();
+            var txtUD5Input = $('#txtUD5Input').val();
+            var txtUD6Input = $('#txtUD6Input').val();
+            var txtUD7Input = $('#txtUD7Input').val();
+            var txtMemo = $('#txtMemo').val();
+
+            var par = {
+                DateStartPeriod:dtpStartDate,
+                DateEndPeriod:dtpEndDate,
+                DateSubmitted:dtpPayrollDate,
+                CheckNo:0,
+                EmpId: EmployeeId,
+                F102: txtSalaryAnnual,
+                F1002: txtDoublePayHourly,
+                F100: txtPayHourly,
+                S100: txtHrsRegular,
+                S1002: txtHrsDT,
+                F101: txtOTMultiplier,
+                VacationRate: txtPayHourlyVacation,
+                SickRate: txtPayHourlySick,
+                S101: txtHrsOT,
+                S111: txtIncomeTax,
+                S109: txtSStax,
+                S110: txtMedicareTax,
+                S112: txtStateIncomeTax,
+                S113: txtLocalTax,
+                EmployerSocialSecurity: txtEmployerSocialSecurity,
+                EmployerMedicare: txtEmployerMedicare,
+                S114: txtEmployerFedUnemployment,
+                S115: txtEmployerStateUnemployment,
+                AdvanceEIC: txtAdvanceEIC,
+                S102: txtHrsVacation,
+                S103: txtHrsSick,
+                S1261: txtUDPay1Val,
+                S1262: txtUDPay2Val,
+                S1263: txtUDPay3Val,
+                S1264: txtUDPay4Val,
+                S1265: txtUDPay5Val,
+                F1231: txtUD1Input,
+                F1232: txtUD2Input,
+                F1233: txtUD3Input,
+                F1234: txtUD4Input,
+                F1235: txtUD5Input,
+                F1236: txtUD6Input,
+                F1237: txtUD7Input,
+                Memo: txtMemo
+            };
+
+            return (par)
+
+        };
+        function PayrollInputSave(par) {
+            $.ajax({
+                async: false,
+                type: 'POST',
+                url: "/PayRoll/PayrollInputSave",
+                data: par,
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == 'success') {
+                        for (var key in data.dicValue) {
+                            var tag = $('#' + key).get(0).tagName;
+                            if (tag == "INPUT") {
+                                $('#' + key).val(data.dicValue[key]);
+                            } else {
+                                $('#' + key).text(data.dicValue[key]);
+                            };
+                        };
+                        SuccessBox("The Payroll Information save successfully!");
+                    } else {
+                        ErrorBox(data.message);
+                    };
+                }
+
+            });
+
+            //$.post("/PayRoll/PayrollInputSave", par, function (data) {
+            //    if (data.status == 'success') {
+            //        for (var key in data.dicValue) {
+            //            var tag = $('#' + key).get(0).tagName;
+            //            if (tag == "INPUT") {
+            //                $('#' + key).val(data.dicValue[key]);
+            //            } else {
+            //                $('#' + key).text(data.dicValue[key]);
+            //            };
+            //        };
+            //        SuccessBox("The Payroll Information save successfully!");
+            //        return false;
+            //    } else {
+            //        ErrorBox(data.message);
+            //        return false;
+            //    };
+
+            //});
+        };
+
+        function GetIncomeHous(EmployeeId,StartDate,EndDate) {
+            if (EmployeeId != "" && StartDate != "" && EndDate != "") {
+                $.post("/PayRoll/GetIncomeHous", { EmpId: EmployeeId, StartDate: StartDate, EndDate: EndDate }, function (data) {
+                    $.each(data, function (i, item) {
+                        $('#' + i).val(item);
+                        shake($('#' + i), "BlinkColor", 2);
+                    });
+                });
+            } else {
+                $('.IncomeHoursValue').val("");
+            }
+        };
+
         $(document).ready(function () {
+            //$(".additionRow").hide();
+
+            $.getJSON('@Url.Action("GetDeductions", "PayRoll")', function (data) {
+                $.each(data, function (i, e) {
+                    $('#DivF123' + e.ItemId + ' .annual_limits_value').html((e.AnnualLimit));
+                });
+            });
+
             $.getJSON('@Url.Action("GetEmployee", "PayRoll")', function (data) {
                 $('#cboEmployees').empty();
-                $('#cboEmployees').append($('<option></option>').val('').text('Please select employee.'));
+                $('#cboEmployees').append($('<option></option>').val('').text('Please select employee'));
                 $.each(data, function (i, item) {
                     $('#cboEmployees').append($('<option></option>').val(item.Value).text(item.Text));
                 });
             });
 
             $.getJSON('@Url.Action("PayRollShow", "PayRoll")', function (data) {
-                $.each(data, function (i, item) {
-                    if (!item) {
-                        $('#Div' + i).hide();
-                    }
-                    
-                    console.log(i);
-                    console.log(item);
+                $.each(data.t102, function (i, item) {
+                    if (!item.Enabled) {
+                        $('#Div' + item.CodeMap).hide();
+                        $('#Div' + item.CodeMap + ' span').eq(0).text(item.Description);
+                        }
                 });
+                $.each(data.t201, function (i, item) {
+                    if (!item.Enabled) {
+                        $('#Div' + item.CodeMap).hide();
+                        $('#Div' + item.CodeMap + ' span').eq(0).text(item.Description);
+                    }
+                });
+                //$.each(data, function (i, item) {
+                //    if (!item) {
+                //        $('#Div' + i).hide();
+                //    }
+                    
+                //});
             });
 
             $('#dtpStartDate').datepicker({
@@ -1394,6 +1786,11 @@
                 nextText: '<i class="fa fa-chevron-right"></i>',
                 onSelect: function (selectedDate) {
                     $('#dtpEndDate').datepicker('option', 'minDate', selectedDate);
+
+                    var EmpId = $('#cboEmployees').val();
+                    var StartDate = $('#dtpStartDate').val();
+                    var EndDate = $('#dtpEndDate').val();
+                    GetIncomeHous(EmpId, StartDate, EndDate);
                 }
             });
 
@@ -1403,14 +1800,123 @@
                 nextText: '<i class="fa fa-chevron-right"></i>',
                 onSelect: function (selectedDate) {
                     $('#dtpStartDate').datepicker('option', 'maxDate', selectedDate);
+
+                    var EmpId = $('#cboEmployees').val();
+                    var StartDate = $('#dtpStartDate').val();
+                    var EndDate = $('#dtpEndDate').val();
+                    GetIncomeHous(EmpId, StartDate, EndDate);
                 }
             });
 
 
             $('#cboEmployees').change(function () {
-                var EmpId = $.trim($('#cboEmployees option:selected').val());
-                console.log(EmpId);
-            })
+                var EmpId = $(this).children('option:selected').val();
+                var StartDate = $('#dtpStartDate').val();
+                var EndDate = $('#dtpEndDate').val();
+                $.post("/PayRoll/GetEmpDes", { EmpId: EmpId }, function (data) {
+                    for (var key in data.dicVisible) {
+                        if (!data.dicVisible[key]) {
+                            $('#' + key).parent().hide();
+                        };
+
+                    };
+                    for (var key in data.dicValue) {//遍历dicValue json对象的每个key/value对,p为key
+                        var tag = $('#' + key).get(0).tagName;
+                        if (tag == "INPUT") {
+                            $('#' + key).val(data.dicValue[key]);
+                        } else {
+                            $('#' + key).text(data.dicValue[key]);
+                        };
+                        if (key == "dtpStartDate") {
+                            StartDate = data.dicValue[key]
+                        };
+                        if (key == "dtpEndDate") {
+                            EndDate = data.dicValue[key]
+                        };
+                    };
+                    //GetIncomeHous(EmpId, StartDate, EndDate);
+
+                });
+
+            });
+
+            $('#btnCalculate').click(function () {
+                var par = CalculatRefurbish();
+                if (!par) { return; };
+                $.post("/PayRoll/Calculate", par, function (data) {
+                    if (data.status == 'success') {
+                        for (var key in data.dicValue) {
+                            var tag = $('#' + key).get(0).tagName;
+                            if (tag == "INPUT") {
+                                $('#' + key).val(data.dicValue[key]);
+                            } else {
+                                $('#' + key).text(data.dicValue[key]);
+                            }
+                        };
+                        
+                    };
+                });
+            });
+
+            $('#btnSaveCheck').click(function () {
+                var par = CalculatRefurbish();
+                if (!par) { return; };
+
+                if (par.EmpId == null || par.DateStartPeriod == null || par.DateEndPeriod == null) {
+                    ErrorBox("Please check whether the employee, time interval is input!");
+                    return;
+                };
+                //var CheckNo = 0;
+                //par["CheckNo"] = CheckNo;
+                $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: "/PayRoll/PayrollInputSaveCheck",
+                    data: par,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 2) {
+                            ErrorBox(data.message);
+                            return;
+                        } else if (data.code == 3) {
+                            $.SmartMessageBox({
+                                title: "Plese Confirmation !",
+                                content: data.message,
+                                buttons: '[No][Yes]'
+                            }, function (ButtonPressed) {
+                                if (ButtonPressed === "Yes") {
+                                    PayrollInputSave(par);
+                                };
+                                if (ButtonPressed === "No") {
+                                    return;
+                                };
+
+                            });
+                        } else if (data.code == 1) {
+                            PayrollInputSave(par);
+                        } else {
+                            ErrorBox("Error!");
+                        };
+                    }
+
+                });
+            });
+
+            $('.link-btn').click(function () {
+                var TimeType = $(this).attr("data-link-type");
+                var EmpId = $('#cboEmployees').val();
+                var StartDate = $('#dtpStartDate').val();
+                var EndDate = $('#dtpEndDate').val();
+                if (typeof (EmpId) == "undefined"|| StartDate == "" || EndDate == "") {
+                    ErrorBox("Please check whether the employee, time interval is input!");
+                    return;
+                };
+                $.post("/PayRoll/GetIncomeHous", { EmpId: EmpId, StartDate: StartDate, EndDate: EndDate }, function (data) {
+                    $('#' + TimeType).val(data[TimeType]);
+                    shake($('#' + TimeType), "BlinkColor", 2);
+                    SuccessBox("The total hours is " + data[TimeType]);
+                });
+            });
 
         })
 

@@ -1,0 +1,93 @@
+﻿<div class="modal fade" id="PTOModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-list-alt fa-pencil "></i> Add Paid Time Off and Paid Vacation</h4>
+            </div>
+            <div class="Warning-Item"></div>
+            <div class="modal-body">
+                <form id="PTO-Add" class="form-horizontal" method="post">
+                    <fieldset class="">
+                        <p class="alert alert-info">Manual Input Paid Time Off (PTO) and Paid Vacation</p>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Employee</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="EmployeeId" name="EmployeeId" disabled="disabled"><option value="">Please select employee</option></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Date</label>
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <input type="text" name="Date" placeholder="Please Select Start Date" id="Date" class="form-control datepicker" data-dateformat="yy-mm-dd">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Type</label>
+                            <div class="col-md-10">
+                                <div class="btn-group" id="Type" name="Type">
+                                    <label class="radio radio-inline">
+                                        <input type="radio" class="radiobox" name="Type" value=1 checked="checked">
+                                        <span>Paid Time Off (PTO)</span>
+                                    </label>
+                                    <label class="radio radio-inline">
+                                        <input type="radio" class="radiobox" name="Type" value=2>
+                                        <span>Paid Vacation</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Usage</label>
+                            <div class="col-md-10">
+                                <div class="btn-group" id="Usage" name="Usage">
+                                    <label class="radio radio-inline">
+                                        <input type="radio" class="radiobox" name="Usage" value="1" checked="checked">
+                                        <span>Use Time</span>
+                                    </label>
+                                    <label class="radio radio-inline">
+                                        <input type="radio" class="radiobox" name="Usage" value="-1">
+                                        <span>Manual Add Time</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Paid Hours</label>
+                            <div class="col-md-10">
+                                <input class="form-control" id="Hours" name="Hours" step="0.1" placeholder="0" type="number">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Memo</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control" name="Memo" id="Memo" rows="3" maxlength="512"></textarea>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" id="btn-PTO-add" class="btn btn-primary">
+                    Save
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

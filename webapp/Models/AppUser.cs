@@ -20,9 +20,9 @@ namespace LivellPayRoll.Models
         public string TimeZone { get; set; }
         [StringLength(256)]
         public string PayRollUser { get; set; }
+        public DateTime LastLoginDate { get; set; }
         public virtual ICollection<Employee> Employee { get; set; }
         public virtual ICollection<TimeSheetLog> TimeSheetLog { get; set; }
-        [Required]
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
 

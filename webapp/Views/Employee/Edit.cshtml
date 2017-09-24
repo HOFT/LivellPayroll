@@ -52,6 +52,10 @@
                 $('#F102').attr("disabled","disabled");
                 $('#F102').val(0.00);
             }
+        };
+
+        function copyob1toob2(){
+            document.all["CopyValue_F1002"].value = (document.all["CopyValue_F100"].value)*2;
         }
 
         $(document).ready(function () {
@@ -106,6 +110,7 @@
             }
             $("input[name='F102']").val("@Model.F102")
             $("input[name='F100']").val("@Model.F100")
+            $("input[name='F1002']").val("@Model.F1002")
             $("input[name='F101']").val("@Model.F101")
             $("input[name='SickRate']").val("@Model.SickRate")
             $("input[name='VacationRate']").val("@Model.VacationRate")
@@ -158,6 +163,15 @@
             }else{
                 $("input[name='F118']").removeAttr("checked");
             };
+            $("input[name='UserRole']").attr("disabled","true");
+            $("input[name='UserRole'][value='@Model.UserRole']").attr("checked",true).removeAttr("disabled");
+            if("@Model.UserRole"!="Admin"){
+                $("input[name='UserRole'][value='Employee']").removeAttr("disabled");
+                if("@ViewBag.UserRole"=="Admin"){
+                    $("input[name='UserRole'][value='Manager']").removeAttr("disabled");
+                }
+            }
+
 
             var wizard = $('#myWizard').wizard();
             $('#myWizard').wizard('removeSteps', 3, 2);
@@ -169,6 +183,8 @@
                 }
             });
 
+            var F110View = false;
+            var F111View = false;
             $('#myWizard').on('actionclicked.fu.wizard', function (evt, data) {
                 var step = $('.steps .active').attr('data-step');
                 if (data.direction == "next" && step <= 2) {
@@ -181,9 +197,10 @@
 
                 if (step == 3) {
                     var StaId = $.trim($('#select_state option:selected').val());
-                    console.log('StaId:'+StaId)
                     if (StaId.length != 0) {
                         $.getJSON('@Url.Action("StateTax", "Employee")', { StaId: StaId }, function (data) {
+                            F110View = data.F110;
+                            F111View = data.F111;
                             $('#State_Tax_Titel').html(data.TitelCode);
                             $('#F109').show();
                             $('#F110').show();
@@ -263,6 +280,22 @@
                         $("#input_f112").val("@Model.F112");
                         $("#input_f113").val("@Model.F113");*@
                     }
+                };
+                if (data.direction == "next" && step == 4) {
+                    if (F110View) {
+                        var F110 = $('#filing_status').val();
+                        if (F110 == "") {
+                            WarningBox("The filing status is required and cannot be empty");
+                            return false;
+                        }
+                    };
+                    if (F111View) {
+                        var F111 = $('#select_f111').val();
+                        if (F111 == "") {
+                            WarningBox("The residency status is required and cannot be empty");
+                            return false;
+                        }
+                    };
                 }
             });
 
@@ -273,13 +306,18 @@
 
             $('#myWizard').on('finished.fu.wizard', function (e, data) {
                 var par = $("#fuelux-wizard").serializeArray();
+                console.log(par);
                 $.post("/Employee/Edit", par, function (data) {
                     var jsonDate = $.parseJSON(data)
                     console.log(jsonDate.status);
                     if (jsonDate.status == "success") {
                         SuccessBox("Employee been successfully edited");
+                        var href = "/Employee/EmployeeList";
+                        if(jsonDate.code==2){
+                            href = "@Url.Action("login", "account")";
+                        }
                         setTimeout(function () {
-                            window.location.href = "/Employee/EmployeeList"
+                            window.location.href = href
                         }, 800);
                         //window.location.href = "/Employee/EmployeeList"
                     } else {
@@ -288,6 +326,16 @@
                 })
             });
 
+            //$('#F125').click(function(){
+            //    console.log($('#F125').prop('checked'));
+            //    if($('#F125').prop('checked')){
+            //        $('#F102').removeAttr("disabled");
+            //    }else{
+            //        $('#F102').attr("disabled","disabled");
+            //        $('#F102').val(0.00);
+            //    };
+
+            //});
         })
 
 </script>

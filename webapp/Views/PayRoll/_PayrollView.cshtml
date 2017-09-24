@@ -1,0 +1,291 @@
+﻿<div class="modal fade" id="PayrollViewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-paperclip"></span> Payroll Data Input</h4>
+            </div>
+            <div class="modal-body">
+                <div class="padding-1">
+
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <img src="/Content/img/favicon/favicon.png" width="60" height="60" alt="invoice icon">
+                                </div>
+                                <div class="col-sm-10">
+                                    <h1 class="name">
+                                        <strong>
+                                            <span id="EmployeeName">Hoya.Xie</span>
+                                        </strong>
+                                        <br />
+                                        <small><span id="txtSSN">000-00-0000</span></small>
+                                    </h1>
+                                </div>
+                            </div>
+
+                            @*<img src="/Content/img/favicon/favicon.png" width="48" height="48" alt="invoice icon">*@
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <div>
+                                            <div>
+                                                <strong>Pay Period :</strong>
+                                                <span id="dtpPayrollDate"> 15/02/13 </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <strong>Pay Start :</strong>
+                                                <span id="dtpStartDate"> 15/02/13 </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <strong>Pay End :</strong>
+                                                <span id="dtpEndDate"> 16/02/13 </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <strong>Pay Period :</strong>
+                                                <span id="txtPayperiodDesc"> Weekly </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <img id="QRCodePath" data-QRValue="" src="" width="80" height="80" alt="invoice icon">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            @*<br>
+                            <div class="col-sm-12">
+                                <div class="well well-sm  bg-color-darken txt-color-white no-border" style="margin-bottom: 0px;">
+
+                                        <strong>
+                                            Hoya.Xie
+                                        </strong>
+                                        111-11-111
+                                </div>
+                            </div>*@
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <fieldset>
+                                <legend>Incomes And Deductions</legend>
+                                <table class="table table-hover" id="TabIncomes">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-4">Income</th>
+                                            <th class="col-md-3">Rate($)</th>
+                                            <th class="col-md-3">Hours</th>
+                                            <th class="col-md-2">Amount($)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*<tr>
+                                            <td><strong>Salary</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Regular Hourly Pay</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Overtime Hourly Pay</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                        </tr>*@
+                                    </tbody>
+                                </table>
+
+                                <table class="table table-hover" id="TabDeductions">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-4">Deductions</th>
+                                            <th class="col-md-3">Input</th>
+                                            <th class="col-md-3">Annual Limits($)</th>
+                                            <th class="col-md-2">Amount($)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*<tr>
+                                            <td><strong>Health Insurance ($)</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>401K (%)</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>SDI (State Disablility) (%)</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                         </tr>*@
+
+                                    </tbody>
+                                </table>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <fieldset>
+                                <legend>Taxes</legend>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-8">Items</th>
+                                            <th class="col-md-4">Amount($)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Federal Tax</strong></td>
+                                            <td><span class="txt-color-blue" id="txtIncomeTax">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Employee Social Security</strong></td>
+                                            <td><span class="txt-color-blue" id="txtSStax">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Employee Medicare</strong></td>
+                                            <td><span class="txt-color-blue" id="txtMedicareTax">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>State Tax</strong></td>
+                                            <td><span class="txt-color-blue" id="txtStateIncomeTax">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Local Tax</strong></td>
+                                            <td><span class="txt-color-blue" id="txtLocalTax">0.00</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <fieldset>
+                                <legend>Employer Tax</legend>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-8">Items</th>
+                                            <th class="col-md-4">Amount($)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Employer Social Security</strong></td>
+                                            <td><span class="txt-color-blue" id="txtEmployerSocialSecurity">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Employer Medicare</strong></td>
+                                            <td><span class="txt-color-blue" id="txtEmployerMedicare">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Employer Fed Unemployment</strong></td>
+                                            <td><span class="txt-color-blue" id="txtEmployerFedUnemployment">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Employer State Unemployment</strong></td>
+                                            <td><span class="txt-color-blue" id="txtEmployerStateUnemployment">0.00</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <fieldset>
+                                <legend>Summary</legend>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-9">Items</th>
+                                            <th class="col-md-3">Amount($)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Gross Income</strong></td>
+                                            <td><span class="txt-color-blue" id="txtTotalIncome">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Taxable Income</strong></td>
+                                            <td><span class="txt-color-blue" id="lbTotalTaxableIncome">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>FICA Taxable Income</strong></td>
+                                            <td><span class="txt-color-blue" id="lbFICATaxableIncome">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total Employee Tax</strong></td>
+                                            <td><span class="txt-color-blue" id="txtTotalTax">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total Employer Tax</strong></td>
+                                            <td><span class="txt-color-blue" id="lbTotalEmployerTax">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total Deduction</strong></td>
+                                            <td><span class="txt-color-blue" id="txtTotalDeduction">0.00</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Net Pay</strong></td>
+                                            <td><span class="txt-color-blue" id="lbNetPay">0.00</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Memo:</label>
+                                <div class="col-md-11">
+                                    <textarea id="txtMemo" class="form-control" placeholder="Please entry memo." rows="4" maxlength="256"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" id="btnSaveMemo" class="btn btn-primary">
+                    Save
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

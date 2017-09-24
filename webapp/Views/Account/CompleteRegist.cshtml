@@ -10,53 +10,98 @@
 <div id="content" class="container">
     <div class="row">
         @*@{ Html.RenderPartial("_LoginText"); }*@
+        @{ Html.RenderPartial("_LoginBackground"); }
         <div class="col-sm-6 col-sm-offset-3 form-box">
             <div class="well">
-                <h3>
-                   <strong>Please Complete Regist</strong> 
-                    <br>
-                    <small> Admin Information</small>
-                </h3>
-                <form id="FormConfirmedEmail" action="@Url.Action("CompleteRegist", "account")" method="POST" class="form-horizontal login-form">
-                    @Html.HiddenFor(m => m.code)
-                    @Html.HiddenFor(m => m.Email)
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationBootstrap()
-                    <fieldset>
-                        @*<legend><span>@Model.CompanyName</span> — Admin</legend>*@
 
-                        <div class="form-group">
-                            <label>Name *</label>
-                            <div class="input-group">
-                                <input class="form-control" type="text" id="ContactName" name="ContactName" placeholder="Please enter admin name" maxlength="64" autocomplete="off">
-                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <form id="FormConfirmedEmail" action="@Url.Action("CompleteRegist", "account")" method="POST" class="login-form">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                            <header>
+                                <h3>
+                                    <strong>Please Complete Regist</strong>
+                                    <br>
+                                    <small> Admin Information</small>
+                                </h3>
+                            </header>
+                            @Html.HiddenFor(m => m.code)
+                            @Html.HiddenFor(m => m.Email)
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationBootstrap()
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <fieldset>
+                                    @*<legend><span>@Model.CompanyName</span> — Admin</legend>*@
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>First Name *</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="FName" name="FName" placeholder="Please enter admin first name" maxlength="64" autocomplete="off">
+                                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Last Name *</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" id="LName" name="LName" placeholder="Please enter admin last name" maxlength="64" autocomplete="off">
+                                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                            <div class="form-group">
+                                                <label>SSN *</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" id="SSN" name="SSN" placeholder="Please enter admin SSN" data-inputmask="'mask': '999-99-9999'" maxlength="16" autocomplete="off">
+                                                    <span class="input-group-addon"><i class="fa fa-slack"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                                            <div class="form-group">
+                                                <label>Telephone *</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" id="Telephone" name="Telephone" placeholder="Please enter admin telephone number" data-inputmask="'mask': '(999)-999-9999'" maxlength="16" autocomplete="off">
+                                                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Email *</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="text" id="Email" name="eEmail" disabled="disabled" placeholder="Please enter admin email" Value="@Model.Email" maxlength="32" autocomplete="off">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password *</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="password" id="Password" name="Password" placeholder="Password" maxlength="16" autocomplete="off">
+                                            <span class="input-group-addon"><i class="fa fa-keyboard-o"></i></span>
+                                        </div>
+                                        <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Comfirm Password *</label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="password" id="PasswordConfirm" name="PasswordConfirm" placeholder="Confirm password" maxlength="16" autocomplete="off">
+                                            <span class="input-group-addon"><i class="fa fa-keyboard-o"></i></span>
+                                        </div>
+                                        <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
+                                    </div>
+                                </fieldset>
                             </div>
-                            <b class="tooltip tooltip-bottom-right">Needed to enter admin name</b>
                         </div>
-                        <div class="form-group">
-                            <label>Email *</label>
-                            <div class="input-group">
-                                <input class="form-control" type="text" id="Email" name="eEmail" disabled="disabled" placeholder="Please enter admin email" Value="@Model.Email" maxlength="32" autocomplete="off">
-                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Password *</label>
-                            <div class="input-group">
-                                <input class="form-control" type="password" id="Password" name="Password" placeholder="Password" maxlength="16" autocomplete="off">
-                                <span class="input-group-addon"><i class="fa fa-keyboard-o"></i></span>
-                            </div>
-                            <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
-                        </div>
-                        <div class="form-group">
-                            <label>Comfirm Password *</label>
-                            <div class="input-group">
-                                <input class="form-control" type="password" id="PasswordConfirm" name="PasswordConfirm" placeholder="Confirm password" maxlength="16" autocomplete="off">
-                                <span class="input-group-addon"><i class="fa fa-keyboard-o"></i></span>
-                            </div>
-                            <b class="tooltip tooltip-bottom-right">Don't forget your password</b>
-                        </div>
-                    </fieldset>
+                    </div>
+
+
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-12">
@@ -81,11 +126,14 @@
     </div>
 </div>
 
-@{ Html.RenderPartial("_TermsAndConditions"); }
-
 @section pagespecific{
+<script src="~/Scripts/plugin/Inputmask/inputmask.js"></script>
+<script src="~/Scripts/plugin/Inputmask/jquery.inputmask.js"></script>
     <script type="text/javascript">
-        // Model i agree button
+        $(document).ready(function () {
+            $(":input").inputmask();
+        });
+        
 
 
     </script>

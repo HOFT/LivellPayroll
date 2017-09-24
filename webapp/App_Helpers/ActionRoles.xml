@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Roles>
+  <Controller name="Home">
+    R01,R02,R03
+  </Controller>
+  <Controller name="Employee">
+      R01,R02
+  </Controller>
+  <Controller name="Customer">
+    R01,R02
+  </Controller>
+  <Controller name="TimeSheet">
+    <Action name="SheetList">R01,R02</Action>
+    <Action name="AddTime">R01,R02</Action>
+    <Action name="EditTime">R01,R02</Action>
+    <Action name="Locked">R01,R02</Action>
+    <Action name="TimeDelete">R01,R02</Action>
+    <Action name="SheetSetup">R01</Action>
+  </Controller>
+  <Controller name="Reports">
+    <Action name="EmployeeReport">R01,R02,R03</Action>
+    <Action name="EmployerReport">R01,R02</Action>
+    <Action name="EmployeeSummary">R01,R02</Action>
+    <Action name="EmployeeDetail">R01,R02</Action>
+    <Action name="EmployeePTO">R01,R02</Action>
+  </Controller>
+  <Controller name="PayRoll">
+     <Action name="PayRollList">R01,R02</Action>
+     <Action name="PayRollDelete">R01,R02</Action>
+     <Action name="PayRollInput">R01,R02</Action>
+  </Controller>
+  <Controller name="PayRollSetup">
+     R01
+  </Controller>
+  <Controller name="Managers">
+    R01
+  </Controller>
+  <Controller name="Account">
+    <Action name="GeneralSet">R01,R02,R03</Action>
+    <Action name="CheckSetup">R01</Action>
+    <Action name="PasswordSet">R01,R02,R03</Action>
+  </Controller>
+  <Controller name="System">
+    <Action name="UserControl">R00</Action>
+  </Controller>
+  <Controller name="Help">
+    <Action name="Collect">R01,R02,R03,R00</Action>
+  </Controller>
+</Roles>

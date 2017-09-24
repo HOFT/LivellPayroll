@@ -19,11 +19,13 @@ using LivellPayRoll.Enum;
 using System.Net;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security;
+using System.Web.Script.Serialization;
 #endregion
 
 namespace LivellPayRoll.Controllers
 {
     [Authorize]
+    [CustomAuthorize]
     public class AccountController : Controller
     {
         // TODO: This should be moved to the constructor of the controller in combination with a DependencyResolver setup
@@ -57,19 +59,25 @@ namespace LivellPayRoll.Controllers
             string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
             //code = HttpUtility.UrlEncode(code);
             var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code, Nt= TimeHelper.ConvertDateTimeInt(DateTime.UtcNow) }, protocol: Request.Url.Scheme);
-            await UserManager.SendEmailAsync(
-                user.Id,
-               "Password Reset – Livell PayRoll (" + user.Email + ")",
-               "Dear LivellPayRoll Customer:<br><br> Please resetting your password by clicking <a href=\"" + callbackUrl + "\">link</a><br><br> —The LivellPayRoll Team");
+            
+            string EmailBody = "Please resetting your password by clicking.";
+            string EmailLink = "Please resetting your password by clicking.<a href=\""+ callbackUrl + "\">Click it! &raquo;</a>";
+            string strbody = ReplaceText( EmailBody, EmailLink);
+            await UserManager.SendEmailAsync(user.Id, "Password Reset – Livell PayRoll (" + user.Email + ")", strbody);
 
-            return View(viewModel);
+            //await UserManager.SendEmailAsync(
+            //    user.Id,
+            //   "Password Reset – Livell PayRoll (" + user.Email + ")",
+            //   "Dear LivellPayRoll Customer:<br><br> Please resetting your password by clicking <a href=\"" + callbackUrl + "\">link</a><br><br> —The LivellPayRoll Team");
+            ViewBag.ReceiveEmail = user.Email;
+            return View("WaitEmail");
         }
         [AllowAnonymous]
         public ActionResult ResetPassword(string userId, string code, string Nt) {
             //链接过期
             double timeInt = Convert.ToDouble(Nt);
             if (timeInt + 3 * 3600 <= TimeHelper.ConvertDateTimeInt(DateTime.UtcNow)|| timeInt > TimeHelper.ConvertDateTimeInt(DateTime.UtcNow) || timeInt == 0) {
-                return RedirectToLocal();
+                return RedirectToAction("Error404","Account",new { ErrorMessage = "Link Has Expired" } );
             }
             EnsureLoggedOut();
             //HttpContext.User = new GenericPrincipal(new GenericIdentity(string.Empty), null);
@@ -125,16 +133,22 @@ namespace LivellPayRoll.Controllers
             var user = await UserManager.FindByEmailAsync(viewModel.Email);
             if (user != null)
             {
-                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
-                {
-                    return RedirectToAction("ConfirmedEmail","Account",  new { Email= user.Email });
-                }
+                Logout();
                 var result = await ApplicationSignInManager.PasswordSignInAsync(user.UserName, viewModel.Password, viewModel.RememberMe, shouldLockout: false);
                 switch (result)
                 {
                     case SignInStatus.Success:
-                        SignCookieAsync(user);
-                        return RedirectToLocal(ReturnUrl);
+                        {
+                            if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                            {
+                                return RedirectToAction("ConfirmedEmail", "Account", new { Email = user.Email });
+                            }
+                            user.LastLoginDate = DateTime.UtcNow;
+                            await UserManager.UpdateAsync(user);
+                            SignCookieAsync(user);
+                            return RedirectToLocal(ReturnUrl);
+
+                        }
                     case SignInStatus.LockedOut:
                         return View("Lockout");
                     case SignInStatus.RequiresVerification:
@@ -166,10 +180,11 @@ namespace LivellPayRoll.Controllers
         public ActionResult Register()
         {
             // We do not want to use any existing identity information
-            Dictionary<string, object> StaList = EnumHelper.EnumListDic<States>("", "");
-            ViewBag.StatesList = new SelectList(StaList, "value", "key");
-            Dictionary<string, object> TZList = TimeZones.DicTimeZones();
-            ViewBag.TimeZone = new SelectList(TZList, "value", "key");
+            Dictionary<string, string> StaList = EnumHelper.GetEnumItemDesc(typeof(States));
+            ViewBag.StatesList = new SelectList(StaList, "key", "value");
+            //Dictionary<string, object> StaList = EnumHelper.EnumListDic<States>("", "");
+            //ViewBag.StatesList = new SelectList(StaList, "value", "key");
+            ViewBag.TimeZone = SelectHelper.TimeZoneToSelect(db);
 
             EnsureLoggedOut();
             return View(new AccountRegistrationModel());
@@ -182,16 +197,15 @@ namespace LivellPayRoll.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(AccountRegistrationModel viewModel)
         {
-            Dictionary<string, object> StaList = EnumHelper.EnumListDic<States>("", "");
-            ViewBag.StatesList = new SelectList(StaList, "value", "key");
-            Dictionary<string, object> TZList = TimeZones.DicTimeZones();
-            ViewBag.TimeZone = new SelectList(TZList, "value", "key");
+            Dictionary<string, string> StaList = EnumHelper.GetEnumItemDesc(typeof(States));
+            ViewBag.StatesList = new SelectList(StaList, "key", "value");
+            ViewBag.TimeZone = SelectHelper.TimeZoneToSelect(db); ;
             // Ensure we have a valid viewModel to work with
             if (!ModelState.IsValid)
                 return View(viewModel);
 
             // Prepare the identity with the provided information
-            DateTime dt = DateTime.Now;
+            DateTime dt = DateTime.UtcNow;
             Company company = new Company
             {
                 CompanyName = viewModel.CompanyName,
@@ -201,17 +215,28 @@ namespace LivellPayRoll.Controllers
                 Telphone = viewModel.Telphone,
                 TimeZone = viewModel.TimeZone,
                 Email = viewModel.Email,
-                PayFreq = "1",
+                Zip = viewModel.Zip,
+                TradeName = viewModel.TradeName,
+                PayFreq = "Weekly",
                 Country = "United States",
                 RoundTo = "15",
-                PayRollRegTime = dt
+                PayRollRegTime = dt,
+                WeekRule = true,
+                WeekRuleValue = 40,
+                DayRule = true,
+                DayRuleValue = 8,
+                DoubeRule = true,
+                DoubeRuleValue = 12,
+                DaylightSavingTime = true,
+                Status = "3"
             };
             var user = new AppUser
             {
                 UserName = dt.Year.ToString() + dt.Month.ToString() + dt.Day.ToString() + dt.Hour.ToString() + dt.Millisecond.ToString(),
                 Email = viewModel.Email,
                 TimeZone= viewModel.TimeZone,
-                Company= company
+                LastLoginDate = DateTime.UtcNow,
+                Company = company
             };
             
 
@@ -231,13 +256,16 @@ namespace LivellPayRoll.Controllers
                     UserManager.AddToRole(user.Id, "Admin");
                 }
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                var callbackUrl = Url.Action("CompleteRegist", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(
-                    user.Id,
-                   "Confirm Your Account – Complete Registration Information (" + user.Company.CompanyName + ")",
-                   "Dear LivellPayRoll Customer:<br><br>Thank you for creating an PayRoll account. You need to complete the registration information and confirm your account, you'll have access to PayRoll system. Please confirm your account complete regist by clicking this link: <a href=\"" + callbackUrl + "\">link</a><br><br>Welcome to the LivellPayRoll community!<br><br>—The LivellPayRoll Team");
-                
-                return RedirectToLocal();
+                var callbackUrl = Url.Action("CompleteRegist", "Account", new { userId = user.Id, code = code, Nt = TimeHelper.ConvertDateTimeInt(DateTime.UtcNow) }, protocol: Request.Url.Scheme);
+
+                string EmailBody = "Thank you for creating an PayRoll account. You need to complete the registration information and confirm your account, you'll have access to PayRoll system.";
+                string EmailLink = "Please confirm your account complete regist by clicking.<a href=\"" + callbackUrl + "\">Click it! &raquo;</a>";
+                string strbody = ReplaceText(EmailBody, EmailLink);
+                await UserManager.SendEmailAsync(user.Id, "Confirm Your Account – Complete Registration Information (" + user.Company.CompanyName + ")", strbody);
+
+                ViewBag.ReceiveEmail = user.Email;
+                return View("WaitEmail");
+                //return RedirectToLocal();
             }
             catch (DbEntityValidationException ex)
             {
@@ -264,16 +292,125 @@ namespace LivellPayRoll.Controllers
             // this clears the Request.IsAuthenticated flag since this triggers a new request
             return RedirectToLocal();
         }
+        [AllowAnonymous]
+        public ActionResult Error404(string ErrorMessage)
+        {
+            // We do not want to use any existing identity information
+            
+            EnsureLoggedOut();
+            ViewBag.ErrorMessage = ErrorMessage;
+            return View();
+        }
+        [Authorize]
+        [CustomAuthorize]
+        public ActionResult GeneralSet()
+        {
+            Dictionary<string, string> StaList = EnumHelper.GetEnumItemDesc(typeof(States));
+            ViewBag.StatesList = new SelectList(StaList, "key", "value");
+            ViewBag.TimeZoneList = SelectHelper.TimeZoneToSelect(db);
+            ViewBag.DefaultJobList = new SelectList("", "Value", "Text");
+            AppUser user = LoginUser;
+            GeneralSetModel mode = new GeneralSetModel
+            {
+                RoleId = user.Roles.SingleOrDefault().RoleId,
+                Email = user.Email,
+                PayRollUser = user.PayRollUser,
+                TimeZone = user.TimeZone,
+                Phone = user.PhoneNumber
+            };
+                Employee em = user.Employee.SingleOrDefault();
+                if (em != null) {
+                    mode.DefaultJob = em.DefaultJob;
+                    mode.SSN = em.SSN;
+                    mode.Address = em.Address1;
+                    mode.City = em.City;
+                    mode.State = em.State;
+                    mode.ZipCode = em.ZipCode;
+                    
+                }
+                if (em != null) {
+                    ViewBag.DefaultJobList = SelectHelper.JobToSelect(db, em.Job.ToList());
+                }
 
+
+            return View(mode);
+        }
+        [HttpPost]
+        [Authorize]
+        [CustomAuthorize]
+        public async Task<ActionResult> GeneralSet(GeneralSetModel viewModel)
+        {
+            Dictionary<string, string> StaList = EnumHelper.GetEnumItemDesc(typeof(States));
+            ViewBag.StatesList = new SelectList(StaList, "key", "value");
+            //ViewBag.StatesList = new SelectList(EnumHelper.EnumListDic<States>("", ""), "value", "key");
+            ViewBag.TimeZoneList = SelectHelper.TimeZoneToSelect(db);
+            ViewBag.DefaultJob = new SelectList("", "Value", "Text");
+
+            AppUser user = LoginUser;
+            user.PayRollUser = viewModel.PayRollUser;
+            user.PhoneNumber = viewModel.Phone;
+            user.TimeZone = viewModel.TimeZone;
+            Employee e = user.Employee.SingleOrDefault();
+            if (e != null) {
+                e.Phone = viewModel.Phone;
+                e.TimeZone = viewModel.TimeZone;
+                e.DefaultJob = viewModel.DefaultJob;
+                e.SSN = viewModel.SSN;
+                e.Address1 = viewModel.Address;
+                e.City = viewModel.City;
+                e.State = viewModel.State;
+                e.ZipCode = viewModel.ZipCode;
+            }
+            var result = await UserManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                db.Entry<Employee>(e).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("GeneralSet");
+            }
+            AddErrors(result);
+            return View(viewModel);
+        }
+        [Authorize]
+        [CustomAuthorize]
+        public ActionResult PasswordSet() {
+            PasswordSetModel mode = new PasswordSetModel()
+            {
+                UserId = LoginUser.Id
+            };
+
+            return View(mode);
+        }
+        [HttpPost]
+        [Authorize]
+        [CustomAuthorize]
+        public async Task<ActionResult> PasswordSet(PasswordSetModel viewModel)
+        {
+            var result = await UserManager.ChangePasswordAsync(viewModel.UserId, viewModel.Password, viewModel.NewPassword);
+            if (result.Succeeded)
+            {
+                EnsureLoggedOut();
+                return View(viewModel);
+            }
+            AddErrors(result);
+            return View(viewModel);
+        }
         private ActionResult RedirectToLocal(string returnUrl = "")
         {
+
             // If the return url starts with a slash "/" we assume it belongs to our site
             // so we will redirect to this "action"
             if (!returnUrl.IsNullOrWhiteSpace() && Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
 
             // If we cannot verify if the url is local to our host we redirect to a default location
-            return RedirectToAction("index", "home");
+            string RoleId = SystemVariates.LoginRoleId;
+            if (RoleId == "R00")
+                return RedirectToAction("UserControl", "System");
+            else
+                return RedirectToAction("index", "home");
+
+
         }
 
         private void AddErrors(DbEntityValidationException exc)
@@ -304,6 +441,8 @@ namespace LivellPayRoll.Controllers
             cookie.Expires = DateTime.Now.AddDays(1);
             cookie["UserName"] = user.PayRollUser;
             cookie["TimeZone"] = user.TimeZone.ToString();
+            cookie["RoleId"] = user.Roles.FirstOrDefault().RoleId;
+            cookie["RoleName"] = RoleManager.FindById(user.Roles.FirstOrDefault().RoleId).Name;
             Response.Cookies.Add(cookie);
         }
         private async Task SignInAsync(AppUser user, bool isPersistent)
@@ -333,8 +472,8 @@ namespace LivellPayRoll.Controllers
         public ActionResult ConfirmedEmail(string Email)
         {
             EnsureLoggedOut();
-            ViewBag.ConfirmedEmail = Email;
-            return View();
+            AccountForgotPasswordModel mode = new AccountForgotPasswordModel() { Email = Email };
+            return View(mode);
         }
         [HttpPost]
         [AllowAnonymous]
@@ -342,27 +481,112 @@ namespace LivellPayRoll.Controllers
         {
                 var user = await UserManager.FindByEmailAsync(Email);
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                //code = HttpUtility.UrlEncode(code);
-                var callbackUrl = Url.Action("CompleteRegist", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(
-                    user.Id,
-                   "Confirm Your Account – Complete Registration Information (" + user.Company.CompanyName + ")",
-                   "Dear LivellPayRoll Customer:<br><br>Thank you for creating an PayRoll account. You need to complete the registration information and confirm your account, you'll have access to PayRoll system. Please confirm your account complete regist by clicking this link: <a href=\"" + callbackUrl + "\">link</a><br><br>Welcome to the LivellPayRoll community!<br><br>—The LivellPayRoll Team");
-            return Json(new { code= "code", message= "success" }, JsonRequestBehavior.AllowGet);
+                string Pcode = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            //code = HttpUtility.UrlEncode(code);
+            if (UserManager.IsInRole(user.Id, "Admin"))
+            {
+                var callbackUrl = Url.Action("CompleteRegist", "Account", new { userId = user.Id, code = code, Nt = TimeHelper.ConvertDateTimeInt(DateTime.UtcNow) }, protocol: Request.Url.Scheme);
+                string EmailBody = "Thank you for creating an PayRoll account. You need to complete the registration information and confirm your account, you'll have access to PayRoll system.";
+                string EmailLink = "Please confirm your account complete regist by clicking.<a href=\"" + callbackUrl + "\">Click it! &raquo;</a>";
+                string strbody = ReplaceText(EmailBody, EmailLink);
+                await UserManager.SendEmailAsync(user.Id, "Confirm Your Account – Complete Registration Information (" + user.Company.CompanyName + ")", strbody);
+            }
+            else
+            {
+                var callbackUrl = Url.Action("UserConfirm", "Account", new { userId = user.Id, code = code, Nt = TimeHelper.ConvertDateTimeInt(DateTime.UtcNow) }, protocol: Request.Url.Scheme);
+                string EmailBody = "Thank you for creating an PayRoll account. You need to confirm your account and setting your password, you'll have access to PayRoll system.";
+                string EmailLink = "Please confirm your account complete regist by clicking.<a href=\"" + callbackUrl + "\">Click it! &raquo;</a>";
+                string strbody = ReplaceText(EmailBody, EmailLink);
+                await UserManager.SendEmailAsync(user.Id, "Confirm Your Account  (" + user.PayRollUser + ")", strbody);
+            }
+
+
+            ViewBag.ReceiveEmail = user.Email;
+            return View("WaitEmail");
         }
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult> CompleteRegist(string userId, string code)
+        public async Task<ActionResult> UserConfirm(string userId, string code, string Nt)
         {
+            AppUser user = UserManager.FindById(userId);
+            double timeInt = Convert.ToDouble(Nt);
+            if (timeInt + 3 * 3600 <= TimeHelper.ConvertDateTimeInt(DateTime.UtcNow) || timeInt > TimeHelper.ConvertDateTimeInt(DateTime.UtcNow) || timeInt == 0)
+            {
+                return RedirectToAction("Error404", "Account", new { ErrorMessage = "Link Has Expired" });
+            }
+            EnsureLoggedOut();
+            if (userId == null || code == null || user == null)
+            {
+                return RedirectToLocal();
+            }
+            if (await UserManager.IsEmailConfirmedAsync(userId))
+            {
+                return RedirectToLocal();
+            }
+            UserConfirmModel mode = new UserConfirmModel()
+            {
+                Code = code,
+                Id = userId
+            };
+            ViewBag.UserName = user.PayRollUser;
+            return View(mode);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> UserConfirm(UserConfirmModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(viewModel);
+            var user = UserManager.FindById(viewModel.Id);
+            if (user != null)
+            {
+                IdentityResult result = UserManager.ConfirmEmail(viewModel.Id, viewModel.Code);
+                if (result.Succeeded)
+                {
+                    //await UserManager.ResetPasswordAsync(user.Id, viewModel.code, viewModel.Password);
+                    var resultPW = UserManager.ChangePassword(user.Id, "Pay123456", viewModel.Password);
+                    if (resultPW.Succeeded)
+                    {
+                        Employee e = user.Employee.SingleOrDefault();
+                        e.F124 = 0;
+                        db.SaveChanges();
+                        await ApplicationSignInManager.PasswordSignInAsync(user.UserName, viewModel.Password, true, shouldLockout: false);
+                        SignCookieAsync(user);
+                        return RedirectToLocal();
+                    }
+                    else {
+                        AddErrors(resultPW);
+                        return View(viewModel);
+                    };
+                }
+                else
+                {
+                    AddErrors(result);
+                    return View(viewModel);
+                }
 
+            }
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<ActionResult> CompleteRegist(string userId, string code,string Nt)
+        {
+            double timeInt = Convert.ToDouble(Nt);
+            if (timeInt + 3 * 3600 <= TimeHelper.ConvertDateTimeInt(DateTime.UtcNow) || timeInt > TimeHelper.ConvertDateTimeInt(DateTime.UtcNow) || timeInt == 0)
+            {
+                return RedirectToAction("Error404", "Account", new { ErrorMessage = "Link Has Expired" });
+            }
             EnsureLoggedOut();
             //EnsureLoggedOut();
-            Dictionary<string, object> StaList = EnumHelper.EnumListDic<States>("", "");
-            ViewBag.StatesList = new SelectList(StaList, "value", "key");
+            Dictionary<string, string> StaList = EnumHelper.GetEnumItemDesc(typeof(States));
+            ViewBag.StatesList = new SelectList(StaList, "key", "value");
+            //Dictionary<string, object> StaList = EnumHelper.EnumListDic<States>("", "");
+            //ViewBag.StatesList = new SelectList(StaList, "value", "key");
             Dictionary<string, object> RoundTo = EnumHelper.EnumListDic<RoundTo>("", "");
             ViewBag.RoundTo = new SelectList(RoundTo, "value", "key");
-            Dictionary<string, object> TZList = TimeZones.DicTimeZones();
-            ViewBag.TimeZone = new SelectList(TZList, "value", "key");
+            ViewBag.TimeZone = SelectHelper.TimeZoneToSelect(db);
 
             if (userId == null || code == null) {
                 return RedirectToLocal();
@@ -391,9 +615,10 @@ namespace LivellPayRoll.Controllers
             var user = await UserManager.FindByEmailAsync(viewModel.Email);
             if (user != null) {
                 //user.EmailConfirmed = true;
-                user.PayRollUser = viewModel.ContactName;
+                user.PayRollUser = viewModel.FName + " " + viewModel.LName;
                 user.UserName = viewModel.Email;
-                user.Company.ContactName = viewModel.ContactName;
+                user.Company.ContactName = viewModel.FName + " " + viewModel.LName;
+                user.LastLoginDate = DateTime.UtcNow;
                 //user.PasswordHash= UserManager.PasswordHasher.HashPassword(viewModel.Password);
                 //var result2 = await UserManager.ConfirmEmailAsync(user.Id, viewModel.code);
                 IdentityResult result = await UserManager.ConfirmEmailAsync(user.Id, viewModel.code);
@@ -408,8 +633,94 @@ namespace LivellPayRoll.Controllers
                     var resultUp = await UserManager.UpdateAsync(user);
                     if (resultUp.Succeeded)
                     {
+                        Customer cus = new Customer()
+                        {
+                            Id = Guid.NewGuid(),
+                            CustomerName = "Default Customer",
+                            AddDate = DateTime.Now,
+                            CompanyId = user.CompanyId
+                        };
+                        db.Customer.Add(cus);
+                        Job job = new Job() { JobName = "Default Job", status = "0", CompanyId = user.CompanyId, Customer = new List<Customer>() };
+                        db.Job.Add(job);
+                        job.Customer.Add(cus);
+                        db.SaveChanges();
+                        Employee em = new Employee() {
+                            EmployeeId = Guid.NewGuid(),
+                            Email = user.Email,
+                            Address1 = user.Company.Address1,
+                            Address2 = user.Company.Address2,
+                            State =user.Company.State,
+                            City = user.Company.City,
+                            DefaultJob =job.JobId,
+                            TimeZone = user.TimeZone,
+                            ZipCode = user.Company.Zip,
+                            Phone = viewModel.Telephone,
+                            FName = viewModel.FName,
+                            LName = viewModel.LName,
+                            SSN = viewModel.SSN,
+                            UserRole = "Admin",
+                            F99 = 0,
+                            F106 = "Single",
+                            F114 = 1,
+                            F115 = 1,
+                            F116 = 1,
+                            F117 = 1,
+                            F118 = 1,
+                            F119 = 1,
+                            F124 = 0,
+                            F103 = DateTime.UtcNow,
+                            F104 = DateTime.UtcNow,
+                            F105 = DateTime.UtcNow,
+                            CompanyId = user.CompanyId, 
+                            AppUserId = user.Id,
+                            Job = new List<Job>()
+
+                    };
+                        db.Employee.Add(em);
+                        em.Job.Add(job);
+
+                        Company c = db.Company.Where(t => t.CompanyId == user.CompanyId).SingleOrDefault();
+                        if (c != null) {
+                            c.ContactName = user.PayRollUser;
+                            c.Status = "0";
+                        }
+                        db.Entry<Company>(c).State = System.Data.Entity.EntityState.Modified;
+
+                        T100 t100 = new T100
+                        {
+                            Id = Guid.NewGuid(),
+                            BankName = "My Bank",
+                            BankInfo1 = "Bank Road",
+                            TransitCode = "67-76890",
+                            BankRouteNo = "123456789",
+                            BankAccountNo = "0123456789",
+                            StartCheckNo = 100,
+                            CurrentCheckNo = 1000,
+                            CheckWidth = 0,
+                            CheckHeight = 0,
+                            OffsetLeft = 0,
+                            OffsetRight = 0,
+                            OffsetUp = 0,
+                            OffsetDown = 0,
+                            Logo = "",
+                            Signature = "",
+                            Company1 = c.CompanyName,
+                            Company2 = c.Address1,
+                            Company3 = c.City + ", " + c.State + " " + c.Zip,
+                            Company4 = "(111) 111-1111",
+                            BlankBankStock = false,
+                            ExField1 = "Bottom",
+                            ExField2 = false,
+                            ExField3 = "",
+                            nodisplaymicr = false,
+                            CompanyId = c.CompanyId
+                        };
+                        db.T100.Add(t100);
+                        db.SaveChanges();
                         //await SignInAsync(user, true);
                         await ApplicationSignInManager.PasswordSignInAsync(user.UserName, viewModel.Password, true, shouldLockout: false);
+                        RollPayInitialize(db,user.CompanyId);
                         SignCookieAsync(user);
                         return RedirectToLocal();
                     }
@@ -434,6 +745,88 @@ namespace LivellPayRoll.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public async Task<ActionResult> SemdEmail(string Id)
+        {
+            AppUser user = UserManager.FindById(Id);
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            var callbackUrl = Url.Action("UserConfirm", "Account", new { userId = user.Id, code = code, Nt = TimeHelper.ConvertDateTimeInt(DateTime.UtcNow) }, protocol: Request.Url.Scheme);
+            string EmailBody = "Thank you for creating an PayRoll account. You need to confirm your account and setting your password, you'll have access to PayRoll system.";
+            string EmailLink = "Please confirm your account complete regist by clicking.<a href=\"" + callbackUrl + "\">Click it! &raquo;</a>";
+            string strbody = ReplaceText(EmailBody, EmailLink);
+            await UserManager.SendEmailAsync(user.Id, "Confirm Your Account  (" + user.PayRollUser + ")", strbody);
+            return Json(new { code = 1, message = "success" }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult CheckSetup() {
+            AppUser user = LoginUser;
+            T100 model = db.T100.Where(t => t.CompanyId == user.CompanyId).SingleOrDefault();
+            int CurrentCheckNo = 0;
+            var MaxList = db.T105.Where(t => t.CompanyId == user.CompanyId).GroupBy(t => t.Id).Select(t => t.Max(x => x.CheckNo)).ToList();
+            foreach(var m in MaxList)
+            {
+                CurrentCheckNo = m;
+            };
+            ViewBag.CurrentCheckNo = CurrentCheckNo;
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult CheckSetup(T100 t)
+        {
+            if (!ModelState.IsValid)
+                return View(t);
+            T100 NewT = db.T100.Find(t.Id);
+            NewT.BankName = t.BankName;
+            NewT.BankInfo1 = t.BankInfo1;
+            NewT.BankInfo2 = t.BankInfo2;
+            NewT.BankInfo3 = t.BankInfo3;
+            NewT.TransitCode = t.TransitCode;
+            NewT.BankRouteNo = t.BankRouteNo;
+            NewT.BankAccountNo = t.BankAccountNo;
+            NewT.BlankBankStock = t.BlankBankStock;
+            NewT.CurrentCheckNo = t.CurrentCheckNo;
+            NewT.OffsetLeft = t.OffsetLeft;
+            NewT.OffsetRight = t.OffsetRight;
+            NewT.OffsetUp = t.OffsetUp;
+            NewT.OffsetDown = t.OffsetDown;
+            NewT.ExField1 = t.ExField1;
+            NewT.ExField2 = t.ExField2;
+            NewT.Logo = t.Logo;
+            NewT.Signature = t.Signature;
+            NewT.Company1 = t.Company1;
+            NewT.Company2 = t.Company2;
+            NewT.Company3 = t.Company3;
+            NewT.Company4 = t.Company4;
+            db.Entry(NewT).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("CheckSetup");
+        }
+        private void RollPayInitialize(AppIdentityDbContext Context, int CompanyId)
+        {
+            var t102 = db.T201.Where(t => t.CompanyId == CompanyId).ToList();
+            if (t102.Count != 0) {
+                return;
+            }
+            Context.T102.Add(new T102 { Id = Guid.NewGuid(), ItemId = 1, CodeMap = "F1231", Description = "Health Insurance", Enabled=true, AnnualLimit = 1000, CompanyId = CompanyId, Type = 1 });
+            Context.T102.Add(new T102 { Id = Guid.NewGuid(), ItemId = 2, CodeMap = "F1232", Description = "401K", Enabled = true, AnnualLimit = 1000, CompanyId = CompanyId, Type = 1 });
+            Context.T102.Add(new T102 { Id = Guid.NewGuid(), ItemId = 3, CodeMap = "F1233", Description = "SDI (State Disablility)", Enabled = true, AnnualLimit = 0, CompanyId = CompanyId, Type = 2 });
+            Context.T102.Add(new T102 { Id = Guid.NewGuid(), ItemId = 4, CodeMap = "F1234", Description = "Changeable Deduction", AnnualLimit = 955.85, CompanyId = CompanyId, Type = 2 });
+            Context.T102.Add(new T102 { Id = Guid.NewGuid(), ItemId = 5, CodeMap = "F1235", Description = "Changeable Deduction", AnnualLimit = 0, CompanyId = CompanyId, Type = 2 });
+            Context.T102.Add(new T102 { Id = Guid.NewGuid(), ItemId = 6, CodeMap = "F1236", Description = "Changeable Deduction", AnnualLimit = 0, CompanyId = CompanyId, Type = 2 });
+            Context.T102.Add(new T102 { Id = Guid.NewGuid(), ItemId = 7, CodeMap = "F1237", Description = "Changeable Deduction", AnnualLimit = 120, CompanyId = CompanyId, Type = 2 });
+
+            Context.T201.Add(new Models.T201 { Id = Guid.NewGuid(), Ord = 1, CodeMap = "F102", Description = "Yealy Salary", Enabled = true, Type = 1, CompanyId = CompanyId });
+            Context.T201.Add(new Models.T201 { Id = Guid.NewGuid(), Ord = 2, CodeMap = "F100", Description = "Regular Hourly Pay", Enabled = true, Type = 1, CompanyId = CompanyId });
+            Context.T201.Add(new Models.T201 { Id = Guid.NewGuid(), Ord = 3, CodeMap = "F101", Description = "Overtime Hourly Pay", Enabled = true, Type = 1, CompanyId = CompanyId });
+            Context.T201.Add(new Models.T201 { Id = Guid.NewGuid(), Ord = 4, CodeMap = "F1002", Description = "Double Hourly Pay", Enabled = true, Type = 1, CompanyId = CompanyId });
+            Context.T201.Add(new Models.T201 { Id = Guid.NewGuid(), Ord = 5, CodeMap = "SickRate", Description = "Holiday Add", Enabled = false, Type = 1, CompanyId = CompanyId });
+            Context.T201.Add(new Models.T201 { Id = Guid.NewGuid(), Ord = 6, CodeMap = "VacationRate", Description = "Night Shift Add", Enabled = false, Type = 1, CompanyId = CompanyId });
+            Context.T201.Add(new Models.T201 { Id = Guid.NewGuid(), Ord = 7, CodeMap = "S1251", Description = "Bonus", Enabled = false, Type = 2, CompanyId = CompanyId });
+            Context.T201.Add(new Models.T201 { Id = Guid.NewGuid(), Ord = 8, CodeMap = "S1252", Description = "Director Fee", Enabled = false, Type = 2, CompanyId = CompanyId });
+            Context.T201.Add(new Models.T201 { Id = Guid.NewGuid(), Ord = 9, CodeMap = "S1253", Description = "Tips", Enabled = false, Type = 2, CompanyId = CompanyId });
+            Context.T201.Add(new Models.T201 { Id = Guid.NewGuid(), Ord = 10, CodeMap = "S1254", Description = "Wage1", Enabled = false, Type = 2, CompanyId = CompanyId });
+            Context.T201.Add(new Models.T201 { Id = Guid.NewGuid(), Ord = 11, CodeMap = "S1255", Description = "Wage1", Enabled = false, Type = 2, CompanyId = CompanyId });
+            Context.SaveChanges();
+        }
         private AppIdentityDbContext db
         {
             get
@@ -447,6 +840,13 @@ namespace LivellPayRoll.Controllers
             get
             {
                 return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+            }
+        }
+        private AppRoleManager RoleManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Get<AppRoleManager>();
             }
         }
         private ApplicationSignInManager ApplicationSignInManager
@@ -471,5 +871,25 @@ namespace LivellPayRoll.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+        private string ReplaceText(string Email_Body, string Email_Link)
+        {
+
+            string path = string.Empty;
+
+            path = HttpContext.Server.MapPath("~/App_Helpers/EmailTemplate.html");
+
+            if (path == string.Empty)
+            {
+                return string.Empty;
+            }
+            System.IO.StreamReader sr = new System.IO.StreamReader(path);
+            string str = string.Empty;
+            str = sr.ReadToEnd();
+            str = str.Replace("$Email_Body$", Email_Body);
+            str = str.Replace("$Email_Link$", Email_Link);
+
+            return str;
+        }
+
     }
 }

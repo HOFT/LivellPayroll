@@ -1,0 +1,84 @@
+﻿@model ManagerUserMode
+<!-- MAIN CONTENT -->
+<div id="content">
+
+    <!-- row -->
+    <div class="row">
+
+        <div class="col-sm-12 col-md-12 col-lg-12">
+
+            <div class="well">
+                <form id="ManagerAddForm" class="form-horizontal" action="/Managers/Edit" method="post">
+                    <h1><i class="fa fa-pencil "></i> Edit <span class="semi-bold">Manager</span><br /> <small> — Pelese edit manager information </small></h1>
+
+                    @Html.HiddenFor(m => m.UserId)
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationBootstrap()
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1 form-box">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Manager Name *:</label>
+                                    <div class="col-md-9 col-lg-19 col-md-9">
+                                        <div class="input-group">
+                                            <input type="text" name="UserName" placeholder="Please enter manager name" value="@Model.UserName" class="form-control" id="UserName">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        </div>
+                                        <p class="note">* The name will appear as user name in system info.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Email *:</label>
+                                    <div class="col-md-9 col-lg-19 col-md-9">
+                                        <div class="input-group">
+                                            <input type="email" name="Email" placeholder="Please enter manager email" disabled="disabled" value="@Model.Email" class="form-control" id="Email">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                        </div>
+                                        <p class="note">* The email is manager login account.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Phone:</label>
+                                    <div class="col-md-9 col-lg-19 col-md-9">
+                                        <div class="input-group">
+                                            <input type="text" name="Phone" placeholder="Please enter manager phone" value="@Model.Phone" data-mask="(999)-999-9999" data-mask-placeholder="_" class="form-control" id="Phone">
+                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a class="btn btn-default" href="/Managers/Mlist">
+                                    Cancel
+                                </a>
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <!-- end row -->
+
+</div>
+<!-- END MAIN CONTENT -->
+
+@section pagespecific {
+
+}

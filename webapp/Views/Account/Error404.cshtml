@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Error</title>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Nova+Flat' rel='stylesheet' type='text/css'>
+    <link href="~/Content/css/payroll-error404.css" rel="stylesheet" />
+
+
+</head>
+<body class="error404">
+    <div class="container">
+
+        <div class="row pad-top text-center">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <h1>  What have you done? </h1>
+                <h5> Now Go Back Using Below LInk</h5>
+                <span id="error-link"></span>
+                <h2>! Error - @ViewBag.ErrorMessage ! </h2>
+            </div>
+        </div>
+
+        <div class="row text-center error-link">
+            <div class="col-md-8 col-md-offset-2">
+
+                <h3> <i class="fa fa-lightbulb-o fa-5x"></i> </h3>
+                <a href="/" class="btn btn-primary">GO TO PayRoll</a>
+                <br /><br />Click <a href="http://www.halfpricesoft.com/" target="_blank" title="HalfPriceSoft">HalfPriceSoft</a> To Get More Information About This
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="~/Scripts/libs/jquery-2.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Scripts/error/countUp.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var count = new countUp("error-link", 10, 404, 0, 5); //CHANGE 404 TO THE ERROR VALUE AS YOU WANT
+            window.onload = function () {
+                count.start();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -13,6 +13,7 @@ using System.Web.Mvc;
 namespace LivellPayRoll.Controllers
 {
     [Authorize]
+    [CustomAuthorize]
     public class CustomerController : Controller
     {
         // GET: Customer

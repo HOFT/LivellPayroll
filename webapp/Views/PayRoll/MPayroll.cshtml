@@ -1,0 +1,327 @@
+﻿@{
+    ViewBag.PageId = "extr-page";
+    ViewBag.PageType = "NullPage";
+}
+
+<div id="content" class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            @*<h1>Hello, world!</h1>
+                <p>
+                    This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
+                </p>
+                <p>
+                    <a class="btn btn-primary btn-lg" role="button">Learn more</a>
+                </p>*@
+            <div class="well">
+                <div class="row">
+                    <div class="col-xs-2 visible-xs">
+                        <img src="/Content/img/favicon/favicon.png" width="50" height="50" alt="invoice icon">
+                    </div>
+                    <div class="col-sm-1 hidden-xs">
+                        <img src="/Content/img/favicon/favicon.png" width="60" height="60" alt="invoice icon">
+                    </div>
+                    <div class="col-sm-6 col-xs-4">
+                        <div class="name">
+                            <strong>
+                                <span class="font-md" id="EmployeeName">Hoya.Xie</span>
+                            </strong>
+                            <br />
+                            <small><span id="txtSSN">000-00-0000</span></small>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="pull-right">
+                            <div>
+                                <strong>Pay Period :</strong>
+                                <span id="dtpPayrollDate"> 15/02/13 </span>
+                            </div>
+                            <div>
+                                <strong>Pay Start :</strong>
+                                <span id="dtpStartDate"> 15/02/13 </span>
+                            </div>
+                            <div>
+                                <strong>Pay End :</strong>
+                                <span id="dtpEndDate"> 16/02/13 </span>
+                            </div>
+                            <div>
+                                <strong>Pay Period :</strong>
+                                <span id="txtPayperiodDesc"> Weekly </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-1 hidden-xs">
+                        <img id="QRCode" data-QRValue="" src="" width="80" height="80" alt="invoice icon">
+                    </div>
+                </div>
+                @*<div class="row visible-xs">
+                        <div class="col-xs-2">
+                            <img src="/Content/img/favicon/favicon.png" width="60" height="60" alt="invoice icon">
+                        </div>
+                        <div class="col-xs-5">
+                            <h5 class="name">
+                                <strong>
+                                    <span id="EmployeeName">Hoya.Xie</span>
+                                </strong>
+                                <br />
+                                <small><span id="txtSSN">000-00-0000</span></small>
+                            </h5>
+                        </div>
+
+                        <div class="col-xs-5">
+                            <div class="pull-right">
+                                <div>
+                                    <strong>Pay Period :</strong>
+                                    <span id="dtpPayrollDate"> 15/02/13 </span>
+                                </div>
+                                <div>
+                                    <strong>Pay Start :</strong>
+                                    <span id="dtpStartDate"> 15/02/13 </span>
+                                </div>
+                                <div>
+                                    <strong>Pay End :</strong>
+                                    <span id="dtpEndDate"> 16/02/13 </span>
+                                </div>
+                                <div>
+                                    <strong>Pay Period :</strong>
+                                    <span id="txtPayperiodDesc"> Weekly </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>*@
+                <div class="row">
+                    <div class="col-sm-12">
+                        <fieldset>
+                            <legend>Incomes And Deductions</legend>
+                            <table class="table table-hover" id="TabIncomes">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-4 col-xs-4">Income</th>
+                                        <th class="col-md-3 col-xs-3">Rate($)</th>
+                                        <th class="col-md-3 col-xs-3">Hours</th>
+                                        <th class="col-md-2 col-xs-2">Amount($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var r in ViewBag.IncomesList)
+                                    {
+                                        <tr>
+                                            <td><strong>@r.Text</strong></td>
+                                            <td><span class="txt-color-blue">@r.V1</span></td>
+                                            <td><span class="txt-color-blue">@r.V2</span></td>
+                                            <td><span class="txt-color-blue">@r.V3</span></td>
+                                        </tr>
+                                    }
+                                    @*<tr>
+                                            <td><strong>Salary</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Regular Hourly Pay</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Overtime Hourly Pay</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                        </tr>*@
+                                </tbody>
+                            </table>
+
+                            <table class="table table-hover" id="TabDeductions">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-4 col-xs-4">Deductions</th>
+                                        <th class="col-md-3 col-xs-3">Input</th>
+                                        <th class="col-md-3 col-xs-3">Annual Limits($)</th>
+                                        <th class="col-md-2 col-xs-2">Amount($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var r in ViewBag.DeductionsList)
+                                    {
+                                        <tr>
+                                            <td><strong>@r.Text</strong></td>
+                                            <td><span class="txt-color-blue">@r.V1</span></td>
+                                            <td><span class="txt-color-blue">@r.V2</span></td>
+                                            <td><span class="txt-color-blue">@r.V3</span></td>
+                                        </tr>
+                                    }
+                                    @*<tr>
+                                            <td><strong>Health Insurance ($)</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>401K (%)</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>SDI (State Disablility) (%)</strong></td>
+                                            <td>1,300.00</td>
+                                            <td>2</td>
+                                            <td>1,300.00</td>
+                                         </tr>*@
+
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <fieldset>
+                            <legend>Taxes</legend>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-8 col-xs-9">Items</th>
+                                        <th class="col-md-4 col-xs-3">Amount($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Federal Tax</strong></td>
+                                        <td><span class="txt-color-blue" id="txtIncomeTax">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Employee Social Security</strong></td>
+                                        <td><span class="txt-color-blue" id="txtSStax">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Employee Medicare</strong></td>
+                                        <td><span class="txt-color-blue" id="txtMedicareTax">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>State Tax</strong></td>
+                                        <td><span class="txt-color-blue" id="txtStateIncomeTax">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Local Tax</strong></td>
+                                        <td><span class="txt-color-blue" id="txtLocalTax">0.00</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12">
+                        <fieldset>
+                            <legend>Employer Tax</legend>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-8 col-xs-9">Items</th>
+                                        <th class="col-md-4 col-xs-3">Amount($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Employer Social Security</strong></td>
+                                        <td><span class="txt-color-blue" id="txtEmployerSocialSecurity">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Employer Medicare</strong></td>
+                                        <td><span class="txt-color-blue" id="txtEmployerMedicare">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Employer Fed Unemployment</strong></td>
+                                        <td><span class="txt-color-blue" id="txtEmployerFedUnemployment">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Employer State Unemployment</strong></td>
+                                        <td><span class="txt-color-blue" id="txtEmployerStateUnemployment">0.00</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <fieldset>
+                            <legend>Summary</legend>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-8 col-xs-9">Items</th>
+                                        <th class="col-md-4 col-xs-3">Amount($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Gross Income</strong></td>
+                                        <td><span class="txt-color-blue" id="txtTotalIncome">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Taxable Income</strong></td>
+                                        <td><span class="txt-color-blue" id="lbTotalTaxableIncome">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>FICA Taxable Income</strong></td>
+                                        <td><span class="txt-color-blue" id="lbFICATaxableIncome">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Employee Tax</strong></td>
+                                        <td><span class="txt-color-blue" id="txtTotalTax">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Employer Tax</strong></td>
+                                        <td><span class="txt-color-blue" id="lbTotalEmployerTax">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Deduction</strong></td>
+                                        <td><span class="txt-color-blue" id="txtTotalDeduction">0.00</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Net Pay</strong></td>
+                                        <td><span class="txt-color-blue" id="lbNetPay">0.00</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="col-md-1 col-xs-2 control-label"><strong>Memo:</strong></label>
+                            <div class="col-md-11 col-xs-10 highlight">
+                                <pre id="txtMemo"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+@section pagespecific {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var Id = GetQueryString('Id');
+            $("#QRCode").attr("data-QRValue", Id);
+            $("#QRCode").attr("src", "/Content/img/QRCode/" + Id + ".png");
+            @foreach (var item in ViewBag.TaxesSummaryDic)
+            {
+                @Html.Raw("$('#' + '" + item.Key + "').text('" + item.Value + "');");
+                Console.WriteLine(item.Key + item.Value);
+            }
+        });
+    </script>
+}

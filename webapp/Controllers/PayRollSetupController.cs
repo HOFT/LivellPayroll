@@ -14,27 +14,56 @@ using System.Web.Mvc;
 namespace LivellPayRoll.Controllers
 {
     [Authorize]
+    [CustomAuthorize]
     public class PayRollSetupController : Controller
     {
         // GET: PayRollSetup
         public ActionResult PayRollSet()
         {
             Company c = db.Company.Find(LoginUser.CompanyId);
-            Dictionary<string, object> StaList = EnumHelper.EnumListDic<States>("", "");
-            ViewBag.StatesList = new SelectList(StaList, "value", "key");
-            Dictionary<string, object> Period = EnumHelper.EnumListDic<Period>("", "");
-            ViewBag.Period = new SelectList(Period, "value", "key");
+            Dictionary<string, string> StaList = EnumHelper.GetEnumItemDesc(typeof(States));
+            ViewBag.StatesList = new SelectList(StaList, "key", "value");
+            Dictionary<string, string> Period = EnumHelper.GetEnumItemDesc(typeof(Period));
+            ViewBag.Period = new SelectList(Period, "key", "value");
             Dictionary<string, object> RoundTo = EnumHelper.EnumListDic<RoundTo>("", "");
             ViewBag.RoundTo = new SelectList(RoundTo, "value", "key");
-            Dictionary<string, object> TZList = TimeZones.DicTimeZones();
-            ViewBag.TimeZone = new SelectList(TZList, "value", "key");
+            ViewBag.TimeZone = SelectHelper.TimeZoneToSelect(db);
+            var em = db.Employee.Where(t => t.UserRole != "Employee").ToList();
+            List<SelectListItem> Contact = new List<SelectListItem>();
+            foreach (var e in em) {
+                Contact.Add(new SelectListItem() { Text = e.AppUser.PayRollUser + " [ " + e.AppUser.Email + " ]", Value = e.AppUser.Id });
+            }
+            ViewBag.Contact = new SelectList(Contact, "Value", "Text");
             return View(c);
         }
         [HttpPost]
         public ActionResult PayRoll(Company c)
         {
             Company company = db.Company.Find(LoginUser.CompanyId);
+            
             if (company.Email != c.Email) {
+                
+                if (company.ContactName != c.ContactName) {
+                    AppUser OldAdminUser = UserManager.FindById(company.ContactName);
+                    UserManager.RemoveFromRole(OldAdminUser.Id,"Admin");
+                    UserManager.AddToRole(OldAdminUser.Id, "Manager");
+                    Employee e1 = OldAdminUser.Employee.FirstOrDefault();
+                    if (e1 != null) {
+                        e1.UserRole = "Manager";
+                    }
+                    db.Entry<Employee>(e1).State = System.Data.Entity.EntityState.Modified;
+
+                    AppUser NewAdmin = UserManager.FindById(c.ContactName);
+                    UserManager.RemoveFromRole(OldAdminUser.Id, "Manager");
+                    UserManager.AddToRole(OldAdminUser.Id, "Admin");
+                    Employee e2 = OldAdminUser.Employee.FirstOrDefault();
+                    if (e2 != null)
+                    {
+                        e2.UserRole = "Admin";
+                    }
+                    db.Entry<Employee>(e2).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
                 //检查用户Email是否被占用
                 AppUser NewUser = UserManager.FindByEmail(c.Email);
                 if (NewUser != null) {
@@ -59,6 +88,7 @@ namespace LivellPayRoll.Controllers
             }
             company.CompanyName = c.CompanyName;
             company.TradeName = c.TradeName;
+            company.FedTaxId = c.FedTaxId;
             company.Address1 = c.Address1;
             company.Address2 = c.Address2;
             company.City = c.City;
@@ -73,6 +103,7 @@ namespace LivellPayRoll.Controllers
             company.RoundTo = c.RoundTo;
             company.PayFreq = c.PayFreq;
             company.PayReportByEndingDate = c.PayReportByEndingDate;
+            company.DaylightSavingTime = c.DaylightSavingTime;
             db.Entry(company).State = System.Data.Entity.EntityState.Modified;
             foreach (var user in company.AppUser) {
                 if (UserManager.IsInRole(user.Id, "Admin")|| UserManager.IsInRole(user.Id, "Manager"))

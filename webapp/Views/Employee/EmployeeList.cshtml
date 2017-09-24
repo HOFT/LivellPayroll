@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LivellPayRoll.Models.Employee>
+﻿@model System.Data.DataTable
 @using LivellPayRoll.App_Helpers
 @using LivellPayRoll.Enum
 			<!-- MAIN CONTENT -->
@@ -6,10 +6,10 @@
     <div class="row">
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
-                <i class="fa fa-suitcase "></i>
+                <i class="fa fa-user "></i>
                 Employee<span>
                     &gt;
-                 Employee List
+                Employee List
                 </span>
             </h1>
         </div>
@@ -82,35 +82,82 @@
                             <table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
                                 <thead>
                                     <tr>
-                                        <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i>First Name</th>
-                                        <th data-hide="phone,tablet">Last Name</th>
-                                        <th><i class="fa fa-fw fa-info-circle text-muted hidden-md hidden-sm hidden-xs"></i>SSN</th>
+                                        <th data-class="expand"><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i>Name</th>
+                                        <th><i class="fa fa-fw fa-slack text-muted hidden-md hidden-sm hidden-xs"></i>SSN</th>
                                         <th data-hide="phone"><i class="fa fa-fw fa-phone text-muted hidden-md hidden-sm hidden-xs"></i>Phone</th>
                                         <th><i class="fa fa-fw fa-email fa-envelope text-muted hidden-md hidden-sm hidden-xs"></i>Email</th>
                                         @*<th><i class="fa fa-fw fa-map-marker text-muted hidden-md hidden-sm hidden-xs"></i>Address</th>*@
-                                        <th><i class="fa fa-fw fa-map-marker text-muted hidden-md hidden-sm hidden-xs"></i>State</th>
+                                        @*<th><i class="fa fa-fw fa-map-marker text-muted hidden-md hidden-sm hidden-xs"></i>State</th>*@
+                                        <th><i class="fa fa-fw fa-info-circle text-muted hidden-md hidden-sm hidden-xs"></i>PTO Hours</th>
+                                        <th><i class="fa fa-fw fa-tag text-muted hidden-md hidden-sm hidden-xs"></i>Role</th>
                                         <th><i class="fa fa-fw fa-rocket text-muted hidden-md hidden-sm hidden-xs"></i>Status</th>
                                         <th><i class="fa fa-fw fa-th-large text-muted hidden-md hidden-sm hidden-xs"></i>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var Emp in Model)
+                                    @foreach (System.Data.DataRow dr in Model.Rows)
                                     {
                                         <tr>
-                                            <td>@Html.DisplayFor(modelItem => Emp.FName)</td>
+                                            <td>@(dr["FName"]+" "+ dr["LName"])</td>
 
-                                            <td>@Html.DisplayFor(modelItem => Emp.FName)</td>
-                                            <td>@Html.DisplayFor(modelItem => Emp.SSN)</td>
-                                            <td>@Html.DisplayFor(modelItem => Emp.Phone)</td>
-                                            <td>@Html.DisplayFor(modelItem => Emp.Email)</td>
-                                            @*<td>@Html.DisplayFor(modelItem => Emp.Address1)</td>*@
-                                            <td>@Html.DisplayFor(modelItem => ((Dictionary<string, string>)ViewData["StatesDic"])[Emp.State])</td>
-                                            <td><span class="center-block padding-5 label label-success">@Html.DisplayFor(modelItem => ((Dictionary<string, string>)ViewData["StatusDic"])[(Emp.F124).ToString()])</span></td>
+                                            <td>@Html.DisplayFor(modelItem => dr["SSN"])</td>
+                                            <td>@Html.DisplayFor(modelItem => dr["Phone"])</td>
+                                            <td>@Html.DisplayFor(modelItem => dr["Email"])</td>
+                                            @*<td>@Html.DisplayFor(modelItem => dr["State"])</td>*@
                                             <td>
-                                                <a class="btn btn-primary btn-xs btn-edit" href="/Employee/Edit?Id=@Emp.EmployeeId">Edit</a>
-                                                <a class="btn btn-primary btn-xs btn-delete" id="@Emp.EmployeeId" href="javascript:void(0);">Delete</a>
+                                                <a href="/Employee/PTOHours?EmployeeId=@dr["EmployeeId"]&Year=@DateTime.Now.ToString("yyyy")">
+                                                    <div data-employeeId-PTOdiv ="@dr["EmployeeId"]">
+                                                        <span class="text font-xs TotalHoursCapHours" title="TotalHours/CapHours"> @dr["TotalHours"]/@dr["CapHours"]  <span class="pull-right pto-percent">@dr["Percent"]%</span> </span>
+                                                        <div class="progress progress-xs" style="margin: 0;">
+                                                            <div class="progress-bar bg-color-blue progress-PTO" data-pto-value="@dr["Percent"]" style="width: @dr["Percent"]%;"></div>
+                                                        </div>
+                                                    </div>
+                                                </a>
                                             </td>
-                                        </tr>
+                                            @if (dr["Role"].ToString() == "Admin")
+                                            {
+                                                <td><span class="center-block padding-5 label bg-color-red">@Html.DisplayFor(modelItem => dr["Role"])</span></td>
+                                            }
+                                            else if (dr["Role"].ToString() == "Manager")
+                                            {
+                                                <td><span class="center-block padding-5 label bg-color-orange">@Html.DisplayFor(modelItem => dr["Role"])</span></td>
+                                            }
+                                            else
+                                            {
+                                                <td><span class="center-block padding-5 label bg-color-blue">@Html.DisplayFor(modelItem => dr["Role"])</span></td>
+                                            }
+                                            @if (dr["Status"].ToString() == "Active")
+                                            {
+                                                <td><span class="center-block padding-5 label label-success">@Html.DisplayFor(modelItem => dr["Status"])</span></td>
+                                            }
+                                            else
+                                            {
+                                                <td><span title="The employee must activate the account !" class="center-block padding-5 label label-default">@Html.DisplayFor(modelItem => dr["Status"])</span></td>
+                                            }
+                                            <td>
+                                                @if (dr["Role"].ToString() != "Employee" && ViewBag.Role != "Admin" && dr["UserId"] != ViewBag.userId)
+                                                {
+                                                    <a title="Manager Paid Time Off and Paid Vacation" data-empId="@dr["EmployeeId"]" class="btn btn-primary btn-primary btn-xs pto_form" href="javascript:void(0);" style="display:none;"><span class="glyphicon glyphicon-registration-mark"></span></a>
+                                                    <a title="Edit" class="btn btn-primary btn-primary btn-xs btn-edit" href="/Employee/Edit?Id=@dr["EmployeeId"]" style="display:none;"><span class="glyphicon glyphicon-edit"></span></a>
+                                                }
+                                                else
+                                                {
+                                                    <a title="Manager Paid Time Off and Paid Vacation" data-empId="@dr["EmployeeId"]" class="btn btn-primary btn-primary btn-xs pto_form" href="javascript:void(0);"><span class="glyphicon glyphicon-registration-mark"></span></a>
+                                                    <a title="Edit" class="btn btn-primary btn-primary btn-xs btn-edit" href="/Employee/Edit?Id=@dr["EmployeeId"]"><span class="glyphicon glyphicon-edit"></span></a>
+                                                }
+                                                @if (dr["Role"].ToString() == "Admin" || (dr["Role"].ToString() == "Manager" && ViewBag.Role != "Admin"))
+                                                {
+                                                    <a title="Delete" class="btn btn-danger btn-primary btn-xs btn-delete" id="@dr["EmployeeId"]" href="javascript:void(0);" style="display:none;"><span class="glyphicon glyphicon-trash"></span></a>
+                                                }
+                                                else
+                                                {
+                                                    <a title="Delete" class="btn btn-danger btn-primary btn-xs btn-delete" id="@dr["EmployeeId"]" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a>
+                                                }
+
+                                            </td>
+
+
+                                            </tr>
 
                                     }
                                 </tbody>
@@ -132,7 +179,12 @@
         <!-- end row -->
 
     </section>
+    <!-- ui-dialog -->
+    @{Html.RenderPartial("_PTOForm"); }
+    <!-- ends ui-dialog -->
 </div>
+
+
 
 <!-- END MAIN CONTENT -->
 @section pagespecific {
@@ -140,7 +192,63 @@
 
     // DO NOT REMOVE : GLOBAL FUNCTIONS!
 
-    $(document).ready(function () {
+        $(document).ready(function () {
+            $.getJSON('@Url.Action("GetEmployee", "TimeSheet")', function (data) {
+                $('#EmployeeId').empty();
+                $('#EmployeeId').append($('<option></option>').val('').text('Please select employee'));
+                $.each(data, function (i, item) {
+                    $('#EmployeeId').append($('<option></option>').val(item.Value).text(item.Text));
+                });
+            });
+
+            $('.pto_form').click(function () {
+                var EmployeeId = $(this).attr('data-empId')
+                $('#PTOModal').modal();
+                $('#PTO-Add')[0].reset();
+                $('#EmployeeId').val(EmployeeId);
+                $('#Date').val(new Date().Format("yyyy-MM-dd"));
+                return false;
+            });
+
+            $('#btn-PTO-add').click(function () {
+                var EmployeeId = $('#EmployeeId').val();
+                var Date = $('#Date').val();
+                var Type = $("input[name='Type']:checked").val();
+                var Usage = $("input[name='Usage']:checked").val();
+                var Hours = $('#Hours').val();
+                var Memo = $('#Memo').val();
+                var par = {
+                    "EmployeeId": EmployeeId,
+                    "Date": Date,
+                    "Type": Type,
+                    "Hours": Hours * Usage,
+                    "Memo": Memo
+                }
+                //var par = $("#PTO-Add").serializeArray();
+                var bootstrapValidator = $('#PTO-Add').data('bootstrapValidator');
+                bootstrapValidator.validate();
+                if (bootstrapValidator.isValid()) {
+                    $.post("/Employee/AddPTO", par, function (data) {
+                        if (data.status == "success") {
+                            $('#PTOModal').modal("hide");
+                            SuccessBox('Manager Paid Time Off and Paid Vacation Add Success !');
+                            $.post("/Employee/GetNewPTOHour", { "EmployeeId": EmployeeId }, function (data) {
+                                if (data.status == "success") {
+                                    console.log("asd!");
+                                    var v = data.total + '/' + data.CapHours + '  <span class="pull-right pto-percent">' + data.Percent + '%</span>';
+                                    $('[data-employeeid-ptodiv="' + EmployeeId + '"] .TotalHoursCapHours').html(v);
+                                    $('[data-employeeid-ptodiv="' + EmployeeId + '"] .progress-PTO').attr({ "style": "width: " + data.Percent + "%", "data-pto-value": data.Percent });
+
+                                }
+                            })
+                        } else {
+                            ErrorBox(data.message);
+                        }
+                    })
+                }
+
+
+            })
 
         /* // DOM Position key index //
 
@@ -215,7 +323,7 @@
             console.log("add-employee");
             location.href = "/Employee/Add";
         });
-        
+
         /* END TABLETOOLS */
         $(".btn-delete").click(function () {
             var Id = $(this).eq(0).attr('id')

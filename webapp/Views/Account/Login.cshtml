@@ -1,21 +1,25 @@
 ﻿@model AccountLoginModel
 @{
     ViewBag.PageId = "extr-page";
-    ViewBag.PageClass = "animated fadeInDown";
+    //ViewBag.PageClass = "animated fadeInDown";
 }
 
 @section topright{
-    <span id="extr-page-header-space"> <span class="hidden-mobile">Need an account?</span> <a href="@Url.Action("register", "account")" class="btn btn-danger">Create account</a> </span>
+    <span id="extr-page-header-space"> <span class="hidden-mobile text-color-white">Need an account?</span> <a href="@Url.Action("register", "account")" class="btn btn-primary">Create account</a> </span>
 }
 
 <div id="content" class="container">
     <div class="row">
-        @{ Html.RenderPartial("_LoginText"); }
-        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+        @*@{ Html.RenderPartial("_LoginText"); }*@
+
+        @{ Html.RenderPartial("_LoginBackground"); }
+
+        <div class="col-sm-6 col-sm-offset-3 form-box" style="margin-top:100px">
             <div class="well no-padding">
                 <form action="@Url.Action("login", "account")" method="POST" id="login-form" class="smart-form client-form">
                     <header>
-                        Sign In
+                        <h3><i class="fa fa-key"></i> Sign In</h3>
+                        
                     </header>
                     @Html.HiddenFor(m => m.ReturnUrl)
                     @Html.AntiForgeryToken()
@@ -49,17 +53,30 @@
                                 <i></i>Stay signed in
                             </label>
                         </section>
+
+                        <section>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                Sign in
+                            </button>
+                        </section>
                     </fieldset>
-                    <footer>
+                    @*<footer>
                         <button type="submit" class="btn btn-primary">
                             Sign in
                         </button>
-                    </footer>
+                    </footer>*@
                 </form>
             </div>
-            @{ Html.RenderPartial("_SocialMedia"); }
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3 form-box text-center">
+            <p class="text-color-white">Copyright © 2017 LivePayroll, All rights reserved.</p>
+            <p class="text-color-white">About more <a href="http://www.halfpricesoft.com"><strong>Payroll</strong></a> >>></p>
+        </div>
+    </div>
+    
 </div>
 @section pagespecific {
     <script type="text/javascript">

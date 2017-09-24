@@ -27,7 +27,7 @@
                                 <div class="form-group">
                                     <label>Time *:</label>
                                     <div class="input-group">
-                                        <input class="form-control clockpicker e-date-item" type="text" id="E-StartDateTime" name="StartDateTime" placeholder="Please Select Time" data-autoclose="true" data-bv-field="StartDateTime">
+                                        <input class="form-control timepicker e-date-item" type="text" id="E-StartDateTime" name="StartDateTime" placeholder="Please Select Time" data-autoclose="true" data-bv-field="StartDateTime">
                                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                                     </div>
                                     <small class="help-block" data-bv-validator="notEmpty" data-bv-for="StartDateTime" data-bv-result="NOT_VALIDATED" style="display: none;">The StartDate Time Is Required And Cannot Be Empty.</small>
@@ -50,7 +50,7 @@
                                 <div class="form-group">
                                     <label>Time *:</label>
                                     <div class="input-group">
-                                        <input class="form-control clockpicker e-date-item" type="text" id="E-StopDateTime" name="StopDateTime" placeholder="Please Select Time" data-autoclose="true" data-bv-field="StopDateTime">
+                                        <input class="form-control timepicker e-date-item" type="text" id="E-StopDateTime" name="StopDateTime" placeholder="Please Select Time" data-autoclose="true" data-bv-field="StopDateTime">
                                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                                     </div>
                                     <small class="help-block" data-bv-validator="notEmpty" data-bv-for="StopDateTime" data-bv-result="NOT_VALIDATED" style="display: none;">The StopDate Time Is Required And Cannot Be Empty.</small>
@@ -62,13 +62,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label" for="TimeSheetType">Type *:</label>
-                                    <select class="form-control" id="E-TimeSheetType" name="TimeSheetType" data-bv-field="TimeSheetType">
-                                        <option value="">Please Select TimeSheet Type</option>
-                                        <option value="1">Regular Work</option>
-                                        <option value="2">Sick Time</option>
-                                        <option value="3">Vacation</option>
-                                    </select>
-                                    <small class="help-block" data-bv-validator="notEmpty" data-bv-for="TimeSheetType" data-bv-result="NOT_VALIDATED" style="display: none;">The TimeSheet Type Is Required And Cannot Be Empty.</small>
+                                    @Html.DropDownList("TimeSheetType", ViewBag.TimeSheetType as SelectList, "Please select timesheet type", new { @class = "form-control", @id = "E-TimeSheetType" })
                                 </div>
                             </div>
 
@@ -76,7 +70,7 @@
                                 <div class="form-group">
                                     <label>Total Time(Minutes. Paid Or Not ):</label>
                                     <div class="input-group">
-                                        <input type="text" disabled="disabled" name="TotalWorkTime" placeholder="Please Select Time..." class="form-control" id="E-TotalWorkTime">
+                                        <input type="text" disabled="disabled" name="TotalWorkTime" placeholder="Please select time..." class="form-control" id="E-TotalWorkTime">
                                         <span class="input-group-addon">
                                             <span class="onoffswitch">
                                                 <input type="checkbox" title="Is Paid" name="Paid" class="onoffswitch-checkbox" id="E-Paid">

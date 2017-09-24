@@ -1,0 +1,36 @@
+﻿.error404 {
+    font-family: 'Nova Flat', cursive;
+    background-color: #B396FF;
+    color: #fff;
+}
+h1 {
+    font-family: 'Nova Flat', cursive;
+    font-size:36px;
+}
+h2 {
+    font-family: 'Nova Flat', cursive;
+    font-size:30px;
+}
+h3 {
+    font-size:24px;
+}
+h5 {
+    font-family: 'Nova Flat', cursive;
+    font-size:14px;
+}
+.error-link {
+    font-size:14px;
+}
+.error404 .pad-top {
+    padding-top:60px;
+}
+.error404 .text-center {
+    text-align:center;
+}
+.error404 #error-link {
+    font-size:150px;
+    padding:10px;
+}
+.text-font-cursive {
+     font-family: 'Nova Flat', cursive;
+}

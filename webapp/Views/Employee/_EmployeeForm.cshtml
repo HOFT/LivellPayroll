@@ -50,7 +50,7 @@
                     <div class="step-content">
                         <form class="form-horizontal" id="fuelux-wizard" method="post" novalidate="novalidate">
                             <div class="step-pane active" data-step="1">
-                                <h3><i class="fa fa-pencil"> </i> <strong>Employee Information</strong></h3>
+                                <h3><i class="fa fa-pencil"> </i> <strong>User Information</strong></h3>
                                 <hr />
                                 <!-- wizard form starts here -->
                                 <fieldset>
@@ -100,10 +100,10 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group checkbox">
+                                        @*<div class="form-group checkbox">
                                             <label class="col-md-4 control-label"></label>
                                             <div class="col-md-8"><label><input type="checkbox" name="F124" value="1">Check if inactive</label></div>
-                                        </div>
+                                        </div>*@
 
 
                                     </div>
@@ -135,13 +135,31 @@
                                         <div class="form-group">
                                             <label class="col-md-4 control-label">Zip *</label>
                                             <div class="col-md-8">
-                                                <input class="form-control" name="ZipCode" placeholder="Please enter your zipcode" data-inputmask="'mask': '99999'" type="text" />
+                                                <input class="form-control" id="ZipCode" name="ZipCode" placeholder="Please enter your zipcode" data-inputmask="'mask': '99999'" type="text" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-4 control-label">Telephone *</label>
                                             <div class="col-md-8">
                                                 <input class="form-control" name="Phone" placeholder="Please enter your PhoneNumber" data-inputmask="'mask': '(999)-999-9999'" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Role *</label>
+                                            <div class="col-md-8">
+                                                <label class="radio radio-inline">
+                                                    <input type="radio" class="radiobox" name="UserRole" value="Admin">
+                                                    <span>Admin</span>
+                                                </label>
+                                                <label class="radio radio-inline">
+                                                    <input type="radio" class="radiobox" name="UserRole" value="Manager">
+                                                    <span>Manager</span>
+                                                </label>
+                                                <label class="radio radio-inline">
+                                                    <input type="radio" class="radiobox" name="UserRole" value="Employee">
+                                                    <span>Employee</span>
+                                                </label>
                                             </div>
                                         </div>
 
@@ -178,14 +196,13 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="form-group">
+                                        <div class="form-group has-success">
                                             <label class="col-md-5 control-label">Paid Time Off (PTO) Rate Accrual by Working Hours</label>
                                             <div class="col-md-3">
                                                 <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                                    <input type="number" class="form-control" step="0.0001" placeholder="0.0000" name="PTOAccRate">
+                                                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                                    <input type="number" class="form-control" step="0.0001" placeholder="0.0000" name="PTOAccRate" data-bv-field="PTOAccRate">
                                                 </div>
-
                                             </div>
                                             <span>hours per working hour.</span>
                                         </div>
@@ -195,7 +212,7 @@
                                             <label class="col-md-5 control-label">Paid Time Off Maximum Hours *</label>
                                             <div class="col-md-3">
                                                 <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                                                     <input type="number" class="form-control" step="0.01" placeholder="0.00" name="PTOCapHours">
                                                 </div>
 
@@ -208,7 +225,7 @@
                                             <label class="col-md-5 control-label">Paid Vacation Rate Accrual by Working Hours</label>
                                             <div class="col-md-3">
                                                 <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                                                     <input type="number" class="form-control" step="0.0001" placeholder="0.0000" name="VacAccRate">
                                                 </div>
                                             </div>
@@ -221,7 +238,7 @@
                                             <label class="col-md-5 control-label">Paid Vacation Maximum Hours *</label>
                                             <div class="col-md-3">
                                                 <div class="input-group">
-                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                                                     <input type="number" class="form-control" step="0.01" placeholder="0.00" name="VacCapHours">
                                                 </div>
                                             </div>
@@ -240,7 +257,7 @@
                                                 <div class="form-group">
                                                     <div class="col-sm-12 col-md-12 checkbox">
                                                         <label>
-                                                            <input type="checkbox" id="F125" name="F125" value=1 onclick="onF125(this)">
+                                                            <input type="checkbox" id="F125" name="F125" value=1 onchange="onF125(this)">
                                                             Salary Employee (Uncheck to pay by hourly rate)
                                                         </label>
                                                     </div>
@@ -261,12 +278,12 @@
                                                     <div class="col-md-8">
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                                            <input class="form-control" step="0.01" placeholder="0.00" type="number" name="F100">
+                                                            <input class="form-control" step="0.01" placeholder="0.00" type="number" name="F100" id="CopyValue_F100" onkeyup="copyob1toob2()">
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group">
+                                                @*<div class="form-group">
                                                     <label class="col-md-4 control-label">Overtime Hourly Pay</label>
                                                     <div class="col-md-8">
                                                         <div class="input-group">
@@ -274,11 +291,38 @@
                                                             <input class="form-control" step="0.01" placeholder="0.00" type="number" name="F101">
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>*@
 
                                                 @foreach (var t in ViewBag.List201)
                                                 {
-                                                    if (t.Ord == 4|| t.Ord == 5 && t.Enabled == true)
+                                                    if (t.Ord == 3 && t.Enabled == true)
+                                                    {
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">@t.Description</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                                    <input class="form-control" step="0.01" placeholder="0.00" type="number" name="@t.CodeMap">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    }
+
+                                                    if (t.Ord == 4 && t.Enabled == true)
+                                                    {
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">@t.Description</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-group">
+                                                                    <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+                                                                    <input class="form-control" step="0.01" placeholder="0.00" type="number" name="@t.CodeMap" id="CopyValue_F1002">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                    if (t.Ord == 5 && t.Enabled == true || t.Ord == 6 && t.Enabled == true)
                                                     {
                                                         <div class="form-group">
                                                             <label class="col-md-4 control-label">@t.Description</label>
@@ -414,8 +458,8 @@
                                                     <label class="col-md-4 control-label" for="select_filing_status">Filing Status</label>
                                                     <div class="col-md-8">
                                                         <select class="form-control" id="select_filing_status" name="F106">
-                                                            <option>Single</option>
-                                                            <option>Married</option>
+                                                            <option selected = "selected" value="S">Single</option>
+                                                            <option value="M">Married</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -423,8 +467,8 @@
                                                     <label class="col-md-4 control-label">Number of Allowance</label>
                                                     <div class="col-md-8">
                                                         <div class="input-group">
-                                                            <span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-                                                            <input class="form-control" step="0.01" placeholder="1.00" type="number" name="F107">
+                                                            <span class="input-group-addon"><i class="fa fa-thumb-tack"></i></span>
+                                                            <input class="form-control" step="0.01" placeholder="0.00" type="number" name="F107">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -514,7 +558,7 @@
                                                 <div class="row StateTaxRow2">
                                                     <div class="col-sm-6 col-md-6 col-lg-6" id="F110">
                                                         <div class="form-group">
-                                                            <label class="col-md-4 control-label">Filing Status</label>
+                                                            <label class="col-md-4 control-label">Filing Status *</label>
                                                             <div class="col-md-8">
                                                                 <select class="form-control" id="filing_status" name="F110"><option value="">Please select filing status</option></select>
                                                             </div>
@@ -573,7 +617,7 @@
 
                             </div>
                             <div class="step-pane" data-step="5">
-                                <h3><i class="fa fa-pencil"> </i> <strong>Finished</strong></h3>
+                                @*<h3><i class="fa fa-pencil"> </i> <strong>Finished</strong></h3>*@
                                 <br>
                                 <br>
                                 <h1 class="text-center text-success">
@@ -621,7 +665,7 @@
                     <!-- end widget content -->
                     <!-- end widget div -->
                 <!-- end widget -->
-
+                </div>
         </article>
         <!-- WIDGET END -->
     </div>

@@ -40,9 +40,13 @@ namespace LivellPayRoll.Models
         [StringLength(128)]
         [EmailAddress]
         public string Email { set; get; }
-        public decimal F100 { get; set; }
-        public decimal F101 { get; set; }
-        public decimal F102 { get; set; }
+        [Required]
+        [StringLength(16)]
+        public string UserRole { set; get; }
+        public float F100 { get; set; }
+        public float F101 { get; set; }
+        public float F102 { get; set; }
+        public float F1002 { get; set; }
         public DateTime F103 { get; set; }
         public DateTime F104 { get; set; }
         public DateTime F105 { get; set; }
@@ -61,45 +65,45 @@ namespace LivellPayRoll.Models
         public int F113 { get; set; }
         [Required]
         [DefaultValue(0)]
-        public byte F114 { get; set; }
+        public int F114 { get; set; }
         [Required]
         [DefaultValue(0)]
-        public byte F115 { get; set; }
+        public int F115 { get; set; }
         [Required]
         [DefaultValue(0)]
-        public byte F116 { get; set; }
+        public int F116 { get; set; }
         [Required]
         [DefaultValue(0)]
-        public byte F117 { get; set; }
+        public int F117 { get; set; }
         [Required]
         [DefaultValue(0)]
-        public byte F118 { get; set; }
+        public int F118 { get; set; }
         [Required]
         [DefaultValue(0)]
-        public byte F119 { get; set; }
+        public int F119 { get; set; }
         public float F120 { get; set; }
-        public decimal F121 { get; set; }
-        public decimal F122 { get; set; }
+        public float F121 { get; set; }
+        public float F122 { get; set; }
         public float F1231 { get; set; }
         public float F1232 { get; set; }
         public float F1233 { get; set; }
         public float F1234 { get; set; }
         public float F1235 { get; set; }
         [Required]
-        [DefaultValue(0)]
-        public byte F124 { get; set; }
+        [DefaultValue(3)]
+        public int F124 { get; set; }
         [Required]
         [DefaultValue(0)]
-        public byte F125 { get; set; }
+        public int F125 { get; set; }
         [Required]
         [DefaultValue(0)]
-        public byte IsW2StatutoryEmployee { get; set; }
+        public int IsW2StatutoryEmployee { get; set; }
         [Required]
         [DefaultValue(0)]
-        public byte IsW2RetirementPlan { get; set; }
+        public int IsW2RetirementPlan { get; set; }
         [Required]
         [DefaultValue(0)]
-        public byte DoesReceiveAdvanceEIC { get; set; }
+        public int DoesReceiveAdvanceEIC { get; set; }
         public float F1236 { get; set; }
         public float F1237 { get; set; }
         [StringLength(64)]
@@ -110,23 +114,23 @@ namespace LivellPayRoll.Models
         public string HourlyPay3 { get; set; }
         [StringLength(64)]
         public string HourlyPay4 { get; set; }
-        public decimal SickRate { get; set; }
-        public decimal VacationRate { get; set; }
+        public float SickRate { get; set; }
+        public float VacationRate { get; set; }
         [DefaultValue(0)]
-        public byte is1099Employee { get; set; }
+        public int is1099Employee { get; set; }
         public float PTOAcchours { get; set; }
         public float VacAccHours { get; set; }
         [DefaultValue(0)]
-        public byte printPTOStub { get; set; }
+        public int printPTOStub { get; set; }
         public float PTOAccRate { get; set; }
         public float VacAccRate { get; set; }
         public float PTOCapHours { get; set; }
         public float VacCapHours { get; set; }
         [DefaultValue(0)]
-        public byte isPayrollSetup { get; set; }
+        public int isPayrollSetup { get; set; }
         public int DefaultJob { get; set; }
         [DefaultValue(0)]
-        public byte isEmailComfirmed { get; set; }
+        public int isEmailComfirmed { get; set; }
         [StringLength(128)]
         public string SecurityStamp { get; set; }
         public int CompanyId { get; set; }
@@ -134,6 +138,8 @@ namespace LivellPayRoll.Models
         public virtual ICollection<TimeSheet> TimeSheet { get; set; }
         public virtual ICollection<Job> Job { get; set; }
         public virtual ICollection<T105> T105 { get; set; }
+        public virtual ICollection<AccrualTimeJournal> AccrualTimeJournal { get; set; }
+        public string AppUserId { get; set; }
         public virtual AppUser AppUser { get; set; }
 
     }

@@ -1,0 +1,219 @@
+﻿<div class="modal fade" id="PayrollPrintModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;sdfs
+                </button>*@
+                <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-paperclip"></span> Payroll Data Input</h4>
+                <button class="btn btn-primary" id="PayrollPrint" type="submit">
+                    <i class="fa fa-save"></i>
+                    Print
+                </button>
+            </div>
+            <div class="Hide-Item">
+                <div id="Ptitlebar" style="display: none">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-2">
+                            <div style="text-align:center">
+                                <img class="P-Logo" src="/Content/img/favicon/Null.png" onerror="onerror = null; src = '/Content/img/favicon/Null.png'" width="80" height="80" alt="invoice icon">
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <address>
+                                <strong><span class="P-Company1"> </span></strong>
+                                <br>
+                                <span class="P-Company2"> </span>
+                                <br>
+                                <span class="P-Company3"> </span>
+                                <br>
+                                <span class="P-Company4"> </span>
+                            </address>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <address>
+                                <strong><span class="P-BankName">  </span></strong>
+                                <br>
+                                <span class="P-BankInfo1"> </span>
+                                <br>
+                                <span class="P-BankInfo2"> </span>
+                                <br>
+                                <span class="P-BankInfo3"> </span>
+                            </address>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-2">
+                            <div class="font-md">
+                                <strong>No.<span class="P-CheckNum"> </span></strong>
+                            </div>
+                            <span class="P-TransitCode"> </span>
+                            <div>
+                                <strong>Date :</strong>
+                                <span class="P-DateSubmitted">   </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12 font-md">
+                            <div class="col-xs-9"><strong> Pay To The Order Of : </strong><u>  <a> <span class="P-Name"> </span> </a>  </u></div>
+                            <div class="col-xs-3">
+                                <div class="well well-sm bg-color-darken txt-color-white no-border" style="margin-bottom: 5px;">
+                                    <strong>$  </strong>  ** <span class="pull-right P-CheckAmount">   </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 font-md">
+                            <div class="col-xs-12"><u>  <a> <span class="P-CheckAmountDesc">   </span></a>  </u><strong> &nbsp;&nbsp; Dollars</strong></div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <address>
+                                <strong><span class="P-Name"> </span></strong>
+                                <br>
+                                <span class="P-EAddress"> </span>
+                                <br>
+                                <span class="P-ECityState"> </span>
+                                <br>
+                                <span class="P-EPhone"> </span>
+                            </address>
+                        </div>
+                        <div class="col-sm-5">
+                            <br />
+                            <br />
+                            <br />
+                            <strong> Memo : </strong><u>  <a><span class="P-Memo">   </span></a>  </u>
+                        </div>
+                        <div class="col-sm-4">
+                            <u><img class="P-Signature" src="https://img.alicdn.com/imgextra/i2/55814881/TB2ESW4XaTEK1JjSZFFXXb6xXXa_!!55814881.jpg" width="100%" height="80" alt="Error"> </u>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 text-center font-md">
+                            <strong style="font-family:MICRHALF">
+                                <span class="P-PayCode"> </span>
+                            </strong>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <div id="Pcontent" style="display: none">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <address>
+                                <strong><span class="P-Company1"> </span></strong>
+                                <br>
+                                <span class="P-Company2"> </span>
+                                <br>
+                                <span class="P-Company3"> </span>
+                                <br>
+                                <span class="P-Company4"> </span>
+                            </address>
+                        </div>
+                        <div class="col-sm-3">
+                            <address>
+                                <strong><span class="P-Name"> </span></strong>
+                                <br>
+                                <span class="P-EAddress"> </span>
+                                <br>
+                                <span class="P-ECityState"> </span>
+                                <br>
+                                <span class="P-EPhone"> </span>
+                            </address>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>
+                                <strong>SSN :</strong>
+                                <span class="P-SSN">   </span>
+                            </div>
+                            <div>
+                                <strong>Gross Pay :</strong>
+                                <span class="P-GrossPay">   </span>
+                            </div>
+                            <div>
+                                <strong>Net Pay :</strong>
+                                <span class="P-NetPay">   </span>
+                            </div>
+                            <div>
+                                <strong>Filing Status :</strong>
+                                <span class="P-Filing">   </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>
+                                <strong>Period Begin :</strong>
+                                <span class="P-DateStartPeriod"> 2017/8/19 </span>
+                            </div>
+                            <div>
+                                <strong>Period End :</strong>
+                                <span class="P-DateEndPeriod"> 2017/8/19 </span>
+                            </div>
+                            <div>
+                                <strong>Check Date :</strong>
+                                <span class="P-DateSubmitted"> 2017/8/19 </span>
+                            </div>
+                            <div>
+                                <strong>CheckNo :</strong>
+                                <span class="P-CheckNum"> 1007 </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <table class="table table-hover" id="Earnings">
+                                <thead>
+                                    <tr>
+                                        <th class="col-sm-3">Earnings</th>
+                                        <th class="col-sm-3">Hour/Rate</th>
+                                        <th class="col-sm-3">Amount</th>
+                                        <th class="col-sm-3">YTD Amt</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-5">
+                            <table class="table table-hover" id="TaxesDeduction">
+                                <thead>
+                                    <tr>
+                                        <th class="col-sm-3">Taxes/Deduction</th>
+                                        <th class="col-sm-3">Amount</th>
+                                        <th class="col-sm-3">YTD Amt</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Net Pay</td>
+                                        <td>$1,200.00</td>
+                                        <td>$4,400.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+            <div class="modal-body" id="PrintView">
+                <br />
+                <div id="part1">
+
+                </div>
+                <br />
+                <div id="part2">
+
+                </div>
+                <div id="part3">
+
+                </div>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

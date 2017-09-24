@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.PageId = "extr-page";
+}
+
+@section topright{
+  <span id="extr-page-header-space"> <span class="hidden-mobile text-color-white">Already registered?</span> <a href="@Url.Action("login", "account")" class="btn btn-primary">Sign In</a> </span>
+}
+
+<div id="content" class="container">
+    <div class="row">
+        @*@{ Html.RenderPartial("_LoginText"); }*@
+        @{ Html.RenderPartial("_LoginBackground"); }
+
+        <div class="col-sm-6 col-sm-offset-3 form-box" style="margin-top:100px">
+            <div class="well no-padding">
+                <form id="login-form" class="smart-form client-form">
+                    <header>
+                        <h3><i class="fa fa-envelope"></i> Please Receive Email</h3>
+                        
+                    </header>
+                    <fieldset>
+                        <input type="hidden" class="hide_email" value="@ViewBag.ReceiveEmail">
+                        <h1>
+                            <span class="semi-bold" id="EmialViewSpan">@ViewBag.ReceiveEmail</span>  
+                        </h1>
+                        <p class="note">
+                            The Payroll Team has been sent a email to this address, Please kindly check your receipt !
+                        </p>
+                        <br>
+                        <section>
+                            <a class="btn btn-primary btn-lg btn-block btn_actemail" href="/">Login</a>
+                        </section>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section pagespecific{
+  <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+</script>
+}

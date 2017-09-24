@@ -33,6 +33,7 @@
 
 
                     <form class="form-horizontal" id="CustomerForm" action="#" method="post">
+
                         <fieldset>
                             <legend> &nbsp;&nbsp;&nbsp;<strong>Customer  Info</strong> </legend>
                             <input type="hidden" name="Id" value="0">
@@ -44,7 +45,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-2 control-label">Attn *</label>
+                                <label class="col-md-2 control-label">Attn</label>
                                 <div class="col-md-9">
                                     <input class="form-control" name="Attn" placeholder="Please Enter Customer Attn" type="text">
                                 </div>
@@ -53,7 +54,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Telphone *</label>
                                 <div class="col-md-9">
-                                    <input class="form-control" name="Telphone" data-mask="(999)-999-9999" data-mask-placeholder="_" placeholder="Please Enter Customer Telphone" type="text">
+                                    <input class="form-control" name="Telphone" data-inputmask="'mask': '(999)-999-9999'" @*data-mask="(999)-999-9999" data-mask-placeholder="_"*@ placeholder="Please Enter Customer Telphone" type="text">
                                 </div>
                             </div>
 
@@ -65,7 +66,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-2 control-label">Email *</label>
+                                <label class="col-md-2 control-label">Email</label>
                                 <div class="col-md-9">
                                     <input class="form-control" name="Email" placeholder="Please Enter Customer Email" type="text">
                                 </div>

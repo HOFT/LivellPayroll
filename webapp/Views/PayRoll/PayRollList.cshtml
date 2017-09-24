@@ -1,14 +1,14 @@
-﻿@model IEnumerable<LivellPayRoll.Models.T105>
+﻿@model System.Data.DataTable
 @using LivellPayRoll.App_Helpers
 <!-- MAIN CONTENT -->
 <div id="content">
     <div class="row">
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
-                <i class="fa fa-calendar-o"></i>
-                PayRoll<span>
+                <i class="fa fa-list-alt fa-fw "></i>
+                Payroll<span>
                     &gt;
-                  PayRoll List
+                  Payroll List
                 </span>
             </h1>
         </div>
@@ -61,8 +61,8 @@
 
                     -->
                     <header>
-                        <span class="widget-icon"> <i class="fa fa-calendar-o"></i> </span>
-                        <h2>PayRoll List</h2>
+                        <span class="widget-icon"> <i class="fa fa-list-alt fa-fw"></i> </span>
+                        <h2>Payroll List</h2>
 
                     </header>
 
@@ -81,9 +81,9 @@
                             <table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
                                 <thead>
                                     <tr>
-                                        <th data-hide="phone,tablet">Ord</th>
+                                        <th data-hide="phone,tablet">Check Num</th>
                                         <th><i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i>Name</th>
-                                        <th data-hide="phone,tablet"><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>SSN</th>
+                                        <th data-hide="phone,tablet"><i class="fa fa-fw fa-slack text-muted hidden-md hidden-sm hidden-xs"></i>SSN</th>
                                         <th><i class="fa fa-fw fa-dollar text-muted hidden-md hidden-sm hidden-xs"></i>Check Amount</th>
                                         <th><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>Pay Period Ending</th>
                                         <th><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>Check Date</th>
@@ -92,18 +92,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var List in Model)
-                                    {
-                                        <tr>
-                                            <td>@(Model.ToList().IndexOf(List) + 1)</td>
-                                            <td>@(List.Employee.FName+" "+List.Employee.LName) </td>
-                                            <td>@List.Employee.SSN</td>
-                                            <td>@List.S122</td>
-                                            <td>@List.DateEndPeriod</td>
-                                            <td>@List.DateSubmitted</td>
-                                            <td>@List.Memo</td>
-                                            <td class="x-y-center">
-                                                <a class="btn btn-primary btn-xs btn-delete" id="@List.Id " href="javascript:void(0);">Delete</a>
+                                   @foreach (System.Data.DataRow dr in Model.Rows)
+                                   {
+                                        <tr data-Rid="@dr["Id"]">
+                                            <td>@dr["CheckNum"]</td>
+                                            <td>@dr["Name"] </td>
+                                            <td>@dr["SSN"]</td>
+                                            <td>@dr["CheckAmount"]</td>
+                                            <td>@dr["PayPeriodEnding"]</td>
+                                            <td>@dr["PayPeriodEnding"]</td>
+                                            <td>@dr["Memo"]</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-xs btn-view" title="View" id="@dr["Id"]" href="javascript:void(0);"><span class="glyphicon glyphicon-paperclip"></span></a>
+                                                <a class="btn btn-primary btn-xs btn-print" title="Print" id="@dr["Id"]" href="/PayRoll/PayrollPrint?Id=@dr["Id"]"><span class="glyphicon glyphicon-print"></span></a>
+                                                <a class="btn btn-danger btn-xs btn-delete" title="Delete" id="@dr["Id"]" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a>
                                             </td>
                                         </tr>
 
@@ -127,15 +129,20 @@
         <!-- end row -->
 
     </section>
+    <!-- ui-dialog -->
+    @{Html.RenderPartial("_PayrollView"); }
+    <!-- ends ui-dialog -->
+    <!-- ui-dialog -->
+    @*@{Html.RenderPartial("_PayrollPrint"); }*@
+    <!-- ends ui-dialog -->
 
 </div>
 
 <!-- END MAIN CONTENT -->
-@section pagespecific {
-
-
+@section pagespecific {  
+<script src="~/Scripts/libs/jQuery.print.js"></script>
+<script src="~/Scripts/libs/jquery.PrintArea.js"></script>
     <script type="text/javascript">
-
 
         $(document).ready(function () {
 
@@ -151,7 +158,7 @@
 
         $('#datatable_tabletools').dataTable({
             //   https://datatables.net/extensions/tabletools/button_options
-            "sDom": "<'dt-toolbar'<'col-xs-6 col-sm-6'T><'col-sm-6 col-xs-6 hidden-xs'f>r>" +
+            "sDom": "<'dt-toolbar'<'col-xs-1 col-sm-1'<'Button_Add'>><'col-xs-6 col-sm-5'T><'col-sm-6 col-xs-6 hidden-xs'f>r>" +
                     "t" +
                     "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
 
@@ -188,6 +195,8 @@
             }
         });
 
+        $("div.Button_Add").html('<a class="btn btn-primary" href="/Payroll/Payrollinput"><i class="fa fa-plus"></i> Add</a> ');
+
 
         if("@Request.Params["code"]"=="1"){
             SuccessBox("@Request.Params["Message"]");
@@ -197,12 +206,128 @@
         $(".btn-delete").click(function () {
             var Id = $(this).eq(0).attr('id')
             AjaxDelete(
-                "The payroll will be deleted,Do you want to continue this record?",
+                "The check will be deleted,Do you want to continue this record?",
                 Id,
                 "/PayRoll/PayRollDelete",
                 "The PayRoll been successfully Deleted",
                 "OpTable"
                 );
+        });
+
+        $('.btn-view').click(function () {
+            var Id = $(this).attr("id");
+            $.post("/PayRoll/PayrollView", { Id: Id }, function (data) {
+                if (data.status == 'success') {
+                    $.each(data.IncomesData, function (i, row) {
+                        var html = '<tr><td><strong>' + row.Text + '</strong></td><td><span class="txt-color-blue">' + row.V1 + '</span></td><td><span class="txt-color-blue">' + row.V2 + '</span></td><td><span class="txt-color-blue">' + row.V3 + '</span></td></tr>';
+                        $("#TabIncomes tbody").append(html);
+                    });
+                    $.each(data.DeductionsData, function (i, row) {
+                        var html = '<tr><td><strong>' + row.Text + '</strong></td><td><span class="txt-color-blue">' + row.V1 + '</span></td><td><span class="txt-color-blue">' + row.V2 + '</span></td><td><span class="txt-color-blue">' + row.V3 + '</span></td></tr>';
+                        $("#TabDeductions tbody").append(html);
+                    });
+                    for (var key in data.TaxesSummary) {
+                        if (key == "QRCodePath") {
+                            $('#' + key).attr("src", data.TaxesSummary[key]);
+                        } else if (key == "txtMemo") {
+                            $('#' + key).val(data.TaxesSummary[key]);
+                        } else {
+                            $('#' + key).text(data.TaxesSummary[key]);
+                        };
+                        
+                    };
+                    $("#QRCodePath").attr("data-QRValue", Id);
+                };
+            });
+
+            $('#PayrollViewModal').modal();
+            return false;
+        });
+
+        $('#btnSaveMemo').click(function () {
+            var Memo = $('#txtMemo').val();
+            var Id = $("#QRCodePath").attr("data-QRValue");
+            if (Id == null || Id == "") {
+                ErrorBox("No ID currently found!");
+                return false;
+            };
+            $.post("/PayRoll/PayrollMemoSave", { Id: Id, Memo: Memo }, function (data) {
+                if (data.status == 'success') {
+                    $('tr[data-rid="' + Id + '"] td').eq(6).text(Memo);
+                    SuccessBox("The memo save successfully!");
+                } 
+
+            });
+        });
+
+        //$('.btn-print123').click(function () {
+        //    var Id = $(this).attr("id");
+        //    var Position = "Top";
+        //    $.post("/PayRoll/PayrollPrint", { Id: Id }, function (data) {
+        //        if (data.status == 'success') {
+        //            $.each(data.IncomesData, function (i, row) {
+        //                var html = '<tr><td>' + row.Text + '</td><td>' + row.V1 + '/' + row.V2 + '</td><td>' + row.V3 + '</td><td>' + row.V4 + '</td></tr>';
+        //                $("#Earnings tbody").append(html);
+        //            });
+        //            $("#Earnings tbody").append('<tr><td colspan="2"><strong>Gross Pay</strong></td><td>' + data.PrintDate["P-GrossPay"] + '</td><td>' + data.PrintDate["P-GrossPayYTD"] + '</td></tr>');
+        //            $.each(data.TaxesData, function (i, row) {
+        //                var html = '<tr><td>' + row.Text + '</td><td>' + row.V3 + '</td><td>' + row.V4 + '</td></tr>';
+        //                $("#TaxesDeduction tbody").append(html);
+        //            });
+        //            $.each(data.DeductionsData, function (i, row) {
+        //                var html = '<tr><td>' + row.Text + '</td><td>' + row.V3 + '</td><td>' + row.V4 + '</td></tr>';
+        //                $("#TaxesDeduction tbody").append(html);
+        //            });
+        //            $("#TaxesDeduction tbody").append('<tr><td><strong>Net Pay</strong></td><td>' + data.PrintDate["P-NetPay"] + '</td><td>' + data.PrintDate["P-NetPayYTD"] + '</td></tr>');
+        //            for (var key in data.PrintDate) {
+        //                if (key == "P-Logo" || key == "P-Signature") {
+        //                    $('.' + key).attr("src", data.PrintDate[key]);
+        //                } else {
+        //                    $('.' + key).text(data.PrintDate[key]);
+        //                };
+        //            };
+        //            Position = data.PrintDate["ExField1"];
+
+        //            var Ptitlebar = $('#Ptitlebar').html();
+        //            var Pcontent = $('#Pcontent').html();
+
+        //            $("#part1").empty();
+        //            $("#part2").empty();
+        //            $("#part3").empty();
+        //            console.log(Position);
+        //            if (Position == "Top") {
+        //                $("#part1").append(Ptitlebar);
+        //                $("#part2").append(Pcontent);
+        //                $("#part3").append(Pcontent);
+        //            } else if (Position == "Middle") {
+        //                $("#part1").append(Pcontent);
+        //                $("#part2").append(Ptitlebar);
+        //                $("#part3").append(Pcontent);
+        //            } else {
+        //                $("#part1").append(Pcontent);
+        //                $("#part2").append(Pcontent);
+        //                $("#part3").append(Ptitlebar);
+        //            };
+                    
+        //        };
+        //    });
+
+        //    $('#PayrollPrintModal').modal();
+        //    return false;
+        //});
+
+        $('#PayrollPrint').click(function () {
+            $('#PrintView').print({
+                globalStyles: true,
+                mediaPrint: true,
+                stylesheet: "../Content/css/bootstrap.min.css",
+                noPrintSelector: ".no-print",
+                iframe: true,
+                append: null,
+                prepend: null,
+                manuallyCopyFormValues: true,
+                deferred: $.Deferred()
+            })
         });
 
     })

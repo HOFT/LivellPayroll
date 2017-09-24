@@ -40,19 +40,31 @@
     <link href="~/Content/css/LivellPayRollStyle.css" rel="stylesheet" />
 </head>
 <body class="@ViewBag.PageClass @Settings.CurrentTheme">
-    @{ Html.RenderPartial("_Header", RenderSection("topright", false)); }
-    @if (Request.IsAuthenticated)
+
+    @if (Request.IsAuthenticated && ViewBag.PageType != "NullPage")
     {
-        Html.RenderPartialIf("_Aside", Request.IsAuthenticated); 
-     }
+        Html.RenderPartial("_Header", RenderSection("topright", false));
+    }
+    else if(ViewBag.PageType != "NullPage")
+    {
+        Html.RenderPartial("_LoginHeader", RenderSection("topright", false));
+    }
+
+    @if (Request.IsAuthenticated && ViewBag.PageType != "NullPage")
+    {
+        //Html.RenderPartial("_Header", RenderSection("topright", false));
+
+        Html.RenderPartialIf("_Aside", Request.IsAuthenticated);
+    }
     <div id="main" role="main">
-     @if (Request.IsAuthenticated)
-     {
-         Html.RenderPartialIf("_Ribbon", Request.IsAuthenticated); 
-     }
+
+        @if (Request.IsAuthenticated && ViewBag.PageType != "NullPage")
+        {
+            Html.RenderPartialIf("_Ribbon", Request.IsAuthenticated);
+        }
         @RenderBody()
     </div>
-    @if (Request.IsAuthenticated)
+    @if (Request.IsAuthenticated && ViewBag.PageType != "NullPage")
     {
         Html.RenderPartial("_Footer");
         Html.RenderPartialIf("_Tiles", Settings.EnableTiles);

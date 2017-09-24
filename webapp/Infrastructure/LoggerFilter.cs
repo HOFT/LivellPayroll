@@ -15,7 +15,7 @@ namespace LivellPayRoll.Infrastructure
             //执行action后执行这个方法 比如做操作日志  
         }
         public void OnActionExecuting(ActionExecutingContext filterContext)
-        {
+        { 
             //执行action前执行这个方法,比如做身份验证  
             //如果存在身份信息
             if (!HttpContext.Current.User.Identity.IsAuthenticated/*|| HttpContext.Current.Request.Cookies["LoginInfo"] == null*/)

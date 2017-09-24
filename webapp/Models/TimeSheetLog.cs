@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,8 @@ namespace LivellPayRoll.Models
         [StringLength(512)]
         public string Note { get; set; }
         public bool Status { get; set; }
+        [DefaultValue(false)]
+        public bool isDayLightTime { get; set; }
         public string AppUserId { get; set; }
         public virtual AppUser AppUser { get; set; }
     }

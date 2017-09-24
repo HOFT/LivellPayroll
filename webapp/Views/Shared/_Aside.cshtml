@@ -1,4 +1,4 @@
-﻿    <!-- Left panel : Navigation area -->
+﻿   <!-- Left panel : Navigation area -->
 <!-- Note: This width of the aside area can be adjusted through LESS variables -->
 <aside id="left-panel">
 
@@ -19,74 +19,226 @@
 
         <ul>
             <!--Home-->
-            <li class="@Html.RouteIf("index", "active")">
-                <a href="@Url.Action("index", "Home")" title="Home"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Home</span></a>
-            </li>
+            @if (RoleViewHelper.IsShowModule("Home", "Index"))
+            {
+                <li class="@Html.RouteIf("index", "active")">
+                    <a href="@Url.Action("index", "Home")" title="Home"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Home</span></a>
+                </li>
+            }
             <!--Employee-->
-            <li class="@Html.RouteIf("Employee", "active")">
-                <a href="#" title="Employee"><i class="fa fa-lg fa-fw fa-suitcase"></i><span class="menu-item-parent">Employee</span></a>
-                <ul>
-                    <li class="@Html.RouteIf("EmployeeList", "active")">
-                        <a href="@Url.Action("EmployeeList", "Employee")" title="Employee List">Employee List</a>
-                    </li>
-                    <li class="@Html.RouteIf("Add", "active")">
-                        <a href="@Url.Action("Add", "Employee")" title="Add Employee">Add Employee</a>
-                    </li>
-                </ul>
-            </li>
+            @if (RoleViewHelper.IsShowModule("Employee", ""))
+            {
+                <li class="@Html.RouteIf("Employee", "active")">
+                    <a href="#" title="Employee"><i class="fa fa-lg fa-fw fa-user"></i><span class="menu-item-parent">Employee</span></a>
+                    <ul>
+                        @if (RoleViewHelper.IsShowModule("Employee", "EmployeeList"))
+                        {
+                            <li class="@Html.RouteIf("EmployeeList", "active")">
+                                <a href="@Url.Action("EmployeeList", "Employee")" title="Employee List">Employee List</a>
+                            </li>
+                        }
+                        @if (RoleViewHelper.IsShowModule("Employee", "Add"))
+                        {
+                            <li class="@Html.RouteIf("Add", "active")">
+                                <a href="@Url.Action("Add", "Employee")" title="Add Employee">Add Employee</a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
             <!--Customer-->
-            <li class="@Html.RouteIf("Customer", "active")">
-                <a href="#" title="Customer"><i class="fa fa-lg fa-fw fa-list-alt "></i> <span class="menu-item-parent">Customer</span></a>
-                <ul>
-                    <li class="@Html.RouteIf("Customers", "active")">
-                        <a href="@Url.Action("Customers", "Customer")" title="Employee List">Customer List</a>
-                    </li>
-                    <li class="@Html.RouteIf("CustomerJobs", "active")">
-                        <a href="@Url.Action("CustomerJobs", "Customer")" title="Add Employee">Jobs</a>
-                    </li>
-                </ul>
-            </li>
+            @if (RoleViewHelper.IsShowModule("Customer", ""))
+            {
+                <li class="@Html.RouteIf("Customer", "active")">
+                    <a href="#" title="Customer"><i class="fa fa-lg fa-fw fa-cube"></i> <span class="menu-item-parent">Customer</span></a>
+                    <ul>
+                        @if (RoleViewHelper.IsShowModule("Customer", "Customers"))
+                        {
+                            <li class="@Html.RouteIf("Customers", "active")">
+                                <a href="@Url.Action("Customers", "Customer")" title="Employee List">Customer List</a>
+                            </li>
+                        }
+                        @if (RoleViewHelper.IsShowModule("Customer", "CustomerJobs"))
+                        {
+                            <li class="@Html.RouteIf("CustomerJobs", "active")">
+                                <a href="@Url.Action("CustomerJobs", "Customer")" title="Add Employee">Jobs</a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+
             <!--TimeSheets-->
-            <li class="@Html.RouteIf("TimeSheet", "active")">
-                <a href="#" title="TimeSheets"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i><span class="menu-item-parent">TimeSheets</span></a>
-                <ul>
-                    <li class="@Html.RouteIf("SheetList", "active")">
-                        <a href="@Url.Action("SheetList", "TimeSheet")" title="TimeSheet List">TimeSheet List</a>
-                    </li>
-                    <li class="@Html.RouteIf("SheetSetup", "active")">
-                        <a href="@Url.Action("SheetSetup", "TimeSheet")" title="TimeSheet Setup">TimeSheet Setup</a>
-                    </li>
-                </ul>
-            </li>
+            @if (RoleViewHelper.IsShowModule("TimeSheet", ""))
+            {
+                <li class="@Html.RouteIf("TimeSheet", "active")">
+                    <a href="#" title="TimeSheets"><i class="fa fa-lg fa-fw fa-inbox"></i><span class="menu-item-parent">TimeSheets</span></a>
+                    <ul>
+                        @if (RoleViewHelper.IsShowModule("TimeSheet", "SheetList"))
+                        {
+                            <li class="@Html.RouteIf("SheetList", "active")">
+                                <a href="@Url.Action("SheetList", "TimeSheet")" title="TimeSheet List">TimeSheet List</a>
+                            </li>
+                        }
+                        @if (RoleViewHelper.IsShowModule("TimeSheet", "SheetSetup"))
+                        {
+                            <li class="@Html.RouteIf("SheetSetup", "active")">
+                                <a href="@Url.Action("SheetSetup", "TimeSheet")" title="TimeSheet Setup">TimeSheet Setup</a>
+                            </li>
+                        }
+
+                    </ul>
+                </li>
+            }
+            <!--Reports-->
+            @if (RoleViewHelper.IsShowModule("Reports", ""))
+            {
+                <li class="@Html.RouteIf("Reports", "active")">
+                    <a href="#" title="Employee"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i><span class="menu-item-parent">Reports</span></a>
+                    <ul>
+                        @if (RoleViewHelper.IsShowModule("Reports", "EmployerReport"))
+                        {
+                            <li class="@Html.RouteIf("EmployerReport", "active")">
+                                <a href="@Url.Action("EmployerReport", "Reports")" title="Employee List">Employer Report</a>
+                            </li>
+                        }
+                        @if (RoleViewHelper.IsShowModule("Reports", "EmployeeSummary"))
+                        {
+                            <li class="@Html.RouteIf("EmployeeSummary", "active")">
+                                <a href="@Url.Action("EmployeeSummary", "Reports")" title="Employee List">Employee Report</a>
+                            </li>
+                        }
+                        @if (RoleViewHelper.IsShowModule("Reports", "EmployeeDetail"))
+                        {
+                            <li class="@Html.RouteIf("EmployeeDetail", "active")">
+                                <a href="@Url.Action("EmployeeDetail", "Reports")" title="Employee List">Employee Detail</a>
+                            </li>
+                        }
+                        @if (RoleViewHelper.IsShowModule("Reports", "EmployeePTO"))
+                        {
+                            <li class="@Html.RouteIf("EmployeePTO", "active")">
+                                <a href="@Url.Action("EmployeePTO", "Reports")" title="Employee List">Paid Time Off</a>
+                            </li>
+                        }
+                        @*@if (RoleViewHelper.IsShowModule("Reports", "TimeCalendar"))
+                        {
+                            <li class="@Html.RouteIf("TimeCalendar", "active")">
+                                <a href="@Url.Action("TimeCalendar", "Reports")" title="Employee List">Time Calendar</a>
+                            </li>
+                        }*@
+
+                    </ul>
+                </li>
+            }
+
+
             <!--PayRoll-->
-            <li class="@Html.RouteIf("PayRoll", "active")">
-                <a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i> <span class="menu-item-parent">PayRoll</span></a>
-                <ul>
-                    <li class="@Html.RouteIf("PayRollList", "active")">
-                        <a href="@Url.Action("PayRollList", "PayRoll")" title="PayRoll">PayRoll List</a>
-                    </li>
-                    <li class="@Html.RouteIf("PayRollInput", "active")">
-                        <a href="@Url.Action("PayRollInput", "PayRoll")" title="PayRoll">PayRoll Input</a>
-                    </li>
-                    <li class="@Html.RouteIf("PayRollSetup", "active")">
-                        <a href="#" title="PayRoll Setup">Setup</a>
-                        <ul>
-                            <li class="@Html.RouteIf("PayRollSet", "active")">
-                                <a href="@Url.Action("PayRollSet", "PayRollSetup")"><i class="fa fa-print"></i> PayRoll</a>
+            @if (RoleViewHelper.IsShowModule("PayRoll", "") || RoleViewHelper.IsShowModule("PayRollSetup", ""))
+            {
+                <li class="@Html.RouteIf("PayRoll", "active")">
+                    <a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i> <span class="menu-item-parent">Payroll</span></a>
+                    <ul>
+                        @if (RoleViewHelper.IsShowModule("PayRoll", "PayRollList"))
+                        {
+                            <li class="@Html.RouteIf("PayRollList", "active")">
+                                <a href="@Url.Action("PayRollList", "PayRoll")" title="PayRoll">Payroll List</a>
                             </li>
-                            <li class="@Html.RouteIf("Tax", "active")">
-                                <a href="@Url.Action("Tax", "PayRollSetup")"><i class="fa fa-dollar"></i> Tax</a>
+                        }
+                        @if (RoleViewHelper.IsShowModule("PayRoll", "PayRollInput"))
+                        {
+                            <li class="@Html.RouteIf("PayRollInput", "active")">
+                                <a href="@Url.Action("PayRollInput", "PayRoll")" title="PayRoll">Payroll Input</a>
                             </li>
-                            <li class="@Html.RouteIf("Deduction", "active")">
-                                <a href="@Url.Action("Deduction", "PayRollSetup")"><i class="fa fa-fax"></i> Deduction</a>
+                        }
+                        @if (RoleViewHelper.IsShowModule("PayRollSetup", ""))
+                        {
+                            <li class="@Html.RouteIf("PayRollSetup", "active")">
+                                <a href="#" title="PayRoll Setup">Setup</a>
+                                <ul>
+                                    @if (RoleViewHelper.IsShowModule("PayRollSetup", "PayRollSet"))
+                                    {
+                                        <li class="@Html.RouteIf("PayRollSet", "active")">
+                                            <a href="@Url.Action("PayRollSet", "PayRollSetup")"><i class="fa fa-print"></i> Payroll</a>
+                                        </li>
+                                    }
+                                    @if (RoleViewHelper.IsShowModule("PayRollSetup", "Tax"))
+                                    {
+                                        <li class="@Html.RouteIf("Tax", "active")">
+                                            <a href="@Url.Action("Tax", "PayRollSetup")"><i class="fa fa-dollar"></i> Tax</a>
+                                        </li>
+                                    }
+                                    @if (RoleViewHelper.IsShowModule("PayRollSetup", "Deduction"))
+                                    {
+                                        <li class="@Html.RouteIf("Deduction", "active")">
+                                            <a href="@Url.Action("Deduction", "PayRollSetup")"><i class="fa fa-fax"></i> Deduction</a>
+                                        </li>
+                                    }
+                                    @if (RoleViewHelper.IsShowModule("PayRollSetup", "Wage"))
+                                    {
+                                        <li class="@Html.RouteIf("Wage", "active")">
+                                            <a href="@Url.Action("Wage", "PayRollSetup")"><i class="fa fa-money"></i> Wage</a>
+                                        </li>
+                                    }
+                                </ul>
                             </li>
-                            <li class="@Html.RouteIf("Wage", "active")">
-                                <a href="@Url.Action("Wage", "PayRollSetup")"><i class="fa fa-money"></i> Wage</a>
+                        }
+
+                    </ul>
+                </li>
+            }
+
+            @*@if (RoleViewHelper.IsShowModule("Managers", "Mlist"))
+            {
+                <li class="@Html.RouteIf("Mlist", "active")">
+                    <a href="@Url.Action("Mlist", "Managers")" title="Home"><i class="fa fa-lg fa-fw fa-user"></i> <span class="menu-item-parent">Managers</span></a>
+                </li>
+            }*@
+
+
+            @if (RoleViewHelper.IsShowModule("System", "UserControl"))
+            {
+                <li class="@Html.RouteIf("UserControl", "active")">
+                    <a href="@Url.Action("UserControl", "System")" title="User Control"><i class="fa fa-lg fa-fw fa-windows"></i> <span class="menu-item-parent">User Control</span></a>
+                </li>
+            }
+
+            @if (RoleViewHelper.IsShowModule("Account", ""))
+            {
+                <li class="@Html.RouteIf("Account", "active")">
+                    <a href="#" title="Employee"><i class="fa fa-lg fa-fw fa-cogs"></i><span class="menu-item-parent">Settings</span></a>
+                    <ul>
+                        @if (RoleViewHelper.IsShowModule("Account", "GeneralSet"))
+                        {
+                            <li class="@Html.RouteIf("GeneralSet", "active")">
+                                <a href="@Url.Action("GeneralSet", "Account")" title="Employee List">General</a>
                             </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
+                        }
+
+                        @if (RoleViewHelper.IsShowModule("Account", "CheckSetup"))
+                        {
+                            <li class="@Html.RouteIf("CheckSetup", "active")">
+                                <a href="@Url.Action("CheckSetup", "Account")" title="Check Setup">Check Setup</a>
+                            </li>
+                        }
+
+                        @if (RoleViewHelper.IsShowModule("Account", "PasswordSet"))
+                        {
+                            <li class="@Html.RouteIf("PasswordSet", "active")">
+                                <a href="@Url.Action("PasswordSet", "Account")" title="Add Employee">Account</a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+
+            @if (RoleViewHelper.IsShowModule("Help", "Collect"))
+            {
+                <li class="@Html.RouteIf("Collect", "active")">
+                    <a href="@Url.Action("Collect", "Help")" title="Help"><i class="fa fa-lg fa-fw fa-question-circle"></i> <span class="menu-item-parent">Help</span></a>
+                </li>
+            }
+
+
             <!--Setup-->
             @*<li class="@Html.RouteIf("SetupIndex", "active")">
                 <a href="#" title="Setup"><i class="fa fa-lg fa-fw fa-cog"></i> <span class="menu-item-parent">Setup</span><b class="collapse-sign"><em class="fa fa-minus-square-o"></em></b></a>

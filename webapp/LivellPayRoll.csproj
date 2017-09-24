@@ -23,6 +23,8 @@
     <RestorePackages>true</RestorePackages>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -96,6 +98,9 @@
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -160,11 +165,35 @@
     <Reference Include="WebGrease">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.2.3.3.193\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.2.3.3.193\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Forms.2.3.3.193\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Xaml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="zxing, Version=0.16.0.0, Culture=neutral, PublicKeyToken=830ae994e36ac27d, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.0\lib\net45\zxing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.0.0, Culture=neutral, PublicKeyToken=830ae994e36ac27d, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.0\lib\net45\zxing.presentation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Helpers\DataTableXML.xml">
+    <Content Include="App_Helpers\ActionRoles.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Data\DataTableXML.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Helpers\EmailTemplate.html" />
     <Content Include="Areas\Landing\Content\color\default.css" />
     <Content Include="Areas\Landing\Content\css\animate.css" />
     <Content Include="Areas\Landing\Content\css\bootstrap.min.css" />
@@ -286,11 +315,150 @@
     <Content Include="Areas\Landing\Content\fonts\revicons\revicons.woff" />
     <Content Include="Areas\Landing\Content\js\libs\jquery.min.map" />
     <Content Include="Areas\Landing\Views\Landing\Index.cshtml" />
+    <Content Include="Configurations\Content\ajax\dashboard.html" />
+    <Content Include="Configurations\Content\ajax\email-compose.html" />
+    <Content Include="Configurations\Content\ajax\email-opened.html" />
+    <Content Include="Configurations\Content\ajax\email-reply.html" />
+    <Content Include="Configurations\Content\ajax\email-template.html" />
+    <Content Include="Configurations\Content\ajax\website-template.html" />
+    <Content Include="Configurations\Content\css\bootstrap.min.css" />
+    <Content Include="Configurations\Content\css\bootstrapValidator.css" />
+    <Content Include="Configurations\Content\css\bootstrapValidator.min.css" />
+    <Content Include="Configurations\Content\css\demo.min.css" />
+    <Content Include="Configurations\Content\css\font-awesome.min.css" />
+    <Content Include="Configurations\Content\css\invoice.min.css" />
+    <Content Include="Configurations\Content\css\LivellPayRollStyle.css" />
+    <Content Include="Configurations\Content\css\lockscreen.min.css" />
+    <Content Include="Configurations\Content\css\payroll-error404.css" />
+    <Content Include="Configurations\Content\css\smartadmin-production-plugins.min.css" />
+    <Content Include="Configurations\Content\css\smartadmin-production.min.css" />
+    <Content Include="Configurations\Content\css\smartadmin-rtl.min.css" />
+    <Content Include="Configurations\Content\css\smartadmin-skins.min.css" />
+    <Content Include="Configurations\Content\css\your_style.css" />
+    <Content Include="Configurations\Content\css\your_style.min.css">
+      <DependentUpon>your_style.css</DependentUpon>
+    </Content>
+    <Content Include="Configurations\Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Configurations\Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Configurations\Content\img\ajax-loader.gif" />
+    <Content Include="Configurations\Content\img\alpha.png" />
+    <Content Include="Configurations\Content\img\avatars\1.png" />
+    <Content Include="Configurations\Content\img\avatars\2.png" />
+    <Content Include="Configurations\Content\img\avatars\3.png" />
+    <Content Include="Configurations\Content\img\avatars\4.png" />
+    <Content Include="Configurations\Content\img\avatars\5.png" />
+    <Content Include="Configurations\Content\img\avatars\copyright.txt" />
+    <Content Include="Configurations\Content\img\avatars\female.png" />
+    <Content Include="Configurations\Content\img\avatars\male.png" />
+    <Content Include="Configurations\Content\img\avatars\sunny-big.png" />
+    <Content Include="Configurations\Content\img\avatars\sunny.png" />
+    <Content Include="Configurations\Content\img\blank.gif" />
+    <Content Include="Configurations\Content\img\clear.png" />
+    <Content Include="Configurations\Content\img\colorblind-friendly\pt1.png" />
+    <Content Include="Configurations\Content\img\colorblind-friendly\pt2.png" />
+    <Content Include="Configurations\Content\img\colorblind-friendly\pt3.png" />
+    <Content Include="Configurations\Content\img\demo\64x64.png" />
+    <Content Include="Configurations\Content\img\demo\basic.png" />
+    <Content Include="Configurations\Content\img\demo\chat.png" />
+    <Content Include="Configurations\Content\img\demo\copyright.txt" />
+    <Content Include="Configurations\Content\img\demo\demo-smartbig-alert.png" />
+    <Content Include="Configurations\Content\img\demo\demo-smartmedium-alert.png" />
+    <Content Include="Configurations\Content\img\demo\demo-smartsmall-alert.png" />
+    <Content Include="Configurations\Content\img\demo\hero.png" />
+    <Content Include="Configurations\Content\img\demo\image-placeholder-64x64.png" />
+    <Content Include="Configurations\Content\img\demo\iphoneview.png" />
+    <Content Include="Configurations\Content\img\demo\m1.jpg" />
+    <Content Include="Configurations\Content\img\demo\m2.jpg" />
+    <Content Include="Configurations\Content\img\demo\m3.jpg" />
+    <Content Include="Configurations\Content\img\demo\newsletter.png" />
+    <Content Include="Configurations\Content\img\demo\responseimg.png" />
+    <Content Include="Configurations\Content\img\demo\s1.jpg" />
+    <Content Include="Configurations\Content\img\demo\s2.jpg" />
+    <Content Include="Configurations\Content\img\demo\s3.jpg" />
+    <Content Include="Configurations\Content\img\demo\sa-demo.png" />
+    <Content Include="Configurations\Content\img\demo\sample.jpg" />
+    <Content Include="Configurations\Content\img\demo\sidebar.png" />
+    <Content Include="Configurations\Content\img\demo\sidebarhero.png" />
+    <Content Include="Configurations\Content\img\demo\site-1.jpg" />
+    <Content Include="Configurations\Content\img\demo\site-2.jpg" />
+    <Content Include="Configurations\Content\img\demo\video.png" />
+    <Content Include="Configurations\Content\img\demo\widget-colorpicker.png" />
+    <Content Include="Configurations\Content\img\favicon\favicon.ico" />
+    <Content Include="Configurations\Content\img\favicon\favicon.png" />
+    <Content Include="Configurations\Content\img\flags\flags.png" />
+    <Content Include="Configurations\Content\img\glass-image-copyright.txt" />
+    <Content Include="Configurations\Content\img\glass.jpg" />
+    <Content Include="Configurations\Content\img\gradient\login.png" />
+    <Content Include="Configurations\Content\img\hue.png" />
+    <Content Include="Configurations\Content\img\invoice\americanexpress.png" />
+    <Content Include="Configurations\Content\img\invoice\license.txt" />
+    <Content Include="Configurations\Content\img\invoice\mastercard.png" />
+    <Content Include="Configurations\Content\img\invoice\paypal.png" />
+    <Content Include="Configurations\Content\img\invoice\visa.png" />
+    <Content Include="Configurations\Content\img\jcrop\Jcrop.gif" />
+    <Content Include="Configurations\Content\img\loading.gif" />
+    <Content Include="Configurations\Content\img\logo-blacknwhite.png" />
+    <Content Include="Configurations\Content\img\logo-blue.png" />
+    <Content Include="Configurations\Content\img\logo-o.png" />
+    <Content Include="Configurations\Content\img\logo-pale.png" />
+    <Content Include="Configurations\Content\img\logo-white.png" />
+    <Content Include="Configurations\Content\img\logo.png" />
+    <Content Include="Configurations\Content\img\mappin-default.png" />
+    <Content Include="Configurations\Content\img\minus.png" />
+    <Content Include="Configurations\Content\img\mybg.png" />
+    <Content Include="Configurations\Content\img\pattern\divider.jpg" />
+    <Content Include="Configurations\Content\img\pattern\graphy-xs.png" />
+    <Content Include="Configurations\Content\img\pattern\graphy.png" />
+    <Content Include="Configurations\Content\img\pattern\license-info.txt" />
+    <Content Include="Configurations\Content\img\pattern\lightpaperfibers.png" />
+    <Content Include="Configurations\Content\img\pattern\movable.png" />
+    <Content Include="Configurations\Content\img\pattern\nistri-xs.png" />
+    <Content Include="Configurations\Content\img\pattern\nistri.png" />
+    <Content Include="Configurations\Content\img\pattern\overlay-pattern.png" />
+    <Content Include="Configurations\Content\img\pattern\paper-xs.png" />
+    <Content Include="Configurations\Content\img\pattern\paper.png" />
+    <Content Include="Configurations\Content\img\pattern\pattern.png" />
+    <Content Include="Configurations\Content\img\pattern\sneaker_mesh_fabric-xs.png" />
+    <Content Include="Configurations\Content\img\pattern\sneaker_mesh_fabric.png" />
+    <Content Include="Configurations\Content\img\pattern\tileable_wood_texture-xs.png" />
+    <Content Include="Configurations\Content\img\pattern\tileable_wood_texture.png" />
+    <Content Include="Configurations\Content\img\plus.png" />
+    <Content Include="Configurations\Content\img\ribbon.png" />
+    <Content Include="Configurations\Content\img\sa-dark.png" />
+    <Content Include="Configurations\Content\img\sa-default.png" />
+    <Content Include="Configurations\Content\img\saturation.png" />
+    <Content Include="Configurations\Content\img\select2-spinner.gif" />
+    <Content Include="Configurations\Content\img\sort_asc.png" />
+    <Content Include="Configurations\Content\img\sort_asc_disabled.png" />
+    <Content Include="Configurations\Content\img\sort_both.png" />
+    <Content Include="Configurations\Content\img\sort_desc.png" />
+    <Content Include="Configurations\Content\img\sort_desc_disabled.png" />
+    <Content Include="Configurations\Content\img\splash\ipad-landscape.png" />
+    <Content Include="Configurations\Content\img\splash\ipad-portrait.png" />
+    <Content Include="Configurations\Content\img\splash\iphone.png" />
+    <Content Include="Configurations\Content\img\splash\sptouch-icon-iphone.png" />
+    <Content Include="Configurations\Content\img\splash\touch-icon-ipad-retina.png" />
+    <Content Include="Configurations\Content\img\splash\touch-icon-ipad.png" />
+    <Content Include="Configurations\Content\img\splash\touch-icon-iphone-retina.png" />
+    <Content Include="Configurations\Content\img\vt-menu.png" />
+    <Content Include="Configurations\Content\media\LoginMedia.mp4" />
+    <Content Include="Configurations\Content\sound\bigbox.mp3" />
+    <Content Include="Configurations\Content\sound\license.txt" />
+    <Content Include="Configurations\Content\sound\messagebox.mp3" />
+    <Content Include="Configurations\Content\sound\smallbox.mp3" />
+    <Content Include="Configurations\Content\sound\voice_alert.mp3" />
+    <Content Include="Configurations\Content\sound\voice_off.mp3" />
+    <Content Include="Configurations\Content\sound\voice_on.mp3" />
     <Content Include="Content\ajax\dashboard.html" />
     <Content Include="Content\ajax\email-compose.html" />
     <Content Include="Content\ajax\email-opened.html" />
     <Content Include="Content\ajax\email-reply.html" />
     <Content Include="Content\ajax\email-template.html" />
+    <Content Include="Content\ajax\email\email-list.html" />
+    <Content Include="Content\ajax\modal-content\modal-voicecommand.html" />
+    <Content Include="Content\ajax\notify\mail.html" />
+    <Content Include="Content\ajax\notify\notifications.html" />
+    <Content Include="Content\ajax\notify\tasks.html" />
     <Content Include="Content\ajax\website-template.html" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\bootstrapValidator.css" />
@@ -300,14 +468,13 @@
     <Content Include="Content\css\invoice.min.css" />
     <Content Include="Content\css\LivellPayRollStyle.css" />
     <Content Include="Content\css\lockscreen.min.css" />
+    <Content Include="Content\css\payroll-error404.css" />
     <Content Include="Content\css\smartadmin-production-plugins.min.css" />
     <Content Include="Content\css\smartadmin-production.min.css" />
     <Content Include="Content\css\smartadmin-rtl.min.css" />
     <Content Include="Content\css\smartadmin-skins.min.css" />
     <Content Include="Content\css\your_style.css" />
-    <Content Include="Content\css\your_style.min.css">
-      <DependentUpon>your_style.css</DependentUpon>
-    </Content>
+    <Content Include="Content\css\your_style.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\img\ajax-loader.gif" />
@@ -367,12 +534,17 @@
     <Content Include="Content\img\invoice\visa.png" />
     <Content Include="Content\img\jcrop\Jcrop.gif" />
     <Content Include="Content\img\loading.gif" />
+    <Content Include="Content\img\logo%28old%29.png" />
+    <Content Include="Content\img\logo-black.png" />
     <Content Include="Content\img\logo-blacknwhite.png" />
     <Content Include="Content\img\logo-blue.png" />
     <Content Include="Content\img\logo-o.png" />
     <Content Include="Content\img\logo-pale.png" />
     <Content Include="Content\img\logo-white.png" />
+    <Content Include="Content\img\logo-x.png" />
     <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\logo2.png" />
+    <Content Include="Content\img\logo3.png" />
     <Content Include="Content\img\mappin-default.png" />
     <Content Include="Content\img\minus.png" />
     <Content Include="Content\img\mybg.png" />
@@ -411,15 +583,41 @@
     <Content Include="Content\img\splash\touch-icon-ipad.png" />
     <Content Include="Content\img\splash\touch-icon-iphone-retina.png" />
     <Content Include="Content\img\vt-menu.png" />
+    <Content Include="Content\media\LoginMedia.mp4" />
     <Content Include="Content\sound\bigbox.mp3" />
+    <Content Include="Content\sound\bigbox.ogg" />
     <Content Include="Content\sound\license.txt" />
     <Content Include="Content\sound\messagebox.mp3" />
+    <Content Include="Content\sound\messagebox.ogg" />
     <Content Include="Content\sound\smallbox.mp3" />
+    <Content Include="Content\sound\smallbox.ogg" />
     <Content Include="Content\sound\voice_alert.mp3" />
+    <Content Include="Content\sound\voice_alert.ogg" />
     <Content Include="Content\sound\voice_off.mp3" />
+    <Content Include="Content\sound\voice_off.ogg" />
     <Content Include="Content\sound\voice_on.mp3" />
+    <Content Include="Content\sound\voice_on.ogg" />
+    <Content Include="Content\xml\gmap\pins.xml" />
     <Content Include="Global.asax" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Configurations\Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Configurations\Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Configurations\Content\fonts\FontAwesome.otf" />
+    <Content Include="Configurations\Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Configurations\Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Configurations\Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Configurations\Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Configurations\Content\css\your_style.less" />
+    <Content Include="Configurations\Content\sound\bigbox.ogg" />
+    <Content Include="Configurations\Content\sound\messagebox.ogg" />
+    <Content Include="Configurations\Content\sound\smallbox.ogg" />
+    <Content Include="Configurations\Content\sound\voice_alert.ogg" />
+    <Content Include="Configurations\Content\sound\voice_off.ogg" />
+    <Content Include="Configurations\Content\sound\voice_on.ogg" />
+    <Content Include="Content\css\your_style.less" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
@@ -428,24 +626,36 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Content\css\your_style.less" />
-    <Content Include="Content\sound\bigbox.ogg" />
-    <Content Include="Content\sound\messagebox.ogg" />
-    <Content Include="Content\sound\smallbox.ogg" />
-    <Content Include="Content\sound\voice_alert.ogg" />
-    <Content Include="Content\sound\voice_off.ogg" />
-    <Content Include="Content\sound\voice_on.ogg" />
+    <Content Include="Content\img\logo-black.psd" />
+    <Content Include="LivellPayRollDataSet.xsc">
+      <DependentUpon>LivellPayRollDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="LivellPayRollDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LivellPayRollDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="LivellPayRollDataSet.xss">
+      <DependentUpon>LivellPayRollDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\SmartAdmin - Release.pubxml" />
     <None Include="Properties\PublishProfiles\SmartAdmin - Debug.pubxml" />
+    <Content Include="Reports\RdlcView.aspx" />
     <Content Include="Scripts\app.config.js" />
     <Content Include="Scripts\app.min.js" />
     <Content Include="Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\demo.min.js" />
+    <Content Include="Scripts\error\countUp.js" />
+    <Content Include="Scripts\error\custom.js" />
     <Content Include="Scripts\libs\jquery-2.1.1.min.js" />
     <Content Include="Scripts\libs\jquery-ui-1.10.3.min.js" />
+    <Content Include="Scripts\libs\jQuery.print.js" />
+    <Content Include="Scripts\libs\jquery.PrintArea.js" />
     <Content Include="Scripts\LivellPayRoll.js" />
     <Content Include="Scripts\LivellPayRollValidator.js" />
     <Content Include="Scripts\mydigitclock\jquery.MyDigitClock.js" />
+    <Content Include="Scripts\plugin\bootstrap-tags\bootstrap-tagsinput-angular.min.js" />
+    <Content Include="Scripts\plugin\bootstrap-tags\bootstrap-tagsinput.min.js" />
     <Content Include="Scripts\plugin\bootstrapvalidator\bootstrapValidator.min.js" />
     <Content Include="Scripts\plugin\bootstrapvalidator\language\ar_MA.min.js" />
     <Content Include="Scripts\plugin\bootstrapvalidator\language\be_NL.min.js" />
@@ -474,7 +684,9 @@
     <Content Include="Scripts\plugin\jquery-validate\jquery.validate.min.js" />
     <Content Include="Scripts\plugin\moment\moment.min.js" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Aside.cshtml" />
@@ -517,11 +729,44 @@
     <Content Include="Views\PayRollSetup\_WageForm.cshtml" />
     <Content Include="Views\PayRoll\PayRollInput.cshtml" />
     <Content Include="Views\PayRoll\PayRollList.cshtml" />
-    <Content Include="Views\Home\_JobInfo.cshtml" />
+    <Content Include="Views\Shared\_JobInfo.cshtml" />
     <Content Include="Views\TimeSheet\_TimeSheetEdit.cshtml" />
     <Content Include="Views\Account\ConfirmedEmail.cshtml" />
     <Content Include="Views\Account\CompleteRegist.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\Error404.cshtml" />
+    <Content Include="Views\Account\WaitEmail.cshtml" />
+    <Content Include="Views\Shared\_LoginHeader.cshtml" />
+    <Content Include="Views\Shared\_LoginBackground.cshtml" />
+    <Content Include="Views\Account\GeneralSet.cshtml" />
+    <Content Include="Views\Account\PasswordSet.cshtml" />
+    <Content Include="Views\Managers\Mlist.cshtml" />
+    <Content Include="Views\Managers\AddManager.cshtml" />
+    <Content Include="Views\Account\UserConfirm.cshtml" />
+    <Content Include="Views\Managers\EditManager.cshtml" />
+    <Content Include="Views\Error\Error403.cshtml" />
+    <Content Include="Views\Reports\TimeCalendar.cshtml" />
+    <Content Include="Views\Reports\Times.cshtml" />
+    <Content Include="Views\Home\_EmplyeeView.cshtml" />
+    <Content Include="Views\Home\_ManageView.cshtml" />
+    <Content Include="Views\Employee\_PTOForm.cshtml" />
+    <Content Include="Views\Employee\PTOHours.cshtml" />
+    <Content Include="Views\Employee\_PTOEdit.cshtml" />
+    <Content Include="Views\PayRoll\_PayrollView.cshtml" />
+    <Content Include="Views\PayRoll\MPayroll.cshtml" />
+    <Content Include="Views\Account\CheckSetup.cshtml" />
+    <Content Include="Views\Account\_PhotoView.cshtml" />
+    <Content Include="Views\PayRoll\_PayrollPrint.cshtml" />
+    <Content Include="Views\PayRoll\PayrollPrint.cshtml" />
+    <Content Include="Views\Reports\EmployerReport.cshtml" />
+    <Content Include="Views\Reports\EmployeeSummary.cshtml" />
+    <Content Include="Views\Reports\Employeedetail.cshtml" />
+    <Content Include="Views\Reports\EmployeePTO.cshtml" />
+    <Content Include="Views\Help\Collect.cshtml" />
+    <Content Include="Views\Help\_AddHelp.cshtml" />
+    <Content Include="Scripts\plugin\bootstrap-tags\dist\bootstrap-tagsinput.min.js.map" />
+    <Content Include="Views\System\UserControl.cshtml" />
+    <Content Include="Views\TimeSheet\_TimeCheck.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -535,12 +780,23 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Data\PayrollCalcus.cs" />
+    <Compile Include="App_Data\StateTaxCalcus.cs" />
+    <Compile Include="App_Helpers\AmountHelpers.cs" />
     <Compile Include="App_Helpers\DashRouteHandler.cs" />
+    <Compile Include="App_Helpers\DataTableHelper.cs" />
+    <Compile Include="App_Helpers\DbContextFactory.cs" />
+    <Compile Include="App_Helpers\PageHelper.cs" />
+    <Compile Include="App_Helpers\ZXingHelpers.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
+    <Compile Include="Controllers\SystemController.cs" />
+    <Compile Include="DataHelper\DBHelper.cs" />
     <Compile Include="App_Helpers\EnumHelper.cs" />
+    <Compile Include="App_Helpers\GlobalClass.cs" />
+    <Compile Include="App_Helpers\SelectHelper.cs" />
     <Compile Include="App_Helpers\StringExtensions.cs" />
     <Compile Include="App_Helpers\SystemVariates.cs" />
     <Compile Include="App_Helpers\TimeHelper.cs" />
-    <Compile Include="App_Helpers\TimeZones.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Helpers\HtmlHelperExtensions.cs" />
@@ -551,27 +807,41 @@
     <Compile Include="Areas\Landing\LandingAreaRegistration.cs" />
     <Compile Include="Configurations\MailConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppServerController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManagersController.cs" />
     <Compile Include="Controllers\PayRollController.cs" />
     <Compile Include="Controllers\PayRollSetupController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\TimeSheetController.cs" />
+    <Compile Include="DataHelper\Function.cs" />
+    <Compile Include="Enum\HelpType.cs" />
     <Compile Include="Enum\Period.cs" />
+    <Compile Include="Enum\PTOType.cs" />
     <Compile Include="Enum\RoundTo.cs" />
     <Compile Include="Enum\States.cs" />
     <Compile Include="Enum\Status.cs" />
-    <Compile Include="Enum\TimeSheetType.cs" />
+    <Compile Include="Enum\TimeSheetStatus.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\AppIdentityDbContext.cs" />
     <Compile Include="Infrastructure\AppRoleManager.cs" />
     <Compile Include="Infrastructure\AppUserManager.cs" />
+    <Compile Include="Infrastructure\CustomAuthorizeAttribute.cs" />
     <Compile Include="Infrastructure\EmailService.cs" />
     <Compile Include="Infrastructure\LoggerFilter.cs" />
     <Compile Include="Infrastructure\ApplicationSignInManager.cs" />
+    <Compile Include="LivellPayRollDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LivellPayRollDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AccrualTimeJournal.cs" />
     <Compile Include="Models\AppRole.cs" />
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\AppUserClaim.cs" />
@@ -581,28 +851,51 @@
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\HelpDesc.cs" />
+    <Compile Include="Models\IncomesDeductionsView.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\JobList.cs" />
     <Compile Include="Models\LoginInfo.cs" />
+    <Compile Include="Models\T100.cs" />
     <Compile Include="Models\T102.cs" />
     <Compile Include="Models\T105.cs" />
+    <Compile Include="Models\T108.cs" />
     <Compile Include="Models\T201.cs" />
     <Compile Include="Models\TimeSheet.cs" />
     <Compile Include="Models\TimeSheetLog.cs" />
     <Compile Include="Models\TS_Edit.cs" />
     <Compile Include="Models\TS_Info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="App_Helpers\RoleViewHelper.cs" />
+    <Compile Include="Reports\RdlcView.aspx.cs">
+      <DependentUpon>RdlcView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\RdlcView.aspx.designer.cs">
+      <DependentUpon>RdlcView.aspx</DependentUpon>
+    </Compile>
     <Compile Include="System\Runtime\Serialization\Json.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\ajax\email\" />
-    <Folder Include="Content\ajax\modal-content\" />
-    <Folder Include="Content\ajax\notify\" />
-    <Folder Include="Content\xml\" />
+    <Folder Include="Configurations\Content\ajax\email\" />
+    <Folder Include="Configurations\Content\ajax\modal-content\" />
+    <Folder Include="Configurations\Content\ajax\notify\" />
+    <Folder Include="Configurations\Content\xml\" />
+    <Folder Include="Content\img\QRCode\" />
     <Folder Include="Scripts\notification\" />
     <Folder Include="Scripts\smart-chat-ui\" />
     <Folder Include="Scripts\smartwidgets\" />
     <Folder Include="Scripts\speech\" />
+    <Folder Include="Views\AppServer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\EmployeeDetail.rdlc" />
+    <EmbeddedResource Include="Reports\EmployeePTO.rdlc" />
+    <EmbeddedResource Include="Reports\EmployeeSummary.rdlc" />
+    <EmbeddedResource Include="Reports\EmployerReport.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -629,6 +922,13 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

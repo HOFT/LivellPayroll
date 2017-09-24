@@ -1,0 +1,285 @@
+﻿			<!-- MAIN CONTENT -->
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-bar-chart-o "></i>
+                Reports<span>
+                    &gt;
+                    Employer Detail
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                    <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                        1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;45%</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-darken" data-widget-sortable="false" data-widget-colorbutton="false" data-widget-editbutton="false">
+                    <!-- widget options:
+                        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                        data-widget-colorbutton="false"
+                        data-widget-editbutton="false"
+                        data-widget-togglebutton="false"
+                        data-widget-deletebutton="false"
+                        data-widget-fullscreenbutton="false"
+                        data-widget-custombutton="false"
+                        data-widget-collapsed="true"
+                        data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-reorder"></i> </span>
+                        <h2> Employer Detail</h2>
+                        <div class="widget-toolbar">
+                            <div class="btn-group">
+                                <button class="btn dropdown-toggle btn-xs btn-warning" data-toggle="dropdown">
+                                    Export <i class="fa fa-caret-down"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="Export-Excel" href="javascript:void(0);">Excel</a>
+                                    </li>
+                                    <li>
+                                        <a class="Export-PDF" href="javascript:void(0);">PDF</a>
+                                    </li>
+                                    <li>
+                                        <a class="Export-Word" href="javascript:void(0);">Word</a>
+                                    </li>
+                                    <li>
+                                        <a class="Export-Print" href="javascript:void(0);">Print</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                            <input class="form-control" type="text">
+                            <span class="note"><i class="fa fa-check text-success"></i> Change title to update and save instantly!</span>
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            <div class="widget-body-toolbar">
+
+                                <div class="row">
+
+                                    <div class="col-sm-10 col-md-10 col-lg-10">
+                                        <form class="form-horizontal">
+                                            <div class="row">
+                                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">From Date :</label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                                <input type="text" id="dtpStartDate" name="dtpStartDate" class="form-control reportSelection-dtpStartDate">
+                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">To Date :</label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                                <input type="text" id="dtpEndDate" name="dtpEndDate" class="form-control reportSelection-dtpEndDate">
+                                                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Employee:</label>
+                                                        <div class="col-md-8">
+                                                            <select class="form-control" id="cboEmployees" name="cboEmployees"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Tax Year :</label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12">
+                                                                <select id="ChooseYear" class="form-control reportSelection-ChooseYear"></select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Quarter :</label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12">
+                                                                <select id="Quarter" class="form-control reportSelection-Quarter" disabled="disabled">
+                                                                    <option value="">Please select</option>
+                                                                    <option value=1>1</option>
+                                                                    <option value=2>2</option>
+                                                                    <option value=3>3</option>
+                                                                    <option value=4>4</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-md-4 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="col-md-4 control-label">Month :</label>
+                                                        <div class="col-md-8">
+                                                            <div class="input-group col-md-12">
+                                                                <select id="Month" class="form-control reportSelection-Month" disabled="disabled">
+                                                                    <option value="">Please select</option>
+                                                                    <option value=1>1</option>
+                                                                    <option value=2>2</option>
+                                                                    <option value=3>3</option>
+                                                                    <option value=4>4</option>
+                                                                    <option value=5>5</option>
+                                                                    <option value=6>6</option>
+                                                                    <option value=7>7</option>
+                                                                    <option value=8>8</option>
+                                                                    <option value=9>9</option>
+                                                                    <option value=10>10</option>
+                                                                    <option value=11>11</option>
+                                                                    <option value=12>12</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+
+                                    </div>
+                                    <div class="col-sm-2 col-md-2 col-lg-2 text-center">
+
+                                        <a class="btn btn-primary" id="btn-refreshReport">
+                                            <i class="fa fa-search"></i>  <span class="hidden-mobile">Refresh Report</span>
+                                        </a>
+
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                            <div style="width: 100%;height: 900px;">
+                                <iframe src="/Reports/RdlcView?Type=EmployerDetail" id="RdlcView" scrolling="auto" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+                            </div>
+
+
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- WIDGET END -->
+
+        </div>
+
+        <!-- end row -->
+
+    </section>
+    <!-- end widget grid -->
+
+</div>
+<!-- END MAIN CONTENT -->
+
+
+
+@section pagespecific {
+<script src="~/Scripts/libs/jQuery.print.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $.getJSON('@Url.Action("GetEmployee", "PayRoll")', function (data) {
+                $('#cboEmployees').empty();
+                $('#cboEmployees').append($('<option></option>').val('').text('Please select employee'));
+                $.each(data, function (i, item) {
+                    $('#cboEmployees').append($('<option></option>').val(item.Value).text(item.Text));
+                });
+            });
+
+            $('#ChooseYear').empty();
+            $('#ChooseYear').append($('<option></option>').val("").text("Please select"));
+            for (var i = 0; i < 3; i++) {
+                var item = new Date().getFullYear() - i;
+                $('#ChooseYear').append($('<option></option>').val(item).text(item));
+            }
+
+            $('#dtpStartDate').datepicker({
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function (selectedDate) {
+                    $('#dtpEndDate').datepicker('option', 'minDate', selectedDate);
+                }
+            });
+
+            $('#dtpEndDate').datepicker({
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function (selectedDate) {
+                    $('#dtpStartDate').datepicker('option', 'maxDate', selectedDate);
+                }
+            });
+
+            $('#btn-refreshReport').click(function () {
+                var dtpStartDate = $('#dtpStartDate').val();
+                var dtpEndDate = $('#dtpEndDate').val();
+                var EmployeeId = $('#cboEmployees').val();
+                var Type = "EmployerDetail";
+                var url = "/Reports/RdlcView?dtpStartDate=" + dtpStartDate + "&dtpEndDate=" + dtpEndDate + "&EmployeeId=" + EmployeeId + "&Type=" + Type;
+                $('#RdlcView').attr("src", url);
+            });
+        })
+    </script>
+
+}

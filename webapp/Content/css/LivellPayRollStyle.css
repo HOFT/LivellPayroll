@@ -28,7 +28,26 @@
     padding-right: 10px;
     padding-left: 10px;
 }
- 
+.login-background-video {
+    position:fixed;
+    right:0;
+    bottom:0;
+    min-width:100%;
+    min-height:100%;
+    width:auto;
+    height:auto;
+    z-index:0;
+    object-fit:cover;
+    object-position:center center;
+    /*background-color:rgba(0,0,0,0.6)*/
+    /*-webkit-filter:grayscale(70%)*/
+}
+.login-header {
+    background-color:transparent!important;
+}
+.text-color-white {
+    color:#ffffff
+} 
 @media ( min-width : 768px) {
     .col-sm-5ths {
         width: 20%;
@@ -48,4 +67,24 @@
         width: 20%;
         float: left;
     }
+}
+
+.jobItem-link {
+    color:#555555
+
+}
+.jobItem-link:hover{
+    color:#000000;
+    font-weight:bold;
+
+}
+[data-pto-value="100"] {
+    background:#db0435!important;
+
+}
+
+.BlinkColor{ 
+    border:1px solid rgba(141,39,142,.75); 
+    background:#eaffe8;
+    transition:border linear .2s,box-shadow linear .5s; 
 }

@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
-                <i class="fa fa-pencil-square-o fa-suitcase "></i> Employee <span>
+                <i class="fa fa-pencil-square-o fa-user "></i> Employee <span>
                     >
                     Add Employee
                 </span>
@@ -57,27 +57,10 @@
         }
 
         $(document).ready(function () {
-            @*$('#select_state').change(function () {
-                var StaId = $.trim($('#select_state option:selected').val());
-                if (StaId.length != 0) {
-                    $.getJSON('@Url.Action("StateTax", "Employee")', { StaId: StaId }, function (data) {
-                        $('#State_Tax_Titel').html(data.TitelCode);
-                        if (!data.F109) { $('#F109').hide(); console.log('F109') }
-                        if (!data.F110) { $('#F110').hide(); console.log('F110') }
-                        if (!data.F111) { $('#F111').hide(); console.log('F111') }
-                        if (!data.F112) { $('#F112').hide(); console.log('F112') }
-                        if (!data.F113) { $('#F113').hide(); console.log('F113') }
-                        if (!data.F120) { $('#F120').hide(); console.log('F120') }
-                        if (!data.F122) { $('#F122').hide(); console.log('F122') }
-                        $('#myWizard').wizard();
-                    })
-                }
-
-            });*@
 
             $.getJSON('@Url.Action("GetJob", "Employee")', function (data) {
                 $('#DefaultJob').empty();
-                $('#DefaultJob').append($('<option></option>').val('').text('Default Job'));
+                $('#DefaultJob').append($('<option></option>').val('').text('Please select default job'));
                 $.each(data, function (i, item) {
                     $('#DefaultJob').append($("<optgroup label='" + item.CustomerName + "'>"));
                     $.each(item.Jobs, function (n, job) {
@@ -87,8 +70,15 @@
                 });
             });
 
+            $("input[name='UserRole'][value='Admin']").parent().hide();
+            if ("@ViewBag.UserRole" == "Manager") {
+                $("input[name='UserRole'][value='Manager']").parent().hide();
+            }
+            $("input[name='UserRole'][value='Employee']").attr("checked", true);
+
             $('#select_time_zone').val("@ViewBag.comTZ");
             $('#select_state').val("@ViewBag.comSta");
+            $('#ZipCode').val("@ViewBag.comZip")
 
             $(":input").inputmask();
 
@@ -110,9 +100,12 @@
                 }
             });
 
+
+            var F110View = false;
+            var F111View = false;
             $('#myWizard').on('actionclicked.fu.wizard', function (evt, data) {
                 var step = $('.steps .active').attr('data-step');
-                if (data.direction == "next" && step <= 2) {
+                if (data.direction == "next" && step <= 2 ) {
                     var bootstrapValidator = $('#fuelux-wizard').data('bootstrapValidator');
                     bootstrapValidator.validate();
                     if (!bootstrapValidator.isValid()) {
@@ -128,6 +121,8 @@
                     var StaId = $.trim($('#select_state option:selected').val());
                     if (StaId.length != 0) {
                         $.getJSON('@Url.Action("StateTax", "Employee")', { StaId: StaId }, function (data) {
+                            F110View = data.F110;
+                            F111View = data.F111;
                             $('#State_Tax_Titel').html(data.TitelCode);
                             $('#F109').show();
                             $('#F110').show();
@@ -136,7 +131,9 @@
                             $('#F113').show();
                             $('#F120').show();
                             $('#F122').show();
-                            if (!data.F109) { $('#F109').hide(); console.log('#F109') } else {
+                            if (!data.F109) {
+                                $('#F109').hide();
+                            } else {
                                 if (data.TitelCode == 'NY') {
                                     $('#select_f109').empty();
                                     $('#select_f109').append($('<option></option>').val('').text('Please select county'));
@@ -154,48 +151,95 @@
                                     $('#F109-Label').html('County');
                                 }
                             }
-                            if (!data.F110) { $('#F110').hide(); console.log('#F110') } else {
+                            if (!data.F110) {
+                                $('#F110').hide();
+                            } else {
                                 $.getJSON('@Url.Action("FilingStatus", "Employee")', { StaCode: data.TitelCode }, function (data) {
                                     $('#filing_status').empty();
                                     $('#filing_status').append($('<option></option>').val('').text('Please select filing status'));
                                     $.each(data, function (i, item) {
                                         $('#filing_status').append($('<option></option>').val(item.Value).text(item.Text));
                                     });
+                                    //$("#fuelux-wizard").bootstrapValidator("addField", "F110", {
+                                    //    validators: {
+                                    //        notEmpty: {
+                                    //            message: 'The filing status is required and cannot be empty'
+                                    //        }
+                                    //    }
+                                    //});
                                 })
                             }
-                            if (!data.F111) { $('#F111').hide(); console.log('#F111') } else {
+                            if (!data.F111) {
+                                $('#F111').hide();
+                            } else {
                                 $('#select_f111').empty();
                                 $('#select_f111').append($('<option></option>').val('').text('Please select residency status'));
                                 $('#select_f111').append($('<option></option>').val("R").text("Resident"));
                                 $('#select_f111').append($('<option></option>').val("N").text("Non Resident"));
                             }
-                            if (!data.F112) { $('#F112').hide(); console.log('#F112') } else {
+                            if (!data.F112) {
+                                $('#F112').hide();
+                            } else {
                                 if (data.text1 != "") {
                                     $('#F112-Label').html(data.text1);
                                 } else {
                                     $('#F112-Label').html('---');
                                 }
                             }
-                            if (!data.F113) { $('#F113').hide(); console.log('#F113') } else {
+                            if (!data.F113) {
+                                $('#F113').hide();
+                            } else {
                                 if (data.text2 != "") {
                                     $('#F113-Label').html(data.text2);
                                 } else {
                                     $('#F113-Label').html('---');
                                 }
                             }
-                            if (!data.F120) { $('#F120').hide(); console.log('#F120') }
-                            if (!data.F122) { $('#F122').hide(); console.log('#F122') }
+                            if (!data.F120) {
+                                $('#F120').hide();
+                            }
+                            if (!data.F122) {
+                                $('#F122').hide();
+                            }
                         })
                     }
+                };
+                if (data.direction == "next" && step == 4) {
+                    if (F110View) {
+                        var F110 = $('#filing_status').val();
+                        if (F110 == "") {
+                            WarningBox("The filing status is required and cannot be empty");
+                            return false;
+                        }
+                    };
+                    if (F111View) {
+                        var F111 = $('#select_f111').val();
+                        if (F111 == "") {
+                            WarningBox("The residency status is required and cannot be empty");
+                            return false;
+                        }
+                    };
                 }
             });
 
             $('#myWizard').on('finished.fu.wizard', function (e, data) {
                 var par = $("#fuelux-wizard").serializeArray();
                 var JobId = $("#DefaultJob").val();
+
                 $.post("/Employee/Add", par, function (data) {
                     var jsonDate = $.parseJSON(data)
                     if (jsonDate.status == "success") {
+                        var Id = jsonDate.userId;
+                        $.ajax({
+                            type: "post",
+                            url: "/Account/SemdEmail",
+                            data: { Id:Id},
+                            async: true,
+                            success: function (data) {
+                                console.log("发送成功;"+data.message);
+                            }
+                        });
+
                         SuccessBox("Employee been successfully added");
                         setTimeout(function () {
                             window.location.href = "/Employee/EmployeeList"
@@ -206,6 +250,16 @@
                 })
             });
 
+            //$('#F125').click(function () {
+            //    console.log($('#F125').prop('checked'));
+            //    if ($('#F125').prop('checked')) {
+            //        $('#F102').removeAttr("disabled");
+            //    } else {
+            //        $('#F102').attr("disabled", "disabled");
+            //        $('#F102').val(0.00);
+            //    };
+
+            //});
         })
 
     </script>

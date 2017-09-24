@@ -4,17 +4,18 @@
 }
 
 @section topright{
-    <span id="extr-page-header-space"> <span class="hidden-mobile">Already registered?</span> <a href="@Url.Action("login", "account")" class="btn btn-danger">Sign In</a> </span>
+    <span id="extr-page-header-space"> <span class="hidden-mobile text-color-white">Already registered?</span> <a href="@Url.Action("login", "account")" class="btn btn-primary">Sign In</a> </span>
 }
 
 <div id="content" class="container">
     <div class="row">
-        @{ Html.RenderPartial("_LoginText"); }
-        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+        @*@{ Html.RenderPartial("_LoginText"); }*@
+        @{ Html.RenderPartial("_LoginBackground"); }
+        <div class="col-sm-6 col-sm-offset-3 form-box">
             <div class="well no-padding">
                 <form action="@Url.Action("register", "account")" method="POST" id="smart-form-register" class="smart-form client-form">
                     <header>
-                        Registration
+                        <h3>Registration</h3>
                     </header>
                     @Html.AntiForgeryToken()
                     @Html.ValidationBootstrap()
@@ -33,33 +34,47 @@
                                 @*<b class="tooltip tooltip-bottom-right">Needed to enter the website</b>*@
                             </label>
                         </section>
-                            <div class="row">
-                                <section class="col col-6">
-                                    <label class="input">
-                                        <i class="icon-append fa fa-map-marker"></i>
-                                        <input type="text" name="City" placeholder="City" maxlength="64">
-                                    </label>
-                                </section>
-                                <section class="col col-6">
-                                    <label class="input">
-                                        @Html.DropDownList("State", ViewBag.StatesList as SelectList, "State", new { @class = "form-control" })
-                                    </label>
-                                </section>
-                            </div>
-                            <div class="row">
-                                <section class="col col-6">
-                                    <label class="input">
-                                        <i class="icon-append fa fa-home"></i>
-                                        <input type="text" name="Telphone" placeholder="Telphone" data-mask="(999)-999-9999" data-mask-placeholder="_" maxlength="16">
-                                    </label>
-                                </section>
-                                <section class="col col-6">
-                                    <label class="input">
-                                        @Html.DropDownList("TimeZone", ViewBag.TimeZone as SelectList, "Time Zone", new { @class = "form-control" })
-                                    </label>
-                                </section>
-                            </div>
-                        
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-append fa fa-map-marker"></i>
+                                    <input type="text" name="City" placeholder="City" maxlength="64">
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label class="input">
+                                    @Html.DropDownList("State", ViewBag.StatesList as SelectList, "State", new { @class = "form-control" })
+                                </label>
+                            </section>
+                        </div>
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-append fa fa-phone"></i>
+                                    <input type="text" name="Telphone" placeholder="Telphone" data-mask="(999)-999-9999" data-mask-placeholder="_" maxlength="16">
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label class="input">
+                                    @Html.DropDownList("TimeZone", ViewBag.TimeZone as SelectList, "Time Zone", new { @class = "form-control" })
+                                </label>
+                            </section>
+                        </div>
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-append fa fa-star-o"></i>
+                                    <input type="text" name="Zip" placeholder="Zip" data-mask="99999" data-mask-placeholder="_" maxlength="16">
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-append fa fa-slack"></i>
+                                    <input type="text" name="TradeName" placeholder="Trade Name"  maxlength="64">
+                                </label>
+                            </section>
+
+                        </div>
 
                     </fieldset>
                     <fieldset>
@@ -76,12 +91,13 @@
                                 <i></i>I agree with the <a href="#" data-toggle="modal" data-target="#myModal"> Terms and Conditions </a>
                             </label>
                         </section>
+
+                        <section>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                Register
+                            </button>
+                        </section>
                     </fieldset>
-                    <footer>
-                        <button type="submit" class="btn btn-primary">
-                            Register
-                        </button>
-                    </footer>
                     <div class="message">
                         <i class="fa fa-check"></i>
                         <p>
@@ -90,7 +106,7 @@
                     </div>
                 </form>
             </div>
-            @{ Html.RenderPartial("_SocialMedia"); }
+            @*@{ Html.RenderPartial("_SocialMedia"); }*@
         </div>
     </div>
 </div>

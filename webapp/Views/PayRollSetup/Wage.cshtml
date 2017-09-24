@@ -58,11 +58,19 @@
                                     {
                                         if (t.Type == 1)
                                         {
-                                            if (t.Ord == 1 || t.Ord == 2 || t.Ord == 3)
+                                            if (t.Ord == 1 || t.Ord == 2)
                                             {
                                                 <li>
                                                     <div class="checkbox">
                                                         <label class="control-label"><input class="ParRoll-Deduction" type="checkbox" name="T-@t.Ord" checked="checked" disabled="disabled">@t.Description</label>
+                                                    </div>
+                                                </li>
+                                            }
+                                            else if (t.Ord == 3 || t.Ord == 4)
+                                            {
+                                                <li>
+                                                    <div class="checkbox">
+                                                        <label class="control-label"><input class="ParRoll-Deduction" type="checkbox" name="T-@t.Ord" @((t.Enabled) ? "checked='checked'" : "")>@t.Description</label>
                                                     </div>
                                                 </li>
                                             }

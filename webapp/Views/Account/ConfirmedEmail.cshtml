@@ -1,4 +1,4 @@
-﻿@model AccountRegistrationModel
+﻿@model AccountForgotPasswordModel 
 @{
     ViewBag.PageId = "extr-page";
 }
@@ -9,30 +9,32 @@
 
 <div id="content" class="container">
     <div class="row">
-        @{ Html.RenderPartial("_LoginText"); }
-        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+        @*@{ Html.RenderPartial("_LoginText"); }*@
+        @{ Html.RenderPartial("_LoginBackground"); }
+        <div class="col-sm-6 col-sm-offset-3 form-box" style="margin-top:100px">
             <div class="well no-padding">
-                <form  id="FormConfirmedEmail" class="smart-form client-form">
+                <form action="@Url.Action("resendEmail", "account")" method="POST" id="FormConfirmedEmail" class="smart-form client-form">
                     <header>
                        Please Confirmed Email
                     </header>
+                    @Html.HiddenFor(m => m.Email)
                     @Html.AntiForgeryToken()
                    
                     <fieldset>
                         <p class="alert alert-success" id="sended-message" hidden="hidden"> <i class="fa fa-envelope"></i>  Please check your email ,and confirm your account complete registration information . </p>
 
-                        <h2><strong><span id="ConfirmedEmail">@ViewBag.ConfirmedEmail</span></strong></h2>
+                        <h2><strong><span id="ConfirmedEmail">@Model.Email</span></strong></h2>
                         <p class="note">
                             The account not complete registration.
-                            Please confirmed email and complete system information.
+                            Please confirmed email and receive mail(LivellPayRoll) to complete the registration.
                         </p>
-
+                        <br />
 
                     </fieldset>
                     <footer>
-                        <button type="button" id="btn-resend"  class="btn btn-primary" autocomplete="off">
+                        <button type="submit" id="btn-resend"  class="btn btn-primary" autocomplete="off">
                             <i class="fa fa-envelope"></i>
-                            Send email
+                            Send again
                         </button>
                     </footer>
                 </form>
@@ -47,21 +49,21 @@
 @section pagespecific{
     <script type="text/javascript">
         // Model i agree button
-        $(document).ready(function () {
-            $('#sended-message').hide();
-            $('#btn-resend').click(function () {
-                $('#btn-resend').addClass('disabled')
-                $('#sended-message').show();
-                var email = $('#ConfirmedEmail').html();
-                $.post("/account/resendEmail", { email: email }, function (data) {
-                    if (data.message == 'success') {
-                        console.log(data.message)
-                    }
+        //$(document).ready(function () {
+        //    $('#sended-message').hide();
+        //    $('#btn-resend').click(function () {
+        //        $('#btn-resend').addClass('disabled')
+        //        $('#sended-message').show();
+        //        var email = $('#ConfirmedEmail').html();
+        //        $.post("/account/resendEmail", { email: email }, function (data) {
+        //            if (data.message == 'success') {
+        //                console.log(data.message)
+        //            }
                     
-                })
-            })
+        //        })
+        //    })
 
-        })
+        //})
       
     </script>
 }

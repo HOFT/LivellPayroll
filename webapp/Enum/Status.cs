@@ -10,7 +10,7 @@ namespace LivellPayRoll.Enum
     {
         [Description("Active")]  //激活
         Active = 0,
-        [Description("Inactive")]  //激活
+        [Description("Inactive")]  //不活跃
         Inactive =1,
         [Description("Freeze ")]  //冻结
         Freeze = 2,

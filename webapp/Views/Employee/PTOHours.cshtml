@@ -1,0 +1,336 @@
+﻿@model System.Data.DataTable
+<!-- MAIN CONTENT -->
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+            <h1 class="page-title txt-color-blueDark">
+                <i class="fa fa-h-square fa-fw "></i>
+                Employee<span>
+                    &gt;
+                    PTO Hours
+                </span>
+            </h1>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> Paid Time Off <span class="txt-color-purple"><i class="fa fa-arrow-circle-up" data-rel="bootstrap-tooltip" title="Increased"></i>&nbsp;@ViewBag.TotalPTO/@ViewBag.CapPTO</span></h5>
+                    <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+                <li class="sparks-info">
+                    <h5> Paid Vacation <span class="txt-color-greenDark"><i class="fa fa-arrow-circle-up"></i>&nbsp;@ViewBag.TotalPV/@ViewBag.CapPV</span></h5>
+                    <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                        110,150,300,130,400,240,220,310,220,300, 270, 210
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-h-square"></i> </span>
+                        <h2>POT Hours</h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            <table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr class="text-c">
+                                        <th>Employee</th>
+                                        <th>SSN</th>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Hours</th>
+                                        <th data-hide="phone,tablet">Memo</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (System.Data.DataRow dr in Model.Rows)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => dr["EmployeeName"])</td>
+                                            <td>@Html.DisplayFor(modelItem => dr["SSN"])</td>
+                                            <td>@Html.DisplayFor(modelItem => dr["Date"])</td>
+                                            <td>@Html.DisplayFor(modelItem => dr["Type"])</td>
+                                            <td>@Html.DisplayFor(modelItem => dr["Hours"])</td>
+                                            <td>@Html.DisplayFor(modelItem => dr["Memo"])</td>
+                                            <td>
+                                                <a title="Edit" class="btn btn-primary btn-xs btn-edit" data-PTO-id="@dr["Id"]"><span class="glyphicon glyphicon-edit"></span></a>
+                                                <a title="Delete" class="btn btn-danger btn-xs btn-delete" id="@dr["Id"]" href="javascript:void(0);"><span class="glyphicon glyphicon-trash"></span></a>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+
+            </article>
+            <!-- WIDGET END -->
+
+        </div>
+        <!-- end row -->
+
+    </section>
+    <!-- ui-dialog -->
+    @{Html.RenderPartial("_PTOForm"); }
+    <!-- ends ui-dialog -->
+    <!-- ui-dialog -->
+    @{Html.RenderPartial("_PTOEdit"); }
+    <!-- ends ui-dialog -->
+</div>
+
+<!-- END MAIN CONTENT -->
+@section pagespecific {
+    <script type="text/javascript">
+
+    // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+        $(document).ready(function () {
+            var EmployeeId = GetQueryString("EmployeeId");
+            var Year = GetQueryString("Year");
+
+            $.getJSON('@Url.Action("GetEmployee", "TimeSheet")', function (data) {
+                $('#EmployeeId').empty();
+                $('#EmployeeId').append($('<option></option>').val('').text('Please select employee'));
+                $.each(data, function (i, item) {
+                    $('#EmployeeId').append($('<option></option>').val(item.Value).text(item.Text));
+                });
+                $.each(data, function (i, item) {
+                    $('#E_EmployeeId').append($('<option></option>').val(item.Value).text(item.Text));
+                });
+            });
+
+        /* // DOM Position key index //
+
+        l - Length changing (dropdown)
+        f - Filtering input (search)
+        t - The Table! (datatable)
+        i - Information (records)
+        p - Pagination (paging)
+        r - pRocessing
+        < and > - div elements
+        <"#id" and > - div with an id
+        <"class" and > - div with a class
+        <"#id.class" and > - div with an id and class
+
+        Also see: http://legacy.datatables.net/usage/features
+        */
+
+        /* BASIC ;*/
+        var responsiveHelper_dt_basic = undefined;
+        var responsiveHelper_datatable_fixed_column = undefined;
+        var responsiveHelper_datatable_col_reorder = undefined;
+        var responsiveHelper_datatable_tabletools = undefined;
+        var breakpointDefinition = {
+            tablet: 1024,
+            phone: 480
+        };
+
+
+        /* TABLETOOLS */
+        $('#datatable_tabletools').dataTable({
+
+            // Tabletools options:
+            //   https://datatables.net/extensions/tabletools/button_options
+            "sDom": "<'dt-toolbar'<'col-xs-2 col-sm-2'<'Button_Add'>><'col-xs-7 col-sm-7'T><'col-sm-3 col-xs-3'<'ChooseYear'>>r>" +
+                    "t" +
+                    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+
+            "oTableTools": {
+                "aButtons": [
+                "copy",
+                "csv",
+                "xls",
+                   {
+                       "sExtends": "pdf",
+                       "sTitle": "SmartAdmin_PDF",
+                       "sPdfMessage": "SmartAdmin PDF Export",
+                       "sPdfSize": "letter"
+                   },
+                   {
+                       "sExtends": "print",
+                       "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
+                   }
+                ],
+                "sSwfPath": "/Scripts/plugin/datatables/swf/copy_csv_xls_pdf.swf"
+            },
+            "autoWidth": true,
+            "preDrawCallback": function () {
+                // Initialize the responsive datatables helper once.
+                if (!responsiveHelper_datatable_tabletools) {
+                    responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#datatable_tabletools'), breakpointDefinition);
+                }
+            },
+            "rowCallback": function (nRow) {
+                responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
+            },
+            "drawCallback": function (oSettings) {
+                responsiveHelper_datatable_tabletools.respond();
+            }
+        });
+
+        $('div.Button_Add').html('<a class="btn btn-primary" id="PTOHoursAdd"><i class="fa fa-plus"></i> Add</a>  <a class="btn btn-success" href="/Employee/Employeelist"><i class="fa fa-mail-reply"></i> Back</a>');
+        var a = '<select class="form-control" id="ChooseYear"><option>2015</option><option>2016</option><option>2017</option></select>';
+
+        $('div.ChooseYear').html('<div class="form-group"><label class="col-md-3 control-label">Tax Year</label><div class="col-md-9"><select class="form-control" id="ChooseYear"><option>2015</option><option>2016</option><option>2017</option></select></div></div>');
+        $('#ChooseYear').empty();
+        for (var i = 0; i < 3; i++) {
+            var item = new Date().getFullYear() - i;
+            if (item == Year) {
+                $('#ChooseYear').append($('<option selected = "selected"></option>').val(item).text(item));
+            } else {
+                $('#ChooseYear').append($('<option></option>').val(item).text(item));
+            }
+            
+        }
+
+        $('#ChooseYear').change(function () {
+            //var EmployeeId = GetQueryString("EmployeeId");
+            var ChooseYear = $(this).val();
+            window.location.href = "/Employee/PTOHours?EmployeeId=" + EmployeeId + "&Year=" + ChooseYear;
+
+        })
+
+        $(".btn-delete").click(function () {
+            var Id = $(this).eq(0).attr('id')
+            AjaxDelete(
+                "The Paid Time Off or Paid Vacation will be deleted,Do you want to continue this record?",
+                Id,
+                "/Employee/DeletePTO",
+                "The Paid Time Off or Paid Vacation been successfully Deleted",
+                "OpTable"
+                );
+        });
+
+        $('#PTOHoursAdd').click(function () {
+            $('#PTOModal').modal();
+            $('#PTO-Add')[0].reset();
+            $('#EmployeeId').val(EmployeeId);
+            $('#Date').val(new Date().Format("yyyy-MM-dd"));
+            return false;
+        });
+
+        $('#btn-PTO-add').click(function () {
+            var EmployeeId = $('#EmployeeId').val();
+            var Date = $('#Date').val();
+            var Type = $("input[name='Type']:checked").val();
+            var Usage = $("input[name='Usage']:checked").val();
+            var Hours = $('#Hours').val();
+            var Memo = $('#Memo').val();
+            var par = {
+                "EmployeeId": EmployeeId,
+                "Date": Date,
+                "Type": Type,
+                "Hours": Hours * Usage,
+                "Memo": Memo
+            }
+            //var par = $("#PTO-Add").serializeArray();
+            $.post("/Employee/AddPTO", par, function (data) {
+                if (data.status == "success") {
+                    $('#PTOModal').modal("hide");
+                    window.location.href = "/Employee/PTOHours?EmployeeId=" + EmployeeId + "&Year=" + Year;
+                } else {
+                    ErrorBox(data.message);
+                }
+            })
+        })
+
+        $('.btn-edit').click(function () {
+            var id = $(this).attr("data-PTO-id");
+            $('#PTOEditModal').modal();
+            $('#PTO-Edit')[0].reset();
+            $('#E_EmployeeId').val(EmployeeId);
+            $.post("/Employee/GetEmployeePTO", { "id": id }, function (data) {
+                $('#E_PTOId').val(data.Id);
+                $('#E_Date').val(data.Date);
+                $("input[name='E_Type'][value='" + data.Type + "'").attr("checked", true)
+                $("input[name='E_Usage'][value='" + data.Usage + "'").attr("checked", true)
+                $('#E_Memo').val(data.Memo);
+                $('#E_Hours').val(data.Hours * data.Usage);
+            })
+            return false;
+        });
+
+        $('#btn-PTO-editSave').click(function () {
+            var Id = $('#E_PTOId').val();
+            var EmployeeId = $('#E_EmployeeId').val();
+            var Date = $('#E_Date').val();
+            var Type = $("input[name='E_Type']:checked").val();
+            var Usage = $("input[name='E_Usage']:checked").val();
+            var Hours = $('#E_Hours').val();
+            var Memo = $('#E_Memo').val();
+            var par = {
+                "Id": Id,
+                "EmployeeId": EmployeeId,
+                "Date": Date,
+                "Type": Type,
+                "Hours": Hours * Usage,
+                "Memo": Memo
+            };
+            console.log(par);
+            var bootstrapValidator = $('#PTO-Edit').data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if (bootstrapValidator.isValid()) {
+                $.post("/Employee/EditPTO", par, function (data) {
+                    if (data.status == "success") {
+                        $('#PTOEditModal').modal("hide");
+                        window.location.href = "/Employee/PTOHours?EmployeeId=" + EmployeeId + "&Year=" + Year;
+                    } else {
+                        ErrorBox(data.message);
+                    }
+                })
+            }
+        })
+
+
+    })
+    </script>
+}

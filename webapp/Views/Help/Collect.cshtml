@@ -1,0 +1,232 @@
+﻿@model System.Data.DataTable
+<div id="content">
+
+    <!-- row -->
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div id="myTabContent1" class="tab-content bg-color-white padding-10">
+                <div>
+                    <h1>
+                        <i class="fa fa-lg fa-fw fa-question-circle"></i> Search <span class="semi-bold">Help</span>
+
+                        @if (ViewBag.Role == "R00")
+                        {
+                            <a class="btn btn-primary pull-right" id="Btn-Add-Help">Add Help</a>
+                        }
+
+                    </h1>
+                    <br>
+                    <div class="input-group input-group-lg hidden-mobile">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle search-btn" data-toggle="dropdown">
+                                @ViewBag.Type <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                @foreach (var Help in ViewBag.HelpType as SelectList)
+                                {
+                                    if (Help.Text == ViewBag.Type)
+                                    {
+                                        <li class="active">
+                                            <a class="search-help-btn type-btn" href="javascript:void(0)"><i class="fa fa-check"></i>@Help.Text</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a class="search-help-btn type-btn" href="javascript:void(0)">@Help.Text</a>
+                                        </li>
+                                    }
+                                    if (Help.Text == "Everything")
+                                    {
+                                        <li class="divider"></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <input class="form-control input-lg" type="text" placeholder="Search again..." id="SearchDesc">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default" id="search-desc-btn">
+                                &nbsp;&nbsp;&nbsp;<i class="fa fa-fw fa-search fa-lg"></i>&nbsp;&nbsp;&nbsp;
+                            </button>
+                        </div>
+                    </div>
+
+                    <h1 class="font-md"> Search Results for <span class="semi-bold">Help</span><small class="text-danger"> &nbsp;&nbsp;(@ViewBag.nMax results)</small></h1>
+                    <div class="table-content">
+                        @foreach (System.Data.DataRow dr in Model.Rows)
+                        {
+                            <div class="search-results clearfix">
+                                <h4>
+                                    @(Model.Rows.IndexOf(dr)+1) . <span class="search-content">@dr["Type"] - @dr["Title"]</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    @if (ViewBag.Role == "R00")
+                                    {
+                                        <a href="/Help/DeleteHelp?Id=@dr["Id"]" title="Delete"><span class="glyphicon glyphicon-trash txt-color-orangeDark font-xs"></span></a>
+                                    }
+                                </h4>
+                                <div>
+                                    <p class="note" style="display: inline;">
+                                        <span class="txt-color-blueDark"><i class="fa fa-tags"></i> Tags: &nbsp;&nbsp;</span>
+                                        <div class="KeywordTags" style="display: inline;">
+                                            @Html.Raw(@dr["Keyword"])
+                                        </div>
+                                    </p>
+                                    <div class="url text-success">
+                                        @dr["Path"] <i class="fa fa-caret-down"></i>
+                                    </div>
+                                    <p class="description search-content">
+                                        @dr["Content"]
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="text-center">
+                        <hr>
+                         <ul class="pagination no-margin">
+                                <li id="prev" class="prev @((ViewBag.PageIndex==1)?"disabled":"")">
+                                    <a href="javascript:void(0);">Previous</a>
+                                </li>
+                                @for (int i = 1; i <= ViewBag.PageCount; i++)
+                                {
+                                        <li class="pageNum  @((ViewBag.PageIndex==i)?"active":"")" id="@i">
+                                            <a href="javascript:void(0);">@i</a>
+                                        </li>
+                                    
+
+                                }
+                                <li id="next" class="next @((ViewBag.PageIndex==ViewBag.PageCount)?"disabled":"")">
+                                    <a href="javascript:void(0);">Next</a>
+                                </li>
+                            </ul>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- end row -->
+    <!-- ui-dialog -->
+    @{Html.RenderPartial("_AddHelp"); }
+    <!-- ends ui-dialog -->
+</div>
+<!-- END MAIN CONTENT -->
+@section pagespecific {
+    <script src="/scripts/plugin/bootstrap-tags/bootstrap-tagsinput.min.js"></script>
+    <script type="text/javascript">
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+
+        $(document).ready(function () {
+            var PageCount = @ViewBag.PageCount;
+            $("#search-project").focus();
+
+            $("#Type option[value='0']").remove(); 
+
+            if(GetQueryString('Search')!=null){
+                var SearchDesc = GetQueryString('Search');
+                $('#SearchDesc').val(SearchDesc);
+                var e = eval('/'+GetQueryString('Search')+'/g');  
+                var searchContent = $('.search-content');
+                $.each(searchContent, function (index, item){
+                    $(item).html($(item).text().replace(e, '<span class="txt-color-pink"><strong>'+SearchDesc+'</strong></span>'));
+                });
+                //$('.search-content').html($('.search-content').html().replace(e, '<span class="txt-color-pink"><strong>'+SearchDesc+'</strong></span>'));
+            }
+
+
+            $('#Btn-Add-Help').click(function () {
+                $('#Help-Add')[0].reset()
+                $('#AddHelpModal').modal();
+            });
+
+            $("select[name='HelpType']").change(function () {
+                var selected = $(this).find("option:selected").text();
+                $('#Type-Path').html(selected + ' /');
+            });
+
+            //$("#btn-help-save").click(function () {
+            //    var SearchType = $('.search-btn').text().trim();
+            //    var Title = $('#Title').val();
+            //    var HelpType = $('select[name="Type"]').val();
+            //    var Path = $('#Path').val();
+            //    var Keyword = $('#Keyword').val();
+            //    var Content = $('#Content').val();
+            //    var par = {
+            //        Title: Title,
+            //        HelpType: HelpType,
+            //        Path: Path,
+            //        Keyword: Keyword,
+            //        Content: Content
+            //    }
+            //    $.post("/Help/AddHelp", par, function (data) {
+            //        console.log(data);
+            //        if (data.status == "success") {
+            //            if ($('.table-content > .clearfix').length < PageSize) {
+            //                if ($("#HelpType").find("option:selected").text() == SearchType || SearchType == "Everything") {
+            //                    var html = GetHelpItem(data.Id, data.Title, data.Type, data.Keyword, data.Path, data.Content);
+            //                    $('.table-content').prepend(html);
+            //                };
+            //            };
+
+            //            SuccessBox("Help add succeed!");
+            //        };
+            //        $("#AddHelpModal").modal("hide");
+
+            //    });
+            //});
+
+            $('.pageNum').click(function () {
+                var PageIndex = $(this).addClass("active").text().trim();
+                var SearchType = $('.search-btn').text().trim();
+                var SearchDesc = $('#SearchDesc').val();
+                $(location).attr('href', '/help/collect?PageIndex='+PageIndex + '&Type='+SearchType+'&Search='+SearchDesc);
+            });
+
+            $('.prev,.next').click(function(){
+                var IdName = $(this).eq(0).attr('id').trim();
+                var PageIndex =  Number((GetQueryString('PageIndex')==null)?1:GetQueryString('PageIndex'));
+                if(IdName=="prev"){
+                    PageIndex = PageIndex -1;
+                }else if(IdName=="next"){
+                    PageIndex = PageIndex +1;
+                }
+                var SearchType = $('.search-btn').text().trim();
+                var SearchDesc = $('#SearchDesc').val();
+                if(PageIndex>=1&&PageIndex<=PageCount){
+                    $(location).attr('href', '/help/collect?PageIndex='+PageIndex + '&Type='+SearchType+'&Search='+SearchDesc);
+                };
+
+            });
+
+            $('.search-help-btn').click(function () {
+                var SearchType = $(this).text().trim();
+                var url = '/help/collect?Type='+SearchType;
+                var SearchDesc = $('#SearchDesc').val();
+                if(SearchDesc!=null){
+                    url = url + '&Search='+SearchDesc;
+                }
+                $(location).attr('href', url);
+            });
+
+            $('#search-desc-btn').click(function(){
+                var SearchDesc = $('#SearchDesc').val();
+                var url = '/help/collect?Search='+SearchDesc;
+                var SearchType = $('.search-btn').text().trim();
+                if(SearchType!=null){
+                    url = url + '&Type='+SearchType;
+                }
+                $(location).attr('href', url);
+            });
+
+        })
+
+    </script>
+}

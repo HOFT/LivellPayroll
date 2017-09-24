@@ -1,0 +1,129 @@
+﻿@model GeneralSetModel
+<!-- MAIN CONTENT -->
+<div id="content">
+
+    <!-- row -->
+    <div class="row">
+
+        <div class="col-sm-12 col-md-12 col-lg-12">
+
+            <div class="well">
+                <form id="GeneralSetForm" class="form-horizontal" action="/Account/GeneralSet" method="post">
+                    <h1><i class="fa fa-cog "></i> General <span class="semi-bold">Setting</span><br /> <small> — You can set up personal information </small></h1>
+
+                    @Html.HiddenFor(m => m.RoleId)
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationBootstrap()
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1 form-box">
+
+                            <fieldset>
+
+                                <fieldset>
+                                    <legend><i class="fa fa-chevron-circle-right"></i> User Information</legend>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Account *</label>
+                                        <div class="col-md-9">
+                                            <input class="form-control" name="Email" placeholder="Please enter your account." disabled="disabled" type="text" value="@Model.Email" maxlength="128">
+                                            <p class="note">The email is you login account.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Nickname  *</label>
+                                        <div class="col-md-9">
+                                            <input class="form-control" name="PayRollUser" placeholder="Please enter your name." type="text" value="@Model.PayRollUser" maxlength="256">
+                                            <p class="note">The nickname will appear as user name in system info.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Time Zone *</label>
+                                        <div class="col-md-9">
+                                            @Html.DropDownList("TimeZone", ViewBag.TimeZoneList as SelectList, "Please select TimeZone", new { @class = "form-control" })
+                                            <p class="note">The payroll system time will have your TimeZone.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Phone Number</label>
+                                        <div class="col-md-9">
+                                            <input class="form-control" name="Phone" placeholder="Please Enter your phone number." type="text" data-mask="(999)-999-9999" data-mask-placeholder="_" value="@Model.Phone" maxlength="16">
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+
+                                    <fieldset>
+                                        <legend><i class="fa fa-chevron-circle-right"></i> Employee Information</legend>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">DefaultJob</label>
+                                            <div class="col-md-9">
+                                                @Html.DropDownList("DefaultJob", ViewBag.DefaultJobList as SelectList, "Please select default job", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">SSN</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="SSN" placeholder="Please Enter your SSN." type="text" data-mask="999-99-9999" data-mask-placeholder="_" value="@Model.SSN" maxlength="16">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Address</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="Address" placeholder="Please Enter your address." type="text" value="@Model.Address" maxlength="256">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">City</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="City" placeholder="Please Enter your city." type="text" value="@Model.City" maxlength="128">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">State</label>
+                                            <div class="col-md-9">
+                                                @Html.DropDownList("State", ViewBag.StatesList as SelectList, "Please select state", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Zip</label>
+                                            <div class="col-md-9">
+                                                <input class="form-control" name="ZipCode" placeholder="Please Enter your Zip." type="text" data-mask="99999" data-mask-placeholder="_" value="@Model.ZipCode" maxlength="8">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    
+
+
+
+                            </fieldset>
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <!-- end row -->
+
+</div>
+<!-- END MAIN CONTENT -->
+
+@section pagespecific {
+
+}

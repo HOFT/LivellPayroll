@@ -1,0 +1,437 @@
+﻿			<!-- MAIN CONTENT -->
+<div id="content">
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget well jarviswidget-color-darken" id="wid-id-0" data-widget-sortable="false" data-widget-deletebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false">
+                    <!-- widget options:
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                    data-widget-colorbutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-deletebutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-custombutton="false"
+                    data-widget-collapsed="true"
+                    data-widget-sortable="false"
+
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-barcode"></i> </span>
+                        <h2>Item  </h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            <div class="widget-body-toolbar">
+
+                                <div class="row">
+
+                                    <div class="col-sm-12">
+                                        <div class="btn-group">
+                                            <a href="/Payroll/Payrolllist" class="btn btn-sm btn-default"> <i class="fa fa-reply"></i> Back </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="javascript:void(0)" id="BtnPayrollPrint" class="btn btn-sm btn-primary"> <i class="fa fa-print"></i> Print </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div style="padding: 30px;">
+                                <br>
+                                <div id="PrintView">
+                                    <div id="P-Title" class="">
+
+                                        <table width="100%" border="0" align="center" cellspacing="10">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="18%"><div style="text-align:center"> <img class="P-Logo" src="@ViewBag.PrintDate["P-Logo"]" onerror="onerror = null; src = '/Content/img/favicon/Null.png'" width="80" height="80" alt="invoice icon"> </div></td>
+                                                    <td valign="top" class="">
+                                                        <div>
+                                                            <address class="">
+                                                                <span class="P-Company1">@ViewBag.PrintDate["P-Company1"]</span> <br>
+                                                                <span class="P-Company2">@ViewBag.PrintDate["P-Company2"]</span><br>
+                                                                <span class="P-Company3">@ViewBag.PrintDate["P-Company3"]</span> <br>
+                                                                <span class="P-Company4">@ViewBag.PrintDate["P-Company4"]</span>
+                                                            </address>
+                                                        </div>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <address>
+                                                            <span class="P-BankName">@ViewBag.PrintDate["P-BankName"]</span> <br>
+                                                            <span class="P-BankInfo1">@ViewBag.PrintDate["P-BankInfo1"]</span> <br>
+                                                            <span class="P-BankInfo2">@ViewBag.PrintDate["P-BankInfo2"]</span> <br>
+                                                            <span class="P-BankInfo3">@ViewBag.PrintDate["P-BankInfo3"]</span>
+                                                        </address>
+                                                    </td>
+                                                    <td valign="top" width="20%">
+                                                        <font style="font-size:1.2em;">No.<span class="P-CheckNum">@ViewBag.PrintDate["P-CheckNum"]</span></font> <br>
+                                                        <span class="P-TransitCode">@ViewBag.PrintDate["P-TransitCode"]</span><br>
+                                                        Date : <span class="P-DateSubmitted">@ViewBag.PrintDate["P-DateSubmitted"]</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right">Pay To The Order Of :</td>
+                                                    <td colspan="2" style="border-bottom:1px solid;border-bottom-color:black;">&nbsp;&nbsp; <span class="P-Name">@ViewBag.PrintDate["P-Name"]</span></td>
+                                                    <td>&nbsp;&nbsp; <span class="P-CheckAmount">@ViewBag.PrintDate["P-CheckAmount"]</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td colspan="2" style="border-bottom:1px solid;border-bottom-color:black;"><span class="P-CheckAmountDesc"> @ViewBag.PrintDate["P-CheckAmountDesc"] </span></td>
+                                                    <td><strong> &nbsp;&nbsp; Dollars</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top">
+                                                            <address class="">
+                                                                <strong><span class="P-Name">@ViewBag.PrintDate["P-Name"]</span></strong> <br>
+                                                                <span class="P-EAddress">@ViewBag.PrintDate["P-EAddress"]</span> <br>
+                                                                <span class="P-ECityState">@ViewBag.PrintDate["P-ECityState"]</span> <br>
+                                                                <span class="P-EPhone">@ViewBag.PrintDate["P-EPhone"]</span>
+                                                            </address>
+                                                    </td>
+                                                    <td colspan="2" valign="bottom" class="">
+                                                        <table width="100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td width="10%">
+                                                                        Memo :
+                                                                    </td>
+                                                                    <td style="border-bottom:1px solid;border-bottom-color:black;">
+                                                                        <span class="P-Memo">@ViewBag.PrintDate["P-Memo"]</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td valign="bottom"><img class="P-Signature" src="@ViewBag.PrintDate["P-Signature"]" width="100%" height="80" alt="Error"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" align="center" style="font-size:1.4em;" class="">
+                                                        <strong style="font-family:MICRHALF">
+                                                            <span class="P-PayCode">@ViewBag.PrintDate["P-PayCode"]</span>
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <br>
+                                        <hr style="height:1px;border:none;border-top:1px dashed #adadad;">
+                                        <br>
+                                    </div>
+
+                                    <div id="P-table1">
+                                        <table width="100%" border="0" align="center" cellspacing="10">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="55%">
+                                                        <table width="100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td valign="top">
+                                                                        <address class="">
+                                                                            <span class="P-Company1">@ViewBag.PrintDate["P-Company1"]</span> <br>
+                                                                            <span class="P-Company2">@ViewBag.PrintDate["P-Company2"]</span> <br>
+                                                                            <span class="P-Company3">@ViewBag.PrintDate["P-Company3"]</span> <br>
+                                                                            <span class="P-Company4">@ViewBag.PrintDate["P-Company4"]</span>
+                                                                        </address>
+                                                                    </td>
+                                                                    <td valign="top">
+                                                                        <address>
+                                                                            <span class="P-Name">@ViewBag.PrintDate["P-Name"]</span> <br>
+                                                                            <span class="P-EAddress">@ViewBag.PrintDate["P-EAddress"]</span> <br>
+                                                                            <span class="P-ECityState">@ViewBag.PrintDate["P-ECityState"]</span> <br>
+                                                                            <span class="P-EPhone">@ViewBag.PrintDate["P-EPhone"]</span>
+                                                                        </address>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td>
+                                                        <table width="100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td valign="top">
+                                                                        SSN : <span class="P-SSN">@ViewBag.PrintDate["P-SSN"]</span> <br>
+                                                                        Gross Pay : <span class="P-GrossPay">@ViewBag.PrintDate["P-GrossPay"]</span> <br>
+                                                                        Net Pay : <span class="P-NetPay">@ViewBag.PrintDate["P-NetPay"]</span><br>
+                                                                        Filing Status : <span class="P-Filing">@ViewBag.PrintDate["P-Filing"]</span>
+                                                                    </td>
+                                                                    <td valign="top">
+                                                                        Period Begin : <span class="P-DateStartPeriod"> @ViewBag.PrintDate["P-DateStartPeriod"] </span> <br>
+                                                                        Period End : <span class="P-DateEndPeriod"> @ViewBag.PrintDate["P-DateEndPeriod"] </span> <br>
+                                                                        Check Date : <span class="P-DateSubmitted">@ViewBag.PrintDate["P-DateSubmitted"]</span> <br>
+                                                                        CheckNo : <span class="P-CheckNum">@ViewBag.PrintDate["P-CheckNum"]</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top">
+                                                        <table width="100%" id="Earnings">
+                                                            <thead>
+                                                                <tr align="left">
+                                                                    <th>Earnings</th>
+                                                                    <th>Hour/Rate</th>
+                                                                    <th>Amount</th>
+                                                                    <th>YTD Amt</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var r in ViewBag.IncomesData)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@r.Text</td>
+                                                                        <td>@r.V2/@r.V1</td>
+                                                                        <td>@r.V3</td>
+                                                                        <td>@r.V4</td>
+                                                                    </tr>
+                                                                }
+                                                                <tr>
+                                                                    <td>Gross Pay</td>
+                                                                    <td></td>
+                                                                    <td>@ViewBag.PrintDate["P-GrossPay"]</td>
+                                                                    <td>@ViewBag.PrintDate["P-GrossPayYTD"]</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <table width="100%" id="TaxesDeduction">
+                                                            <thead>
+                                                                <tr align="left">
+                                                                    <th>Taxes/Deduction</th>
+                                                                    <th>Amount</th>
+                                                                    <th>YTD Amt</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var r in ViewBag.TaxesData)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@r.Text</td>
+                                                                        <td>@r.V3</td>
+                                                                        <td>@r.V4</td>
+                                                                    </tr>
+                                                                }
+                                                                @foreach (var r in ViewBag.DeductionsData)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@r.Text</td>
+                                                                        <td>@r.V3</td>
+                                                                        <td>@r.V4</td>
+                                                                    </tr>
+                                                                }
+                                                                <tr>
+                                                                    <td>Net Pay</td>
+                                                                    <td>@ViewBag.PrintDate["P-NetPay"]</td>
+                                                                    <td>@ViewBag.PrintDate["P-NetPayYTD"]</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <br>
+                                        <hr style="height:1px;border:none;border-top:1px dashed #adadad;">
+                                        <br>
+                                    </div>
+
+                                    <div id="P-table2">
+                                        <table width="100%" border="0" align="center" cellspacing="10">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="55%">
+                                                        <table width="100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td valign="top">
+                                                                        <address class="">
+                                                                            <span class="P-Company1">@ViewBag.PrintDate["P-Company1"]</span> <br>
+                                                                            <span class="P-Company2">@ViewBag.PrintDate["P-Company2"]</span> <br>
+                                                                            <span class="P-Company3">@ViewBag.PrintDate["P-Company3"]</span> <br>
+                                                                            <span class="P-Company4">@ViewBag.PrintDate["P-Company4"]</span>
+                                                                        </address>
+                                                                    </td>
+                                                                    <td valign="top">
+                                                                        <address>
+                                                                            <span class="P-Name">@ViewBag.PrintDate["P-Name"]</span> <br>
+                                                                            <span class="P-EAddress">@ViewBag.PrintDate["P-EAddress"]</span> <br>
+                                                                            <span class="P-ECityState">@ViewBag.PrintDate["P-ECityState"]</span> <br>
+                                                                            <span class="P-EPhone">@ViewBag.PrintDate["P-EPhone"]</span>
+                                                                        </address>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td>
+                                                        <table width="100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td valign="top">
+                                                                        SSN : <span class="P-SSN">@ViewBag.PrintDate["P-SSN"]</span> <br>
+                                                                        Gross Pay : <span class="P-GrossPay">@ViewBag.PrintDate["P-GrossPay"]</span> <br>
+                                                                        Net Pay : <span class="P-NetPay">@ViewBag.PrintDate["P-NetPay"]</span><br>
+                                                                        Filing Status : <span class="P-Filing">@ViewBag.PrintDate["P-Filing"]</span>
+                                                                    </td>
+                                                                    <td valign="top">
+                                                                        Period Begin : <span class="P-DateStartPeriod"> @ViewBag.PrintDate["P-DateStartPeriod"] </span> <br>
+                                                                        Period End : <span class="P-DateEndPeriod"> @ViewBag.PrintDate["P-DateEndPeriod"] </span> <br>
+                                                                        Check Date : <span class="P-DateSubmitted">@ViewBag.PrintDate["P-DateSubmitted"]</span> <br>
+                                                                        CheckNo : <span class="P-CheckNum">@ViewBag.PrintDate["P-CheckNum"]</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top">
+                                                        <table width="100%" id="Earnings">
+                                                            <thead>
+                                                                <tr align="left">
+                                                                    <th>Earnings</th>
+                                                                    <th>Hour/Rate</th>
+                                                                    <th>Amount</th>
+                                                                    <th>YTD Amt</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var r in ViewBag.IncomesData)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@r.Text</td>
+                                                                        <td>@r.V2/@r.V1</td>
+                                                                        <td>@r.V3</td>
+                                                                        <td>@r.V4</td>
+                                                                    </tr>
+                                                                }
+                                                                <tr>
+                                                                    <td>Gross Pay</td>
+                                                                    <td></td>
+                                                                    <td>@ViewBag.PrintDate["P-GrossPay"]</td>
+                                                                    <td>@ViewBag.PrintDate["P-GrossPayYTD"]</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                    <td valign="top">
+                                                        <table width="100%" id="TaxesDeduction">
+                                                            <thead>
+                                                                <tr align="left">
+                                                                    <th>Taxes/Deduction</th>
+                                                                    <th>Amount</th>
+                                                                    <th>YTD Amt</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var r in ViewBag.TaxesData)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@r.Text</td>
+                                                                        <td>@r.V3</td>
+                                                                        <td>@r.V4</td>
+                                                                    </tr>
+                                                                }
+                                                                @foreach (var r in ViewBag.DeductionsData)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@r.Text</td>
+                                                                        <td>@r.V3</td>
+                                                                        <td>@r.V4</td>
+                                                                    </tr>
+                                                                }
+                                                                <tr>
+                                                                    <td>Net Pay</td>
+                                                                    <td>@ViewBag.PrintDate["P-NetPay"]</td>
+                                                                    <td>@ViewBag.PrintDate["P-NetPayYTD"]</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <br>
+                                        <hr style="height:1px;border:none;border-top:1px dashed #adadad;">
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+                    <!-- end widget div -->
+
+                </div>
+                <!-- end widget -->
+
+            </article>
+            <!-- WIDGET END -->
+
+        </div>
+
+        <!-- end row -->
+
+    </section>
+    <!-- end widget grid -->
+
+</div>
+<!-- END MAIN CONTENT -->
+@section pagespecific {
+@*<script src="~/Scripts/libs/jquery.PrintArea.js"></script>*@
+<script src="~/Scripts/libs/jQuery.print.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#BtnPayrollPrint').click(function () {
+                //$('#PrintView').printArea();
+                $("#PrintView").print({
+                    globalStyles: false,
+                    mediaPrint: false,
+                    stylesheet: null,
+                    noPrintSelector: ".no-print",
+                    iframe: true,
+                    append: null,
+                    prepend: null,
+                    manuallyCopyFormValues: true,
+                    deferred: $.Deferred()
+                });
+            });
+            if ('@ViewBag.PrintDate["ExField1"]' == 'Middle') {
+                $("#P-Title").insertAfter($("#P-table1"));
+            } else if ('@ViewBag.PrintDate["ExField1"]' == 'Bottom') {
+                $("#P-Title").insertAfter($("#P-table2"));
+            };
+        })
+    </script>
+}

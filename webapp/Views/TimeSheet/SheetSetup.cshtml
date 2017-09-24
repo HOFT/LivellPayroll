@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 class="page-title txt-color-blueDark">
-                <i class="fa fa-bar-chart-o fa-fw "></i>
+                <i class="fa fa-inbox"></i>
                 TimeSheet
                 <span>
                     >
@@ -53,11 +53,11 @@
                                 <legend>Overtime Setup</legend>
                                 <div class="row">
                                     <div class="col-md-6 form-group checkbox">
-                                        <label class="control-label"><input type="checkbox" name="WeekRule" disabled="disabled"  @((Model.WeekRule)?"checked=checked" : "") >Enable calculate week overtime after:</label>
+                                        <label class="control-label"><input type="checkbox" class="mutex-boox calculate-item" id="WeekRule" name="WeekRule" @((Model.WeekRule) ?"checked=checked":"")>Enable calculate week overtime after:</label>
                                     </div>
                                     <div class="col-md-6 form-group checkbox">
                                         <div class="input-group">
-                                            <input class="form-control" name="WeekRuleValue" placeholder="Please Enter." type="text" disabled="disabled" value="@Model.WeekRuleValue.ToString("0.00")">
+                                            <input class="form-control" name="WeekRuleValue" placeholder="Please Enter." type="text" value="@Model.WeekRuleValue.ToString("0.00")">
                                             <span class="input-group-addon"><i>hours/week</i></span>
                                         </div>
 
@@ -66,7 +66,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6 form-group checkbox">
-                                        <label class="control-label"><input type="checkbox" name="DayRule" @((Model.DayRule)?"checked=checked":"") disabled="disabled">Enable calculate daily overtime after:</label>
+                                        <label class="control-label"><input type="checkbox" class="calculate-item" id="DayRule" name="DayRule" @((Model.DayRule)?"checked=checked":"")  >Enable calculate daily overtime after:</label>
                                     </div>
                                     <div class="col-md-6 form-group checkbox">
                                         <div class="input-group">
@@ -78,7 +78,7 @@
 
                                 <div class="row">
                                     <div class="col-md-6 form-group checkbox">
-                                        <label class="control-label"><input type="checkbox" name="DoubeRule" @((Model.DoubeRule)?"checked=checked":"") disabled="disabled">Enable calculate daily double time after:</label>
+                                        <label class="control-label"><input type="checkbox" class="calculate-item" id="DoubeRule" name="DoubeRule" @((Model.DoubeRule)?"checked=checked":"")>Enable calculate daily double time after:</label>
                                     </div>
                                     <div class="col-md-6 form-group checkbox">
                                         <div class="input-group">
@@ -91,7 +91,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group checkbox">
-                                            <label class="control-label"><input type="checkbox" name="CaliforniaRule" @((Model.CaliforniaRule)?"checked=checked":"")>Enable California Overtime Rules</label>
+                                            <label class="control-label"><input type="checkbox" class="mutex-boox" name="CaliforniaRule" @((Model.CaliforniaRule)?"checked=checked":"")>Enable California Overtime Rules</label>
                                         </div>
                                         <p class="note">
                                             California law requires that employers pay overtime, whether authorized or not, at the rate of one and one-half times the employee's regular rate of pay for all hours worked in excess of eight up to and including 12 hours in any workday, and for the first eight hours of work on the seventh consecutive day of work in a workweek, and double the employee's regular rate of pay for all hours worked in excess of 12 in any workday and for all hours worked in excess of eight on the seventh consecutive day of work in a workweek.
@@ -165,6 +165,28 @@
 @section pagespecific {
 
     <script type="text/javascript">
- 
+        $(document).ready(function () {
+            $('#DoubeRule').attr("disabled", true);
+            $('#DayRule').attr("disabled", true);
+
+            $('.mutex-boox').click(function () {
+                if ($(this).is(':checked')) {
+                    $('.mutex-boox').prop('checked', false);
+                    $('.calculate-item').prop('checked', false);
+                    $(this).prop('checked', true);
+                    
+                }
+
+                if ($('#WeekRule').is(':checked')) {
+                    $('.calculate-item').prop('checked', true).attr("disabled", false);
+                } else {
+                    $('.calculate-item').attr("disabled", true);
+                    $('.calculate-item').prop('checked', false);
+                    $('#WeekRule').attr("disabled", false);
+                } 
+
+            })
+
+        });
     </script>
     }

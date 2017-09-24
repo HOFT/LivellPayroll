@@ -30,9 +30,14 @@ namespace LivellPayRoll.Models
         public double RegulaWorkTime { get; set; }
         [DefaultValue(0)]
         public double OverTimeWorkTime { get; set; }
-        public decimal RegularPayrate { get; set; }
-        public decimal OvertimePayrate { get; set; }
-        public bool Locked { get; set; }
+        [DefaultValue(0)]
+        public double DoubleWorkTime { get; set; }
+        public float RegularPayrate { get; set; }
+        public float OvertimePayrate { get; set; }
+        public float DoublePayrate { get; set; }
+        [StringLength(2)]
+        [DefaultValue("1")]
+        public string Status { get; set; }
         [DefaultValue(0)]
         public bool ExtraInt1 { get; set; }
         [DefaultValue(0)]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -28,16 +29,13 @@ namespace LivellPayRoll.Models
         public string Email { set; get; }  //公司邮箱
         [StringLength(32)]
         public string WWW { set; get; }
-        [StringLength(256)]  
-        [Required]
+        [StringLength(256)]
         public string Address1 { set; get; }
         [StringLength(256)]
         public string Address2 { set; get; }
         [StringLength(64)]
-        [Required]
         public string City { set; get; }
         [StringLength(2)]
-        [Required]
         public string State { set; get; }
         [StringLength(64)]
         public string Country { set; get; }
@@ -45,7 +43,7 @@ namespace LivellPayRoll.Models
         public string Zip { set; get; }
         [StringLength(64)]
         public string TradeName { set; get; }
-        [StringLength(2)]
+        [StringLength(16)]
         [Required]
         public string PayFreq { set; get; }    //Daily Or XXX
         [StringLength(8)]
@@ -54,23 +52,16 @@ namespace LivellPayRoll.Models
         [StringLength(2)]
         [Required]
         public string RoundTo { set; get; }    //近似时间值
-        [Required]
         public bool WeekRule { set; get; }
-        [Required]
-        public double WeekRuleValue { set; get; }
-        [Required]
+        public float WeekRuleValue { set; get; }
         public bool DayRule { set; get; }
-        [Required]
-        public double DayRuleValue { set; get; }
-        [Required]
+        public float DayRuleValue { set; get; }
         public bool DoubeRule { set; get; }
-        [Required]
-        public double DoubeRuleValue { set; get; }
-        [Required]
+        public float DoubeRuleValue { set; get; }
         public bool CaliforniaRule { set; get; }
-        [Required]
         public bool allowedit { set; get; }
-        [Required]
+        [DefaultValue(true)]
+        public bool DaylightSavingTime { set; get; }
         public bool PayReportByEndingDate { set; get; }    //True Or False
         [StringLength(64)]
         public string ControlNo { set; get; }
@@ -81,15 +72,19 @@ namespace LivellPayRoll.Models
         public string StateID { set; get; }
         public double StateUnemWage { set; get; }
         public double SUTA { set; get; }
+        [StringLength(2)]
+        [DefaultValue("3")]
+        public string Status { set; get; }
         [Required]   
         public DateTime PayRollRegTime { set; get; }  //系统注册时间
         public virtual ICollection<Customer> Customer { get; set; }
         public virtual ICollection<Employee> Employee { get; set; }
         public virtual ICollection<Job> Job { get; set; }
+        public virtual ICollection<T100> T100 { get; set; }
         public virtual ICollection<T201> T201 { get; set; }
         public virtual ICollection<TimeSheet> TimeSheet { get; set; }
         public virtual ICollection<T102> T102 { get; set; }
-        public virtual ICollection<T102> T105 { get; set; }
+        public virtual ICollection<T105> T105 { get; set; }
         public virtual ICollection<AppUser> AppUser { get; set; }
     }
 }
