@@ -470,7 +470,7 @@
                                     </div>
                                 </div>
                                 <!--Director Fee-->
-                                <div class="row additionRow" id="DivS1251">
+                                <div class="row additionRow" id="DivS1252">
                                     <div class="col-xs-5ths col-md-5ths text-left">
                                         <div class="col-md-10 col-sm-offset-1">
                                             <div class="form-group">
@@ -1811,9 +1811,15 @@
 
             $('#cboEmployees').change(function () {
                 var EmpId = $(this).children('option:selected').val();
+                if (EmpId.length <= 0) {
+                    window.location.reload();//刷新当前页面.
+                    return;
+                };
+                
                 var StartDate = $('#dtpStartDate').val();
                 var EndDate = $('#dtpEndDate').val();
                 $.post("/PayRoll/GetEmpDes", { EmpId: EmpId }, function (data) {
+                    console.log(data);
                     for (var key in data.dicVisible) {
                         if (!data.dicVisible[key]) {
                             $('#' + key).parent().hide();

@@ -2024,11 +2024,11 @@ namespace LivellPayRoll.Controllers
             t.HourlyPay3 = textArray2[3];
             t.HourlyPay4 = textArray2[4];
             t.HourlyPay5 = textArray2[5];
-            t.S1251 = textArray2[5];
-            t.S1252 = textArray2[6];
-            t.S1253 = textArray2[7];
-            t.S1254 = textArray2[8];
-            t.S1255 = textArray2[9];
+            t.S1251 = textArray2[6];
+            t.S1252 = textArray2[7];
+            t.S1253 = textArray2[8];
+            t.S1254 = textArray2[9];
+            t.S1255 = textArray2[10];
 
             return t;
         }
